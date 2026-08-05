@@ -96,15 +96,15 @@ searchBox.addEventListener("input",()=>{
 
     const search = searchBox.value.toLowerCase();
 
-    const filtered = movies.filter(movie=>
+    const filtered = movies.filter(movie =>
 
-        movie.title.toLowerCase().includes(search)
+    movie.title.toLowerCase().includes(search) ||
 
-        ||
+    movie.genre.toLowerCase().includes(search) ||
 
-        movie.genre.toLowerCase().includes(search)
+    movie.description.toLowerCase().includes(search)
 
-    );
+);
 
     displayMovies(filtered);
 
