@@ -48,5 +48,15 @@
     "poster": "https://image.tmdb.org/t/p/w500/gajva2L0rPYkEWjzgFlBXCAVBE5.jpg",
     "description": "Thirty years after the events of the first film, a new blade runner, LAPD Officer K, unearths a long-buried secret that has the potential to plunge what's left of society into chaos. K's discovery leads him on a quest to find Rick Deckard, a former LAPD blade runner who has been missing for 30 years.",
     "video": "https://streamimdb.ru/embed/movie/tt1856101"
+  },
+  {
+    "id": "tt1392190",
+    "title": "Mad Max: Fury Road",
+    "year": 2015,
+    "genre": "Action, Adventure, Science Fiction",
+    "rating": 7.635,
+    "poster": "https://image.tmdb.org/t/p/w500/ulcAi4dKpAjHwYGS08vNyx9H6I9.jpg",
+    "description": "An apocalyptic story set in the furthest reaches of our planet, in a stark desert landscape where humanity is broken, and most everyone is crazed fighting for the necessities of life. Within this world exist two rebels on the run who just might be able to restore order.",
+    "video": "https://streamimdb.ru/embed/movie/tt1392190"
   }
 ]
