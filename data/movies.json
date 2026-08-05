@@ -17,7 +17,7 @@
     "rating": 6.8,
     "poster": "assets/posters/nun2.jpg",
     "description": "Sister Irene once again comes face to face with Valak.",
-    "video": "https://example.com/embed/nun2"
+    "video": "https://streamimdb.ru/embed/movie/tt10160976"
   },
   {
     "id": "tt31969600",
@@ -27,6 +27,6 @@
     "rating": 8.3,
     "poster": "assets/posters/thudarum.jpg",
     "description": "A humble taxi driver fights to protect everything he loves.",
-    "video": "https://example.com/embed/thudarum"
+    "video": "https://streamimdb.ru/embed/movie/tt31969600"
   }
 ]
