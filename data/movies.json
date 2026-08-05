@@ -3,13 +3,30 @@
     "id": "tt16311594",
     "title": "F1: The Movie",
     "year": 2025,
-    "language": "English",
-    "genre": [
-      "Action",
-      "Sports"
-    ],
-    "description": "A Formula One driver returns...",
+    "genre": "Sports, Action",
+    "rating": 8.5,
     "poster": "assets/posters/f1.jpg",
-    "video": "https://example.com/embed/xxxx"
+    "description": "A Formula One driver comes out of retirement to mentor a rising young talent.",
+    "video": "https://example.com/embed/f1"
+  },
+  {
+    "id": "tt10160976",
+    "title": "The Nun II",
+    "year": 2023,
+    "genre": "Horror",
+    "rating": 6.8,
+    "poster": "assets/posters/nun2.jpg",
+    "description": "Sister Irene once again comes face to face with Valak.",
+    "video": "https://example.com/embed/nun2"
+  },
+  {
+    "id": "tt31969600",
+    "title": "Thudarum",
+    "year": 2025,
+    "genre": "Drama",
+    "rating": 8.3,
+    "poster": "assets/posters/thudarum.jpg",
+    "description": "A humble taxi driver fights to protect everything he loves.",
+    "video": "https://example.com/embed/thudarum"
   }
 ]
