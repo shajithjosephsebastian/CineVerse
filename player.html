@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>CineVerse Player</title>
+
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<link
+rel="stylesheet"
+href="css/style.css">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark">
+
+<div class="container">
+
+<a
+class="navbar-brand fw-bold"
+href="index.html">
+
+🎬 CineVerse
+
+</a>
+
+</div>
+
+</nav>
+
+<div class="container py-4">
+
+<h2 id="playerTitle"></h2>
+
+<div class="ratio ratio-16x9 rounded overflow-hidden shadow-lg mt-4">
+
+<iframe
+
+id="videoFrame"
+
+allowfullscreen
+
+allow="autoplay; encrypted-media"
+
+referrerpolicy="strict-origin-when-cross-origin">
+
+</iframe>
+
+</div>
+
+<div class="mt-4">
+
+<p id="playerDescription"></p>
+
+<div id="playerMeta"
+class="text-secondary mb-4">
+
+</div>
+
+<a
+
+href="index.html"
+
+class="btn btn-outline-light">
+
+<i class="fas fa-arrow-left"></i>
+
+Back Home
+
+</a>
+
+</div>
+
+</div>
+
+<footer class="text-center mt-5">
+
+© 2026 CineVerse
+
+</footer>
+
+<script src="js/player.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
