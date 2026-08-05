@@ -28,5 +28,15 @@
     "poster": "assets/posters/thudarum.jpg",
     "description": "A humble taxi driver fights to protect everything he loves.",
     "video": "https://streamimdb.ru/embed/movie/tt31969600"
+  },
+  {
+    "id": "tt10366206",
+    "title": "John Wick 4",
+    "year": 2023,
+    "genre": "Action",
+    "rating": 8.2,
+    "poster": "assets/posters/johnwick4.jpg",
+    "description": "John Wick uncovers a path to defeating the High Table.",
+    "video": "https://streamimdb.ru/embed/movie/tt10366206"
   }
 ]
