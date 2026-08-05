@@ -20,7 +20,7 @@ movies = []
 for item in imdb_movies:
 
     imdb_id = item["imdb"]
-    video = item["video"]
+    video = f"https://streamimdb.ru/embed/movie/{imdb_id}"
 
     # Find TMDb ID from IMDb ID
     url = f"https://api.themoviedb.org/3/find/{imdb_id}?external_source=imdb_id"
