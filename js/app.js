@@ -36,6 +36,20 @@ function displayMovies(movieList){
 
     movieContainer.innerHTML = "";
 
+    if(movieList.length === 0){
+
+        movieContainer.innerHTML = `
+            <div class="col-12 text-center py-5">
+
+                <h3>No movies found</h3>
+
+            </div>
+        `;
+
+        return;
+
+    }
+
     movieList.forEach(movie=>{
 
         movieContainer.innerHTML += `
@@ -46,7 +60,8 @@ function displayMovies(movieList){
 
                 <img
                     src="${movie.poster}"
-                    class="movie-poster">
+                    class="movie-poster"
+                    alt="${movie.title}">
 
                 <div class="movie-content">
 
@@ -62,11 +77,11 @@ function displayMovies(movieList){
 
                         <br>
 
-                        ${movie.year}
+                        📅 ${movie.year}
 
                         <br>
 
-                        ${movie.genre}
+                        🎭 ${movie.genre}
 
                     </div>
 
@@ -89,7 +104,6 @@ function displayMovies(movieList){
     });
 
 }
-
 // Search
 
 searchBox.addEventListener("input",()=>{
