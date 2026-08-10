@@ -4,7 +4,7 @@
     "title": "F1",
     "year": 2025,
     "genre": "Action, Drama",
-    "rating": 7.815,
+    "rating": 7.816,
     "poster": "https://image.tmdb.org/t/p/w500/9PXZIUsSDh4alB80jheWX4fhZmy.jpg",
     "description": "Racing legend Sonny Hayes is coaxed out of retirement to lead a struggling Formula 1 team—and mentor a young hotshot driver—while chasing one more chance at glory.",
     "video": "https://streamimdb.ru/embed/movie/tt16311594"
@@ -14,7 +14,7 @@
     "title": "The Nun II",
     "year": 2023,
     "genre": "Horror",
-    "rating": 6.634,
+    "rating": 6.635,
     "poster": "https://image.tmdb.org/t/p/w500/5gzzkR7y3hnY8AD1wXjCnVlHba5.jpg",
     "description": "In 1956 France, a priest is violently murdered, and Sister Irene begins to investigate. She once again comes face-to-face with a powerful evil.",
     "video": "https://streamimdb.ru/embed/movie/tt10160976"
@@ -24,7 +24,7 @@
     "title": "Thudarum",
     "year": 2025,
     "genre": "Action, Drama, Thriller",
-    "rating": 7.329,
+    "rating": 7.321,
     "poster": "https://image.tmdb.org/t/p/w500/uOTDBabtxHA6szYKQNQe9Y7rFlv.jpg",
     "description": "A taxi driver finds himself embroiled in a dangerous conspiracy after his car is confiscated by a corrupt police officer.",
     "video": "https://streamimdb.ru/embed/movie/tt31969600"
@@ -54,7 +54,7 @@
     "title": "Mad Max: Fury Road",
     "year": 2015,
     "genre": "Action, Adventure, Science Fiction",
-    "rating": 7.635,
+    "rating": 7.636,
     "poster": "https://image.tmdb.org/t/p/w500/ulcAi4dKpAjHwYGS08vNyx9H6I9.jpg",
     "description": "An apocalyptic story set in the furthest reaches of our planet, in a stark desert landscape where humanity is broken, and most everyone is crazed fighting for the necessities of life. Within this world exist two rebels on the run who just might be able to restore order.",
     "video": "https://streamimdb.ru/embed/movie/tt1392190"
@@ -64,8 +64,8 @@
     "title": "Dune",
     "year": 2021,
     "genre": "Science Fiction, Adventure",
-    "rating": 7.784,
-    "poster": "https://image.tmdb.org/t/p/w500/gDzOcq0pfeCeqMBwKIJlSmQpjkZ.jpg",
+    "rating": 7.783,
+    "poster": "https://image.tmdb.org/t/p/w500/v1tRXZ4JtD2Iv6fjkPvT4GiwslV.jpg",
     "description": "Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his understanding, must travel to the most dangerous planet in the universe to ensure the future of his family and his people. As malevolent forces explode into conflict over the planet's exclusive supply of the most precious resource in existence - a commodity capable of unlocking humanity's greatest potential - only those who can conquer their fear will survive.",
     "video": "https://streamimdb.ru/embed/movie/tt1160419"
   },
@@ -74,9 +74,19 @@
     "title": "Dune: Part Two",
     "year": 2024,
     "genre": "Science Fiction, Adventure",
-    "rating": 8.13,
+    "rating": 8.1,
     "poster": "https://image.tmdb.org/t/p/w500/6izwz7rsy95ARzTR3poZ8H6c5pp.jpg",
     "description": "Follow the mythic journey of Paul Atreides as he unites with Chani and the Fremen while on a path of revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the known universe, Paul endeavors to prevent a terrible future only he can foresee.",
     "video": "https://streamimdb.ru/embed/movie/tt15239678"
+  },
+  {
+    "id": "tt0111161",
+    "title": "The Shawshank Redemption",
+    "year": 1994,
+    "genre": "Drama, Crime",
+    "rating": 8.727,
+    "poster": "https://image.tmdb.org/t/p/w500/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg",
+    "description": "Imprisoned in the 1940s for the double murder of his wife and her lover, upstanding banker Andy Dufresne begins a new life at the Shawshank prison, where he puts his accounting skills to work for an amoral warden. During his long stretch in prison, Dufresne comes to be admired by the other inmates -- including an older prisoner named Red -- for his integrity and unquenchable sense of hope.",
+    "video": "https://streamimdb.ru/embed/movie/tt0111161"
   }
 ]
