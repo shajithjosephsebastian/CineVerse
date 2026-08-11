@@ -460,5 +460,82 @@
     "poster": "https://image.tmdb.org/t/p/w500/il3ao5gcF6fZNqo1o9o7lusmEyU.jpg",
     "description": "The adoptive son of the Adattu family, Marco, sets off on a ruthless quest for vengeance after his brother is brutally murdered, finding only betrayal, loss and unimaginable brutality at every step.",
     "video": "https://streamimdb.ru/embed/movie/tt29383379"
+  },
+  {
+    "id": "tt10515398",
+    "tmdb_id": 959894,
+    "title": "Pallichattambi",
+    "year": 2026,
+    "genre": "Action, Drama",
+    "rating": 4.7,
+    "poster": "https://image.tmdb.org/t/p/w500/pEzXdyJhdWc2msM0oBC9N8pKtMY.jpg",
+    "description": "Set in the politically turbulent late 1950s, Krishnan Pillai, a playful ruffian chosen by the Church to lead a defensive force, the Christopher Sena. His mission to resist the Communist government takes a detour when he experiences an ideological awakening and falls in love with a comrade, sparking an epic tale of rebellion against feudal power and oppression.",
+    "video": "https://streamimdb.ru/embed/movie/tt10515398"
+  },
+  {
+    "id": "tt33245761",
+    "tmdb_id": 1336770,
+    "title": "Vaazha II",
+    "year": 2026,
+    "genre": "Comedy, Drama",
+    "rating": 7.333,
+    "poster": "https://image.tmdb.org/t/p/w500/1yLZ7kExd0UGGbaZW4LxmYD4OIf.jpg",
+    "description": "Four friends – Hashir, Alan, Ajin and Vinayak – are considered losers and troublemakers by parents, family and the school management. They face immense social pressure as they reach adulthood, embarking them on an emotional journey of self discovery and acceptance, where they finally learn to take up their responsibilities and find success.",
+    "video": "https://streamimdb.ru/embed/movie/tt33245761"
+  },
+  {
+    "id": "tt33412884",
+    "tmdb_id": 1300501,
+    "title": "Patriot",
+    "year": 2026,
+    "genre": "Action, Drama, Thriller",
+    "rating": 6.7,
+    "poster": "https://image.tmdb.org/t/p/w500/5LHrtudEt6Mh6VlfGHoYqqjVOHV.jpg",
+    "description": "When a Malayali DRW analyst tries to expose a corrupt regional politician from Kerala and his malpractices regarding spyware, he goes on the run, becomes a vlogger, and must clear his name of the false allegations levelled against him.",
+    "video": "https://streamimdb.ru/embed/movie/tt33412884"
+  },
+  {
+    "id": "tt27431598",
+    "tmdb_id": 1166133,
+    "title": "Bramayugam",
+    "year": 2024,
+    "genre": "Horror, Thriller, Drama",
+    "rating": 7.64,
+    "poster": "https://image.tmdb.org/t/p/w500/snQLwRrfQAl5YFKVefZq9Lbscki.jpg",
+    "description": "A folk singer in 17th-century Kerala discovers a mansion. Inside, he encounters an enigmatic cook and a powerful master, setting in motion a chain of events that changes his life.",
+    "video": "https://streamimdb.ru/embed/movie/tt27431598"
+  },
+  {
+    "id": "tt3417422",
+    "tmdb_id": 244049,
+    "title": "Drishyam",
+    "year": 2013,
+    "genre": "Thriller, Crime, Drama",
+    "rating": 7.5,
+    "poster": "https://image.tmdb.org/t/p/w500/7d8GLneJkF81q1POdK7VUrjWafX.jpg",
+    "description": "Georgekutty lives a happy life with his wife and daughters. Things take a turn when his daughter gets indecently filmed using a hidden camera, by the son of a police inspector.",
+    "video": "https://streamimdb.ru/embed/movie/tt3417422"
+  },
+  {
+    "id": "tt12361178",
+    "tmdb_id": 706872,
+    "title": "Drishyam 2",
+    "year": 2021,
+    "genre": "Thriller, Crime, Drama",
+    "rating": 7.64,
+    "poster": "https://image.tmdb.org/t/p/w500/8RJBCUGE27LX06tAES4jTELN0KA.jpg",
+    "description": "Seven years after the events of the first film, the family lives with the trauma from that fateful night. A gripping tale of an investigation and a family threatened by it. Will Georgekutty be able to protect his family this time?",
+    "video": "https://streamimdb.ru/embed/movie/tt12361178"
+  },
+  {
+    "id": "tt14113634",
+    "tmdb_id": 847742,
+    "title": "Drishyam 3",
+    "year": 2026,
+    "genre": "Crime, Drama, Thriller",
+    "rating": 6.719,
+    "poster": "https://image.tmdb.org/t/p/w500/456FlpiU1iOBnaOxSd783QhZKWw.jpg",
+    "description": "To protect his family and their dark secret, Georgekutty faces an organized new threat. As walls close in and cracks widen, how much more is he willing to sacrifice?",
+    "video": "https://streamimdb.ru/embed/movie/tt14113634"
   }
 ]
