@@ -339,5 +339,16 @@
     "poster": "https://image.tmdb.org/t/p/w500/kjWsMh72V6d8KRLV4EOoSJLT1H7.jpg",
     "description": "A petty criminal fakes insanity to serve his sentence in a mental ward rather than prison. He soon finds himself as a leader to the other patients—and an enemy to the cruel, domineering nurse who runs the ward.",
     "video": "https://streamimdb.ru/embed/movie/tt0073486"
+  },
+  {
+    "id": "tt0114369",
+    "tmdb_id": 807,
+    "title": "Se7en",
+    "year": 1995,
+    "genre": "Crime, Mystery, Thriller",
+    "rating": 8.38,
+    "poster": "https://image.tmdb.org/t/p/w500/191nKfP0ehp3uIvWqgPbFmI4lv9.jpg",
+    "description": "Two homicide detectives are on a desperate hunt for a serial killer whose crimes are based on the \"seven deadly sins\" in this dark and haunting film that takes viewers from the tortured remains of one victim to the next. The seasoned Det. Somerset researches each sin in an effort to get inside the killer's mind, while his novice partner, Mills, scoffs at his efforts to unravel the case.",
+    "video": "https://streamimdb.ru/embed/movie/tt0114369"
   }
 ]
