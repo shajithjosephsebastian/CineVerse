@@ -12,18 +12,10 @@ headers = {
     "accept": "application/json"
 }
 
-# ---------------------------------------------------------
-# Load movie list
-# ---------------------------------------------------------
-
 with open("imdb_list.json", "r", encoding="utf-8") as f:
-    movie_list = json.load(f)
+    imdb_movies = json.load(f)
 
 movies = []
-
-# ---------------------------------------------------------
-# Genre lookup
-# ---------------------------------------------------------
 
 genre_lookup = {
     28: "Action",
@@ -47,174 +39,120 @@ genre_lookup = {
     37: "Western"
 }
 
-# ---------------------------------------------------------
-# Process movies
-# ---------------------------------------------------------
 
-for item in movie_list:
+for item in imdb_movies:
 
-    # =====================================================
-    # CASE 1: TMDb ID
-    # =====================================================
+    imdb_id = item.get("imdb")
+    tmdb_id = item.get("tmdb")
 
-    if "tmdb" in item:
+    if not imdb_id and not tmdb_id:
+        print("Skipping entry with no IMDb or TMDb ID.")
+        continue
 
-        tmdb_id = str(item["tmdb"]).strip()
+    # ---------------------------------------------------------
+    # Determine whether we have an IMDb ID or TMDb ID
+    # ---------------------------------------------------------
+
+    # IMDb IDs look like: tt0137523
+    if imdb_id and str(imdb_id).startswith("tt"):
+
+        imdb_id = str(imdb_id)
+
+        # If TMDb ID is already stored, use it directly.
+        if tmdb_id:
+            tmdb_id = str(tmdb_id)
+
+        else:
+            # Find TMDb movie using IMDb ID
+            print(f"Finding TMDb movie for IMDb ID: {imdb_id}")
+
+            url = (
+                f"https://api.themoviedb.org/3/find/"
+                f"{imdb_id}?external_source=imdb_id"
+            )
+
+            response = requests.get(url, headers=headers)
+            response.raise_for_status()
+
+            result = response.json()
+
+            if not result.get("movie_results"):
+                print(f"Movie not found: {imdb_id}")
+                continue
+
+            movie = result["movie_results"][0]
+            tmdb_id = str(movie["id"])
+
+    else:
+
+        # -----------------------------------------------------
+        # Numeric value means TMDb ID
+        # This supports your current imdb_list.json entries.
+        # -----------------------------------------------------
 
         if not tmdb_id:
-            print("Empty TMDb ID. Skipping.")
-            continue
+            tmdb_id = str(imdb_id)
+
+        tmdb_id = str(tmdb_id)
 
         print(f"Fetching movie using TMDb ID: {tmdb_id}")
 
-        url = (
-            f"https://api.themoviedb.org/3/movie/{tmdb_id}"
-        )
+        url = f"https://api.themoviedb.org/3/movie/{tmdb_id}"
 
-        response = requests.get(
-            url,
-            headers=headers,
-            timeout=30
-        )
-
-        if response.status_code == 404:
-            print(f"TMDb movie not found: {tmdb_id}")
-            continue
-
+        response = requests.get(url, headers=headers)
         response.raise_for_status()
 
         movie = response.json()
 
-        # We don't necessarily have an IMDb ID here.
-        imdb_id = None
-
-        # TMDb's movie details response can contain the IMDb ID
-        # when append_to_response=external_ids is requested.
-        #
-        # However, to keep this to ONE request, we don't make
-        # another request just to obtain the IMDb ID.
-
-        video_id = tmdb_id
-
-    # =====================================================
-    # CASE 2: IMDb ID
-    # =====================================================
-
-    elif "imdb" in item:
-
-        imdb_id = str(item["imdb"]).strip()
-
-        if not imdb_id:
-            print("Empty IMDb ID. Skipping.")
+        if not movie.get("id"):
+            print(f"Movie not found: TMDb ID {tmdb_id}")
             continue
 
-        print(f"Finding TMDb movie using IMDb ID: {imdb_id}")
+        # IMDb ID may not exist in this entry yet.
+        # It can be added later by the admin system.
+        if not imdb_id or not str(imdb_id).startswith("tt"):
+            imdb_id = movie.get("imdb_id", "")
 
-        url = (
-            f"https://api.themoviedb.org/3/find/"
-            f"{imdb_id}"
-            f"?external_source=imdb_id"
-        )
+    # ---------------------------------------------------------
+    # Get movie details
+    # ---------------------------------------------------------
 
-        response = requests.get(
-            url,
-            headers=headers,
-            timeout=30
-        )
-
-        response.raise_for_status()
-
-        result = response.json()
-
-        if not result.get("movie_results"):
-            print(f"Movie not found for IMDb ID: {imdb_id}")
-            continue
-
-        movie = result["movie_results"][0]
-
-        tmdb_id = str(movie["id"])
-
-        video_id = imdb_id
-
-    # =====================================================
-    # INVALID ENTRY
-    # =====================================================
-
-    else:
-
-        print(
-            "Invalid movie entry. "
-            "Expected 'imdb' or 'tmdb'."
-        )
-
-        continue
-
-    # =====================================================
-    # Genres
-    # =====================================================
-
-    genres = []
-
-    # /movie/{id} returns full genre objects
-    if "genres" in movie:
-
-        genres = [
-            genre_lookup.get(
-                genre["id"],
-                str(genre["id"])
-            )
-            for genre in movie["genres"]
-        ]
-
-    # /find/{imdb_id} returns genre_ids
-    elif "genre_ids" in movie:
-
-        genres = [
-            genre_lookup.get(
-                g,
-                str(g)
-            )
-            for g in movie["genre_ids"]
-        ]
-
-    # =====================================================
-    # Poster
-    # =====================================================
+    genres = [
+        genre_lookup.get(g["id"], str(g["id"]))
+        for g in movie.get("genres", [])
+    ]
 
     poster = ""
 
     if movie.get("poster_path"):
-
         poster = (
             "https://image.tmdb.org/t/p/w500"
             + movie["poster_path"]
         )
 
-    # =====================================================
-    # Release year
-    # =====================================================
-
     year = ""
 
     if movie.get("release_date"):
-
         year = movie["release_date"][:4]
 
-    # =====================================================
+    # ---------------------------------------------------------
     # Video URL
-    # =====================================================
+    # ---------------------------------------------------------
 
-    video = (
-        f"https://streamimdb.ru/embed/movie/{video_id}"
-    )
+    video = ""
 
-    # =====================================================
+    if imdb_id:
+        video = f"https://streamimdb.ru/embed/movie/{imdb_id}"
+
+    # ---------------------------------------------------------
     # Add movie
-    # =====================================================
+    # ---------------------------------------------------------
 
     movies.append({
 
-        "id": tmdb_id,
+        "id": imdb_id if imdb_id else tmdb_id,
+
+        "tmdb_id": int(tmdb_id) if tmdb_id else "",
 
         "title": movie.get("title", ""),
 
@@ -232,17 +170,14 @@ for item in movie_list:
 
     })
 
-# ---------------------------------------------------------
-# Generate movies.json
-# ---------------------------------------------------------
+
+# -------------------------------------------------------------
+# Write movies.json
+# -------------------------------------------------------------
 
 os.makedirs("data", exist_ok=True)
 
-with open(
-    "data/movies.json",
-    "w",
-    encoding="utf-8"
-) as f:
+with open("data/movies.json", "w", encoding="utf-8") as f:
 
     json.dump(
         movies,
@@ -251,7 +186,4 @@ with open(
         ensure_ascii=False
     )
 
-print(
-    f"movies.json generated successfully! "
-    f"{len(movies)} movies processed."
-)
+print(f"movies.json generated successfully! {len(movies)} movies processed.")
