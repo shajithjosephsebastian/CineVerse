@@ -328,5 +328,16 @@
     "poster": "https://image.tmdb.org/t/p/w500/9OkCLM73MIU2CrKZbqiT8Ln1wY2.jpg",
     "description": "The true story of Henry Hill, a half-Irish, half-Sicilian Brooklyn kid who is adopted by neighbourhood gangsters at an early age and climbs the ranks of a Mafia family under the guidance of Jimmy Conway.",
     "video": "https://streamimdb.ru/embed/movie/tt0099685"
+  },
+  {
+    "id": "tt0073486",
+    "tmdb_id": 510,
+    "title": "One Flew Over the Cuckoo's Nest",
+    "year": 1975,
+    "genre": "Drama",
+    "rating": 8.407,
+    "poster": "https://image.tmdb.org/t/p/w500/kjWsMh72V6d8KRLV4EOoSJLT1H7.jpg",
+    "description": "A petty criminal fakes insanity to serve his sentence in a mental ward rather than prison. He soon finds himself as a leader to the other patients—and an enemy to the cruel, domineering nurse who runs the ward.",
+    "video": "https://streamimdb.ru/embed/movie/tt0073486"
   }
 ]
