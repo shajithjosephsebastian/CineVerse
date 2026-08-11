@@ -427,5 +427,16 @@
     "poster": "https://image.tmdb.org/t/p/w500/hnCKKPG5VkUiGQV0DTniyMTEZsT.jpg",
     "description": "Velu Naicker, who witnesses the brutal murder of his father, kills a corrupt policeman and escapes to Mumbai, only to become a gangster.",
     "video": "https://streamimdb.ru/embed/movie/tt0093603"
+  },
+  {
+    "id": "tt35254624",
+    "tmdb_id": 1410937,
+    "title": "Balan - The Boy",
+    "year": 2026,
+    "genre": "Drama, Thriller",
+    "rating": 7.9,
+    "poster": "https://image.tmdb.org/t/p/w500/boKxdR9tgXfkazf6yWgiDdleBy0.jpg",
+    "description": "A teenage boy searches for his missing mother following a turbulent childhood and her subsequent disappearance, exploring his search for closure and the truth about his past.",
+    "video": "https://streamimdb.ru/embed/movie/tt35254624"
   }
 ]
