@@ -702,5 +702,27 @@
     "poster": "https://image.tmdb.org/t/p/w500/4GpZdkgxmURLUxEv2FtmLqjm6Zj.jpg",
     "description": "4 unemployed men who are in Harihar Nagar tries to impress a newly came girl next door.The story goes to the next level when a mysterious man comes and asks for a missing box.",
     "video": "https://streamimdb.ru/embed/movie/tt0278501"
+  },
+  {
+    "id": "tt8188872",
+    "tmdb_id": 545426,
+    "title": "Varathan",
+    "year": 2018,
+    "genre": "Thriller",
+    "rating": 6.798,
+    "poster": "https://image.tmdb.org/t/p/w500/8Aoq5itEfTisF232L5yQ6gIObEs.jpg",
+    "description": "After losing his job, Aby and his wife, Priya, move back to the latter's family estate in Kerala. However, things go from bad to worse for the couple as they encounter a new set of challenges..",
+    "video": "https://streamimdb.ru/embed/movie/tt8188872"
+  },
+  {
+    "id": "tt36616410",
+    "tmdb_id": 1070186,
+    "title": "Eko",
+    "year": 2025,
+    "genre": "Drama, Mystery",
+    "rating": 7.324,
+    "poster": "https://image.tmdb.org/t/p/w500/tXdFEmtqLm8tewIErDJgnbTS9qs.jpg",
+    "description": "In the misty hills of Kaattukunnu, an aging woman and her servant boy struggle to survive the ghosts of the past, as the hunt for Kuriachan — a legendary dog breeder and outlaw — blurs the line between myth, memory, and vengeance, revealing that even in absence, he still rules the hills.",
+    "video": "https://streamimdb.ru/embed/movie/tt36616410"
   }
 ]
