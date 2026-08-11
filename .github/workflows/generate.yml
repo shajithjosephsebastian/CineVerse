@@ -92,7 +92,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to movies.json"
           else
-            git commit -m "Auto update movies.json"
+            git commit -m "Auto update movies data [skip ci]"
             git push
           fi
 
