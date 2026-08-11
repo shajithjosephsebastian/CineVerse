@@ -394,5 +394,16 @@
     "poster": "https://image.tmdb.org/t/p/w500/lOMGc8bnSwQhS4XyE1S99uH8NXf.jpg",
     "description": "A samurai answers a village's request for protection after he falls on hard times. The town needs protection from bandits, so the samurai gathers six others to help him teach the people how to defend themselves, and the villagers provide the soldiers with food.",
     "video": "https://streamimdb.ru/embed/movie/tt0047478"
+  },
+  {
+    "id": "tt0120689",
+    "tmdb_id": 497,
+    "title": "The Green Mile",
+    "year": 1999,
+    "genre": "Fantasy, Drama, Crime",
+    "rating": 8.506,
+    "poster": "https://image.tmdb.org/t/p/w500/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg",
+    "description": "A supernatural tale set on death row in a Southern prison, where gentle giant John Coffey possesses the mysterious power to heal people's ailments. When the cell block's head guard, Paul Edgecomb, recognizes Coffey's miraculous gift, he tries desperately to help stave off the condemned man's execution.",
+    "video": "https://streamimdb.ru/embed/movie/tt0120689"
   }
 ]
