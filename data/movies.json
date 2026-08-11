@@ -757,5 +757,27 @@
     "poster": "https://image.tmdb.org/t/p/w500/3yqreNY1f4iOXX0vBAqY64ZvxiV.jpg",
     "description": "Shaji Pappan and Co. opens a Pandora's box of reincarnations and multiple timelines  leading to comic chaos of epic proportions.",
     "video": "https://streamimdb.ru/embed/movie/tt8142672"
+  },
+  {
+    "id": "tt0292246",
+    "tmdb_id": 240179,
+    "title": "Spadikam",
+    "year": 1995,
+    "genre": "Action, Drama",
+    "rating": 7.3,
+    "poster": "https://image.tmdb.org/t/p/w500/1bDOwCzW2cIVtRgeVQKn5ZTzcFf.jpg",
+    "description": "Chacko Master, a school headmaster, is never happy with his son, Thomas, and always degrades him. Having had enough of his ill treatment, Thomas runs away from home only to return as a gangster after long.",
+    "video": "https://streamimdb.ru/embed/movie/tt0292246"
+  },
+  {
+    "id": "tt32362695",
+    "tmdb_id": 1473354,
+    "title": "Sarvam Maya",
+    "year": 2025,
+    "genre": "Comedy, Family",
+    "rating": 7.774,
+    "poster": "https://image.tmdb.org/t/p/w500/mgLY1aQayVX6dQ2DiylLAhjEG8w.jpg",
+    "description": "A man who loses his belief in God meets the spirit of a young woman unable to remember what happened to her.",
+    "video": "https://streamimdb.ru/embed/movie/tt32362695"
   }
 ]
