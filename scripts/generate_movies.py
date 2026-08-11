@@ -13,18 +13,25 @@ headers = {
 }
 
 # =============================================================
+# FILES
+# =============================================================
+
+movie_list_file = "imdb_list.json"
+movies_file = "data/movies.json"
+
+# =============================================================
 # LOAD imdb_list.json
 # =============================================================
 
-with open("imdb_list.json", "r", encoding="utf-8") as f:
+with open(movie_list_file, "r", encoding="utf-8") as f:
     movie_list = json.load(f)
 
+if not isinstance(movie_list, list):
+    raise Exception("imdb_list.json must contain an array.")
 
 # =============================================================
 # LOAD EXISTING movies.json
 # =============================================================
-
-movies_file = "data/movies.json"
 
 if os.path.exists(movies_file):
 
@@ -44,7 +51,6 @@ else:
 
     existing_movies = []
 
-
 # =============================================================
 # CREATE LOOKUPS
 # =============================================================
@@ -55,7 +61,6 @@ existing_by_tmdb = {}
 for movie in existing_movies:
 
     imdb_id = movie.get("id")
-
     tmdb_id = movie.get("tmdb_id")
 
     if imdb_id:
@@ -63,7 +68,6 @@ for movie in existing_movies:
 
     if tmdb_id:
         existing_by_tmdb[str(tmdb_id)] = movie
-
 
 # =============================================================
 # GENRE LOOKUP
@@ -91,12 +95,11 @@ genre_lookup = {
     37: "Western"
 }
 
-
 movies = []
 
 new_movies = 0
 cached_movies = 0
-
+updated_entries = 0
 
 # =============================================================
 # PROCESS MOVIES
@@ -113,7 +116,6 @@ for item in movie_list:
     if tmdb_id:
         tmdb_id = str(tmdb_id)
 
-
     # =========================================================
     # CHECK CACHE
     # =========================================================
@@ -126,7 +128,6 @@ for item in movie_list:
     elif tmdb_id and tmdb_id in existing_by_tmdb:
         cached_movie = existing_by_tmdb[tmdb_id]
 
-
     # =========================================================
     # MOVIE ALREADY EXISTS
     # =========================================================
@@ -138,12 +139,51 @@ for item in movie_list:
             f"{cached_movie.get('title', 'Unknown')}"
         )
 
+        # -----------------------------------------------------
+        # Recover IDs from cached movie
+        # -----------------------------------------------------
+
+        cached_imdb = cached_movie.get("id")
+        cached_tmdb = cached_movie.get("tmdb_id")
+
+        if cached_imdb:
+            imdb_id = str(cached_imdb)
+
+        if cached_tmdb:
+            tmdb_id = str(cached_tmdb)
+
+        # -----------------------------------------------------
+        # Update imdb_list.json entry if necessary
+        # -----------------------------------------------------
+
+        original_item = dict(item)
+
+        if imdb_id:
+            item["imdb"] = imdb_id
+
+        if tmdb_id:
+            item["tmdb"] = tmdb_id
+
+        if item != original_item:
+            updated_entries += 1
+
+        # -----------------------------------------------------
+        # Make sure cached movie has the correct IDs
+        # -----------------------------------------------------
+
+        cached_movie["id"] = imdb_id if imdb_id else tmdb_id
+
+        cached_movie["tmdb_id"] = (
+            int(tmdb_id)
+            if tmdb_id
+            else ""
+        )
+
         movies.append(cached_movie)
 
         cached_movies += 1
 
         continue
-
 
     # =========================================================
     # NEW MOVIE
@@ -154,15 +194,13 @@ for item in movie_list:
         f"IMDb={imdb_id}, TMDb={tmdb_id}"
     )
 
-
     movie = None
-
 
     # =========================================================
     # CASE 1
-    # TMDb ID already available
+    # TMDb ID available
     #
-    # One TMDb request.
+    # ONE TMDb request
     # =========================================================
 
     if tmdb_id:
@@ -193,24 +231,27 @@ for item in movie_list:
 
             continue
 
-
-        # If IMDb ID isn't present, get it from TMDb.
+        # -----------------------------------------------------
+        # Get IMDb ID from the same TMDb response
+        # -----------------------------------------------------
 
         if not imdb_id:
 
             imdb_id = movie.get("imdb_id", "")
 
+            if imdb_id:
+                imdb_id = str(imdb_id)
 
     # =========================================================
     # CASE 2
     # Only IMDb ID available
     #
-    # Two TMDb requests:
+    # TWO TMDb requests
     #
     # IMDb → /find
     # TMDb → /movie
     #
-    # This only applies to old entries.
+    # This is only for old entries.
     # =========================================================
 
     elif imdb_id and imdb_id.startswith("tt"):
@@ -246,8 +287,9 @@ for item in movie_list:
             result["movie_results"][0]["id"]
         )
 
-
-        # Get full movie details.
+        # -----------------------------------------------------
+        # Get full movie details
+        # -----------------------------------------------------
 
         print(
             f"Fetching full details: "
@@ -268,6 +310,9 @@ for item in movie_list:
 
         movie = details_response.json()
 
+    # =========================================================
+    # INVALID ENTRY
+    # =========================================================
 
     else:
 
@@ -278,6 +323,25 @@ for item in movie_list:
 
         continue
 
+    # =========================================================
+    # UPDATE imdb_list.json
+    #
+    # This is the important part.
+    #
+    # The IMDb ID comes directly from the movie details
+    # response, so NO additional TMDb request is needed.
+    # =========================================================
+
+    original_item = dict(item)
+
+    if imdb_id:
+        item["imdb"] = imdb_id
+
+    if tmdb_id:
+        item["tmdb"] = str(tmdb_id)
+
+    if item != original_item:
+        updated_entries += 1
 
     # =========================================================
     # GENRES
@@ -290,7 +354,6 @@ for item in movie_list:
         )
         for genre in movie.get("genres", [])
     ]
-
 
     # =========================================================
     # POSTER
@@ -305,7 +368,6 @@ for item in movie_list:
             + movie["poster_path"]
         )
 
-
     # =========================================================
     # YEAR
     # =========================================================
@@ -315,7 +377,6 @@ for item in movie_list:
     if movie.get("release_date"):
 
         year = movie["release_date"][:4]
-
 
     # =========================================================
     # VIDEO
@@ -329,7 +390,6 @@ for item in movie_list:
             f"https://streamimdb.ru/embed/movie/"
             f"{imdb_id}"
         )
-
 
     # =========================================================
     # CREATE MOVIE OBJECT
@@ -367,14 +427,28 @@ for item in movie_list:
         ),
 
         "video": video
-
     }
-
 
     movies.append(movie_data)
 
     new_movies += 1
 
+# =============================================================
+# SAVE imdb_list.json
+# =============================================================
+
+with open(
+    movie_list_file,
+    "w",
+    encoding="utf-8"
+) as f:
+
+    json.dump(
+        movie_list,
+        f,
+        indent=2,
+        ensure_ascii=False
+    )
 
 # =============================================================
 # SAVE movies.json
@@ -398,16 +472,16 @@ with open(
         ensure_ascii=False
     )
 
-
 # =============================================================
 # SUMMARY
 # =============================================================
 
 print()
 print("========================================")
-print("movies.json generated successfully!")
+print("CineVerse generation complete!")
 print("========================================")
-print(f"Cached movies: {cached_movies}")
-print(f"New movies:    {new_movies}")
-print(f"Total movies:  {len(movies)}")
+print(f"Cached movies:   {cached_movies}")
+print(f"New movies:      {new_movies}")
+print(f"Updated entries: {updated_entries}")
+print(f"Total movies:    {len(movies)}")
 print("========================================")
