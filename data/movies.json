@@ -570,5 +570,27 @@
     "poster": "https://image.tmdb.org/t/p/w500/lsg0IxNQCUxKqs63YjturEuY0qQ.jpg",
     "description": "The family's journey to Sreekandapuram to settle the late Bharathan Nair's second wife and son takes a dark turn when an issue from his past resurfaces, leading to an unexpected crime. Forced into a desperate cover-up to protect their future, the family must navigate a treacherous path of secrecy and mounting pressure, determined to overcome any obstacle by any means necessary.",
     "video": "https://streamimdb.ru/embed/movie/tt37541677"
+  },
+  {
+    "id": "tt31639439",
+    "tmdb_id": 1321820,
+    "title": "Bharathanatyam",
+    "year": 2024,
+    "genre": "Comedy, Drama",
+    "rating": 7.433,
+    "poster": "https://image.tmdb.org/t/p/w500/btudnkSd6VsQQZ4r6ldp7jRhTwf.jpg",
+    "description": "A man makes a startling discovery following his father's sudden hospitalization and attempts to prevent his family's secret from reaching the local townsfolk.",
+    "video": "https://streamimdb.ru/embed/movie/tt31639439"
+  },
+  {
+    "id": "tt26458038",
+    "tmdb_id": 1069945,
+    "title": "Manjummel Boys",
+    "year": 2024,
+    "genre": "Adventure, Thriller, Drama",
+    "rating": 7.813,
+    "poster": "https://image.tmdb.org/t/p/w500/bswrtewwthpsh6nABiqKevU4UBI.jpg",
+    "description": "A carefree vacation turns into a desperate race against time when a group of lifelong friends must unite to save one of their own from a notoriously perilous, uncharted abyss deep within the Guna Caves.",
+    "video": "https://streamimdb.ru/embed/movie/tt26458038"
   }
 ]
