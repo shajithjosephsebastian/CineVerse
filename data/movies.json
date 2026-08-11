@@ -262,5 +262,16 @@
     "poster": "https://image.tmdb.org/t/p/w500/yihdXomYb5kTeSivtFndMy5iDmf.jpg",
     "description": "Science teacher Ryland Grace wakes up on a spaceship light years from home with no recollection of who he is or how he got there. As his memory returns, he begins to uncover his mission: solve the riddle of the mysterious substance causing the sun to die out. He must call on his scientific knowledge and unorthodox ideas to save everything on Earth from extinction.",
     "video": "https://streamimdb.ru/embed/movie/tt12042730"
+  },
+  {
+    "id": "tt6751668",
+    "tmdb_id": 496243,
+    "title": "Parasite",
+    "year": 2019,
+    "genre": "Comedy, Thriller, Drama",
+    "rating": 8.49,
+    "poster": "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+    "description": "All unemployed, Ki-taek's family takes peculiar interest in the wealthy and glamorous Parks for their livelihood until they get entangled in an unexpected incident.",
+    "video": "https://streamimdb.ru/embed/movie/tt6751668"
   }
 ]
