@@ -317,5 +317,16 @@
     "poster": "https://image.tmdb.org/t/p/w500/8c4a8kE7PizaGQQnditMmI1xbRp.jpg",
     "description": "Plagued by strange memories, Neo's life takes an unexpected turn when he finds himself back inside the Matrix.",
     "video": "https://streamimdb.ru/embed/movie/tt10838180"
+  },
+  {
+    "id": "tt0099685",
+    "tmdb_id": 769,
+    "title": "GoodFellas",
+    "year": 1990,
+    "genre": "Drama, Crime",
+    "rating": 8.45,
+    "poster": "https://image.tmdb.org/t/p/w500/9OkCLM73MIU2CrKZbqiT8Ln1wY2.jpg",
+    "description": "The true story of Henry Hill, a half-Irish, half-Sicilian Brooklyn kid who is adopted by neighbourhood gangsters at an early age and climbs the ranks of a Mafia family under the guidance of Jimmy Conway.",
+    "video": "https://streamimdb.ru/embed/movie/tt0099685"
   }
 ]
