@@ -438,5 +438,27 @@
     "poster": "https://image.tmdb.org/t/p/w500/boKxdR9tgXfkazf6yWgiDdleBy0.jpg",
     "description": "A teenage boy searches for his missing mother following a turbulent childhood and her subsequent disappearance, exploring his search for closure and the truth about his past.",
     "video": "https://streamimdb.ru/embed/movie/tt35254624"
+  },
+  {
+    "id": "tt29959401",
+    "tmdb_id": 1248251,
+    "title": "Mollywood Times",
+    "year": 2026,
+    "genre": "Comedy, Drama",
+    "rating": 5.8,
+    "poster": "https://image.tmdb.org/t/p/w500/zUBCBtMsQ8dxnhJhhng4C8U80IU.jpg",
+    "description": "Vineeth Madhavan tries hard to become Malayalam cinema's greatest horror filmmaker, but will the toxic industry affect his dream?",
+    "video": "https://streamimdb.ru/embed/movie/tt29959401"
+  },
+  {
+    "id": "tt29383379",
+    "tmdb_id": 1186350,
+    "title": "Marco",
+    "year": 2024,
+    "genre": "Action, Crime, Thriller",
+    "rating": 6.516,
+    "poster": "https://image.tmdb.org/t/p/w500/il3ao5gcF6fZNqo1o9o7lusmEyU.jpg",
+    "description": "The adoptive son of the Adattu family, Marco, sets off on a ruthless quest for vengeance after his brother is brutally murdered, finding only betrayal, loss and unimaginable brutality at every step.",
+    "video": "https://streamimdb.ru/embed/movie/tt29383379"
   }
 ]
