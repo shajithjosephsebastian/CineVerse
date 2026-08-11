@@ -372,5 +372,27 @@
     "poster": "https://image.tmdb.org/t/p/w500/uS9m8OBk1A8eM9I042bx8XXpqAq.jpg",
     "description": "Clarice Starling is a top student at the FBI's training academy.  Jack Crawford wants Clarice to interview Dr. Hannibal Lecter, a brilliant psychiatrist who is also a violent psychopath, serving life behind bars for various acts of murder and cannibalism.  Crawford believes that Lecter may have insight into a case and that Starling, as an attractive young woman, may be just the bait to draw him out.",
     "video": "https://streamimdb.ru/embed/movie/tt0102926"
+  },
+  {
+    "id": "tt0120815",
+    "tmdb_id": 857,
+    "title": "Saving Private Ryan",
+    "year": 1998,
+    "genre": "War, Drama, History",
+    "rating": 8.232,
+    "poster": "https://image.tmdb.org/t/p/w500/uqx37cS8cpHg8U35f9U5IBlrCV3.jpg",
+    "description": "As U.S. troops storm the beaches of Normandy, three brothers lie dead on the battlefield, with a fourth trapped behind enemy lines. Ranger captain John Miller and seven men are tasked with penetrating German-held territory and bringing the boy home.",
+    "video": "https://streamimdb.ru/embed/movie/tt0120815"
+  },
+  {
+    "id": "tt0047478",
+    "tmdb_id": 346,
+    "title": "Seven Samurai",
+    "year": 1954,
+    "genre": "Action, Drama",
+    "rating": 8.451,
+    "poster": "https://image.tmdb.org/t/p/w500/lOMGc8bnSwQhS4XyE1S99uH8NXf.jpg",
+    "description": "A samurai answers a village's request for protection after he falls on hard times. The town needs protection from bandits, so the samurai gathers six others to help him teach the people how to defend themselves, and the villagers provide the soldiers with food.",
+    "video": "https://streamimdb.ru/embed/movie/tt0047478"
   }
 ]
