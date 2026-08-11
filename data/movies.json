@@ -691,5 +691,16 @@
     "poster": "https://image.tmdb.org/t/p/w500/w4o6dIXEZezhraniK2tUFontWbo.jpg",
     "description": "2016 Indian Malayalam childrens film directed by Midhun Manuel Thomas and written by Thomas and John Manthrichal. Produced by Alice George under the banner of Goodwill Entertainments, the film stars Baby Sara, Sunny Wayne, and Aju Varghese.",
     "video": "https://streamimdb.ru/embed/movie/tt5838806"
+  },
+  {
+    "id": "tt0278501",
+    "tmdb_id": 322018,
+    "title": "In Harihar Nagar",
+    "year": 1990,
+    "genre": "Comedy, Thriller",
+    "rating": 7.219,
+    "poster": "https://image.tmdb.org/t/p/w500/4GpZdkgxmURLUxEv2FtmLqjm6Zj.jpg",
+    "description": "4 unemployed men who are in Harihar Nagar tries to impress a newly came girl next door.The story goes to the next level when a mysterious man comes and asks for a missing box.",
+    "video": "https://streamimdb.ru/embed/movie/tt0278501"
   }
 ]
