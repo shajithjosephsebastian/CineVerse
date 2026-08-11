@@ -22,7 +22,7 @@ export default {
     async fetch(request, env) {
 
         // =========================================================
-        // HANDLE CORS PREFLIGHT
+        // CORS
         // =========================================================
 
         if (request.method === "OPTIONS") {
@@ -35,17 +35,14 @@ export default {
         const url = new URL(request.url);
 
         // =========================================================
-        // TEST ENDPOINT
-        // GET /
+        // TEST
         // =========================================================
 
         if (url.pathname === "/" && request.method === "GET") {
-
             return jsonResponse({
                 success: true,
                 message: "CineVerse Admin API is working!"
             });
-
         }
 
         // =========================================================
@@ -58,21 +55,17 @@ export default {
             const query = url.searchParams.get("q");
 
             if (!query || query.trim().length < 2) {
-
                 return jsonResponse({
                     success: false,
                     error: "Please provide a movie name."
                 }, 400);
-
             }
 
             if (!env.TMDB_API_TOKEN) {
-
                 return jsonResponse({
                     success: false,
                     error: "TMDb API token is not configured."
                 }, 500);
-
             }
 
             try {
@@ -92,13 +85,11 @@ export default {
                 });
 
                 if (!response.ok) {
-
                     return jsonResponse({
                         success: false,
                         error: "TMDb request failed.",
                         status: response.status
                     }, 502);
-
                 }
 
                 const data = await response.json();
@@ -107,17 +98,12 @@ export default {
                     .slice(0, 10)
                     .map(movie => ({
                         tmdb_id: movie.id,
-
                         title: movie.title,
-
                         original_title: movie.original_title,
-
                         year: movie.release_date
                             ? movie.release_date.substring(0, 4)
                             : null,
-
                         overview: movie.overview,
-
                         poster: movie.poster_path
                             ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
                             : null
@@ -134,7 +120,6 @@ export default {
                     success: false,
                     error: "Failed to contact TMDb."
                 }, 500);
-
             }
         }
 
@@ -142,19 +127,18 @@ export default {
         // ADD MOVIE
         // POST /add
         //
-        // Request body:
+        // Request:
         //
         // {
-        //     "tmdb_id": 911430
+        //     "tmdb_id": 550
         // }
         //
-        // Adds:
+        // Result in imdb_list.json:
         //
         // {
-        //     "tmdb": "911430"
+        //     "imdb": "tt0137523",
+        //     "tmdb": "550"
         // }
-        //
-        // to imdb_list.json
         // =========================================================
 
         if (url.pathname === "/add" && request.method === "POST") {
@@ -162,7 +146,7 @@ export default {
             try {
 
                 // -------------------------------------------------
-                // Read request body
+                // Read request
                 // -------------------------------------------------
 
                 const body = await request.json();
@@ -170,41 +154,73 @@ export default {
                 const tmdbId = body.tmdb_id;
 
                 if (!tmdbId) {
-
                     return jsonResponse({
                         success: false,
                         error: "TMDb movie ID is required."
                     }, 400);
-
                 }
 
-                const tmdbIdString = String(tmdbId).trim();
+                const tmdbIdString = String(tmdbId);
 
                 // -------------------------------------------------
-                // Validate TMDb ID
+                // Check TMDb token
                 // -------------------------------------------------
 
-                if (!/^\d+$/.test(tmdbIdString)) {
+                if (!env.TMDB_API_TOKEN) {
+                    return jsonResponse({
+                        success: false,
+                        error: "TMDb API token is not configured."
+                    }, 500);
+                }
+
+                // -------------------------------------------------
+                // Get movie details from TMDb
+                //
+                // This gives us the IMDb ID.
+                // -------------------------------------------------
+
+                const movieUrl =
+                    `https://api.themoviedb.org/3/movie/${tmdbIdString}` +
+                    "?language=en-US";
+
+                const movieResponse = await fetch(movieUrl, {
+                    headers: {
+                        "Authorization": `Bearer ${env.TMDB_API_TOKEN}`,
+                        "Accept": "application/json"
+                    }
+                });
+
+                if (!movieResponse.ok) {
+
+                    const errorText = await movieResponse.text();
 
                     return jsonResponse({
                         success: false,
-                        error: "Invalid TMDb movie ID."
-                    }, 400);
+                        error: "Could not get movie details from TMDb.",
+                        status: movieResponse.status,
+                        details: errorText
+                    }, 502);
+                }
 
+                const movieData = await movieResponse.json();
+
+                const imdbId = movieData.imdb_id;
+
+                if (!imdbId) {
+                    return jsonResponse({
+                        success: false,
+                        error: "TMDb did not provide an IMDb ID for this movie.",
+                        tmdb_id: tmdbIdString
+                    }, 400);
                 }
 
                 // -------------------------------------------------
                 // GitHub repository information
                 // -------------------------------------------------
 
-                const owner =
-                    "shajithjosephsebastian";
-
-                const repo =
-                    "CineVerse";
-
-                const filePath =
-                    "imdb_list.json";
+                const owner = "shajithjosephsebastian";
+                const repo = "CineVerse";
+                const filePath = "imdb_list.json";
 
                 const githubUrl =
                     `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`;
@@ -214,12 +230,10 @@ export default {
                 // -------------------------------------------------
 
                 if (!env.GITHUB_TOKEN) {
-
                     return jsonResponse({
                         success: false,
                         error: "GitHub token is not configured."
                     }, 500);
-
                 }
 
                 // -------------------------------------------------
@@ -227,52 +241,30 @@ export default {
                 // -------------------------------------------------
 
                 const githubResponse = await fetch(githubUrl, {
-
                     headers: {
-
-                        "Authorization":
-                            `Bearer ${env.GITHUB_TOKEN}`,
-
-                        "Accept":
-                            "application/vnd.github+json",
-
-                        "X-GitHub-Api-Version":
-                            "2022-11-28",
-
-                        "User-Agent":
-                            "CineVerse-Admin"
-
+                        "Authorization": `Bearer ${env.GITHUB_TOKEN}`,
+                        "Accept": "application/vnd.github+json",
+                        "X-GitHub-Api-Version": "2022-11-28",
+                        "User-Agent": "CineVerse-Admin"
                     }
-
                 });
 
                 if (!githubResponse.ok) {
 
-                    const errorText =
-                        await githubResponse.text();
+                    const errorText = await githubResponse.text();
 
                     return jsonResponse({
-
                         success: false,
-
-                        error:
-                            "Could not read imdb_list.json from GitHub.",
-
-                        status:
-                            githubResponse.status,
-
-                        details:
-                            errorText
-
+                        error: "Could not read imdb_list.json from GitHub.",
+                        status: githubResponse.status,
+                        details: errorText
                     }, 500);
-
                 }
 
-                const githubData =
-                    await githubResponse.json();
+                const githubData = await githubResponse.json();
 
                 // -------------------------------------------------
-                // Decode existing file
+                // Decode GitHub file
                 // -------------------------------------------------
 
                 const encodedContent =
@@ -285,20 +277,14 @@ export default {
 
                 try {
 
-                    movies =
-                        JSON.parse(decodedContent);
+                    movies = JSON.parse(decodedContent);
 
                 } catch (error) {
 
                     return jsonResponse({
-
                         success: false,
-
-                        error:
-                            "imdb_list.json contains invalid JSON."
-
+                        error: "imdb_list.json contains invalid JSON."
                     }, 500);
-
                 }
 
                 // -------------------------------------------------
@@ -308,125 +294,92 @@ export default {
                 if (!Array.isArray(movies)) {
 
                     return jsonResponse({
-
                         success: false,
-
-                        error:
-                            "imdb_list.json must contain an array."
-
+                        error: "imdb_list.json must contain an array."
                     }, 500);
-
                 }
 
                 // -------------------------------------------------
-                // Check for duplicate
+                // Check duplicate
                 //
-                // Supports BOTH:
-                //
-                // {
-                //     "imdb": "tt16311594"
-                // }
-                //
-                // and:
-                //
-                // {
-                //     "tmdb": "911430"
-                // }
+                // Check both IMDb and TMDb IDs.
                 // -------------------------------------------------
 
-                const alreadyExists =
-                    movies.some(movie => {
+                const alreadyExists = movies.some(movie => {
 
-                        return (
-                            String(movie.tmdb || "") === tmdbIdString ||
-                            String(movie.imdb || "") === tmdbIdString
-                        );
+                    const existingImdb =
+                        movie.imdb
+                            ? String(movie.imdb)
+                            : "";
 
-                    });
+                    const existingTmdb =
+                        movie.tmdb
+                            ? String(movie.tmdb)
+                            : "";
+
+                    return (
+                        existingImdb === imdbId ||
+                        existingTmdb === tmdbIdString
+                    );
+                });
 
                 if (alreadyExists) {
 
                     return jsonResponse({
-
                         success: false,
-
-                        error:
-                            "Movie already exists.",
-
-                        tmdb_id:
-                            tmdbIdString
-
+                        error: "Movie already exists.",
+                        imdb: imdbId,
+                        tmdb: tmdbIdString
                     }, 409);
-
                 }
 
                 // -------------------------------------------------
-                // Add movie using TMDb ID
+                // Add movie with BOTH IDs
                 // -------------------------------------------------
 
                 movies.push({
-
-                    tmdb:
-                        tmdbIdString
-
+                    imdb: imdbId,
+                    tmdb: tmdbIdString
                 });
 
                 // -------------------------------------------------
-                // Convert updated JSON to Base64
+                // Convert JSON to Base64
                 // -------------------------------------------------
 
                 const updatedJson =
-                    JSON.stringify(
-                        movies,
-                        null,
-                        2
-                    ) + "\n";
+                    JSON.stringify(movies, null, 2) + "\n";
 
                 const updatedContent =
                     btoa(updatedJson);
 
                 // -------------------------------------------------
-                // Update GitHub file
+                // Update GitHub
                 // -------------------------------------------------
 
-                const updateResponse =
-                    await fetch(githubUrl, {
+                const updateResponse = await fetch(githubUrl, {
 
-                        method: "PUT",
+                    method: "PUT",
 
-                        headers: {
+                    headers: {
+                        "Authorization": `Bearer ${env.GITHUB_TOKEN}`,
+                        "Accept": "application/vnd.github+json",
+                        "Content-Type": "application/json",
+                        "X-GitHub-Api-Version": "2022-11-28",
+                        "User-Agent": "CineVerse-Admin"
+                    },
 
-                            "Authorization":
-                                `Bearer ${env.GITHUB_TOKEN}`,
+                    body: JSON.stringify({
 
-                            "Accept":
-                                "application/vnd.github+json",
+                        message:
+                            `Add movie ${imdbId}`,
 
-                            "Content-Type":
-                                "application/json",
+                        content:
+                            updatedContent,
 
-                            "X-GitHub-Api-Version":
-                                "2022-11-28",
-
-                            "User-Agent":
-                                "CineVerse-Admin"
-
-                        },
-
-                        body: JSON.stringify({
-
-                            message:
-                                `Add movie TMDb ${tmdbIdString}`,
-
-                            content:
-                                updatedContent,
-
-                            sha:
-                                githubData.sha
-
-                        })
-
-                    });
+                        sha:
+                            githubData.sha
+                    })
+                });
 
                 if (!updateResponse.ok) {
 
@@ -434,20 +387,11 @@ export default {
                         await updateResponse.text();
 
                     return jsonResponse({
-
                         success: false,
-
-                        error:
-                            "Failed to update GitHub.",
-
-                        status:
-                            updateResponse.status,
-
-                        details:
-                            errorText
-
+                        error: "Failed to update GitHub.",
+                        status: updateResponse.status,
+                        details: errorText
                     }, 500);
-
                 }
 
                 // -------------------------------------------------
@@ -461,7 +405,10 @@ export default {
                     message:
                         "Movie added successfully.",
 
-                    tmdb_id:
+                    imdb:
+                        imdbId,
+
+                    tmdb:
                         tmdbIdString
 
                 });
@@ -479,9 +426,7 @@ export default {
                         error.message
 
                 }, 500);
-
             }
-
         }
 
         // =========================================================
@@ -496,6 +441,5 @@ export default {
                 "Endpoint not found."
 
         }, 404);
-
     }
 };
