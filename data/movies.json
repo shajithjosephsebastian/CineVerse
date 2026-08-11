@@ -306,5 +306,16 @@
     "poster": "https://image.tmdb.org/t/p/w500/bkkS61w94ZVMNVd8KEyyJl2tnY5.jpg",
     "description": "The human city of Zion defends itself against the massive invasion of the machines as Neo fights to end the war at another front while also opposing the rogue Agent Smith.",
     "video": "https://streamimdb.ru/embed/movie/tt0242653"
+  },
+  {
+    "id": "tt10838180",
+    "tmdb_id": 624860,
+    "title": "The Matrix Resurrections",
+    "year": 2021,
+    "genre": "Science Fiction, Action, Adventure",
+    "rating": 6.318,
+    "poster": "https://image.tmdb.org/t/p/w500/8c4a8kE7PizaGQQnditMmI1xbRp.jpg",
+    "description": "Plagued by strange memories, Neo's life takes an unexpected turn when he finds himself back inside the Matrix.",
+    "video": "https://streamimdb.ru/embed/movie/tt10838180"
   }
 ]
