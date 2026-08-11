@@ -592,5 +592,27 @@
     "poster": "https://image.tmdb.org/t/p/w500/bswrtewwthpsh6nABiqKevU4UBI.jpg",
     "description": "A carefree vacation turns into a desperate race against time when a group of lifelong friends must unite to save one of their own from a notoriously perilous, uncharted abyss deep within the Guna Caves.",
     "video": "https://streamimdb.ru/embed/movie/tt26458038"
+  },
+  {
+    "id": "tt7268738",
+    "tmdb_id": 657644,
+    "title": "Minnal Murali",
+    "year": 2021,
+    "genre": "Action, Comedy, Fantasy",
+    "rating": 7.166,
+    "poster": "https://image.tmdb.org/t/p/w500/efetKFDyptrRpoHBb103Tg3Auw5.jpg",
+    "description": "A tailor gains special powers after being struck by lightning but must take down an unexpected foe if he is to become the superhero his hometown in Kerala needs.",
+    "video": "https://streamimdb.ru/embed/movie/tt7268738"
+  },
+  {
+    "id": "tt36302733",
+    "tmdb_id": 1396869,
+    "title": "Diés Iraé",
+    "year": 2025,
+    "genre": "Horror, Thriller",
+    "rating": 6.448,
+    "poster": "https://image.tmdb.org/t/p/w500/123DlTiiezgLaJruVe7RiSi0RFf.jpg",
+    "description": "Rohan's affluent lifestyle spirals out of control as he becomes convinced there is a supernatural entity in his home. As he starts to uncover the mystery, he is drawn into unexpected worlds and alliances, along with the horrors that lie ahead.",
+    "video": "https://streamimdb.ru/embed/movie/tt36302733"
   }
 ]
