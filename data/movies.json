@@ -537,5 +537,27 @@
     "poster": "https://image.tmdb.org/t/p/w500/456FlpiU1iOBnaOxSd783QhZKWw.jpg",
     "description": "To protect his family and their dark secret, Georgekutty faces an organized new threat. As walls close in and cracks widen, how much more is he willing to sacrifice?",
     "video": "https://streamimdb.ru/embed/movie/tt14113634"
+  },
+  {
+    "id": "tt38721131",
+    "tmdb_id": 1510767,
+    "title": "Athiradi",
+    "year": 2026,
+    "genre": "Comedy, Drama",
+    "rating": 6.536,
+    "poster": "https://image.tmdb.org/t/p/w500/vbYoC9wmfo2w7EDVXYrnX4PRBWr.jpg",
+    "description": "Energetic student Samkutty revives a banned college festival, igniting a fierce rivalry that transforms celebration into chaos.",
+    "video": "https://streamimdb.ru/embed/movie/tt38721131"
+  },
+  {
+    "id": "tt33372494",
+    "tmdb_id": 1290190,
+    "title": "Lokah Chapter 1: Chandra",
+    "year": 2025,
+    "genre": "Action, Adventure, Fantasy",
+    "rating": 7.169,
+    "poster": "https://image.tmdb.org/t/p/w500/nRn6is4m5sikO1rSoCoRT2rYtXB.jpg",
+    "description": "The story follows Chandra, a mysterious, goth-influenced woman who has just moved to Bangalore and begins working night shifts at a café. Across the road from her apartment live Sunny and Venu, two aimless bachelors. Sunny becomes infatuated with Chandra, observing her odd routines, strange visitors, and reclusive nature. Their dynamic changes when Sunny gets a glimpse of Chandra in her act.",
+    "video": "https://streamimdb.ru/embed/movie/tt33372494"
   }
 ]
