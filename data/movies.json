@@ -361,5 +361,16 @@
     "poster": "https://image.tmdb.org/t/p/w500/bSqt9rhDZx1Q7UZ86dBPKdNomp2.jpg",
     "description": "George Bailey has spent his entire life giving to the people of Bedford Falls.  All that prevents rich skinflint Mr. Potter from taking over the entire town is George's modest building and loan company.  But on Christmas Eve the business's $8,000 is lost and George's troubles begin.",
     "video": "https://streamimdb.ru/embed/movie/tt0038650"
+  },
+  {
+    "id": "tt0102926",
+    "tmdb_id": 274,
+    "title": "The Silence of the Lambs",
+    "year": 1991,
+    "genre": "Crime, Thriller, Drama",
+    "rating": 8.3,
+    "poster": "https://image.tmdb.org/t/p/w500/uS9m8OBk1A8eM9I042bx8XXpqAq.jpg",
+    "description": "Clarice Starling is a top student at the FBI's training academy.  Jack Crawford wants Clarice to interview Dr. Hannibal Lecter, a brilliant psychiatrist who is also a violent psychopath, serving life behind bars for various acts of murder and cannibalism.  Crawford believes that Lecter may have insight into a case and that Starling, as an attractive young woman, may be just the bait to draw him out.",
+    "video": "https://streamimdb.ru/embed/movie/tt0102926"
   }
 ]
