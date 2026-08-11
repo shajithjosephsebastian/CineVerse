@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CineVerse Admin</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+        body {
+            background: #0f0f0f;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: #1a1a1a;
+        }
+
+        .search-box {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .movie-result {
+            background: #1a1a1a;
+            border: 1px solid #2d2d2d;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s, border-color 0.2s;
+            height: 100%;
+        }
+
+        .movie-result:hover {
+            transform: translateY(-3px);
+            border-color: #555;
+        }
+
+        .poster {
+            width: 100%;
+            height: 360px;
+            object-fit: cover;
+            background: #222;
+        }
+
+        .movie-info {
+            padding: 15px;
+        }
+
+        .movie-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .movie-year {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .movie-overview {
+            color: #aaa;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+
+        .status {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .empty-message {
+            color: #888;
+            text-align: center;
+            padding: 40px 10px;
+        }
+
+        .tmdb-id {
+            color: #666;
+            font-size: 0.75rem;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">
+            CineVerse Admin
+        </a>
+
+        <a href="index.html" class="btn btn-outline-light btn-sm">
+            Back to CineVerse
+        </a>
+    </div>
+</nav>
+
+<div class="container pb-5">
+
+    <h1 class="mb-4">Add Movie</h1>
+
+    <!-- Search box -->
+
+    <div class="search-box">
+
+        <form id="searchForm">
+
+            <div class="input-group input-group-lg">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="form-control"
+                    placeholder="Enter movie name..."
+                    autocomplete="off"
+                    required
+                >
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    id="searchButton"
+                >
+                    Search
+                </button>
+
+            </div>
+
+        </form>
+
+        <div id="status" class="status"></div>
+
+    </div>
+
+    <!-- Loading -->
+
+    <div id="loading" class="loading">
+        <div class="spinner-border text-light" role="status"></div>
+        <div class="mt-2">Searching TMDb...</div>
+    </div>
+
+    <!-- Results -->
+
+    <div id="results" class="row g-4 mt-2"></div>
+
+</div>
+
+
+<script>
+
+    // =========================================================
+    // CONFIGURATION
+    // =========================================================
+
+    const WORKER_URL =
+        "https://cineverse-admin.shajithjosephtech.workers.dev";
+
+
+    // =========================================================
+    // ELEMENTS
+    // =========================================================
+
+    const searchForm =
+        document.getElementById("searchForm");
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const searchButton =
+        document.getElementById("searchButton");
+
+    const resultsContainer =
+        document.getElementById("results");
+
+    const loading =
+        document.getElementById("loading");
+
+    const status =
+        document.getElementById("status");
+
+
+    // =========================================================
+    // SEARCH MOVIES
+    // =========================================================
+
+    searchForm.addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const query = searchInput.value.trim();
+
+        if (!query) {
+            showStatus(
+                "Please enter a movie name.",
+                "danger"
+            );
+            return;
+        }
+
+        resultsContainer.innerHTML = "";
+
+        loading.style.display = "block";
+
+        searchButton.disabled = true;
+
+        hideStatus();
+
+        try {
+
+            const response = await fetch(
+                WORKER_URL +
+                "/search?q=" +
+                encodeURIComponent(query)
+            );
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+
+                throw new Error(
+                    data.error ||
+                    "Search failed."
+                );
+            }
+
+            displayResults(data.results);
+
+        } catch (error) {
+
+            showStatus(
+                error.message ||
+                "Unable to search movies.",
+                "danger"
+            );
+
+        } finally {
+
+            loading.style.display = "none";
+
+            searchButton.disabled = false;
+        }
+
+    });
+
+
+    // =========================================================
+    // DISPLAY SEARCH RESULTS
+    // =========================================================
+
+    function displayResults(movies) {
+
+        resultsContainer.innerHTML = "";
+
+        if (!movies || movies.length === 0) {
+
+            resultsContainer.innerHTML = `
+                <div class="col-12">
+                    <div class="empty-message">
+                        No movies found.
+                    </div>
+                </div>
+            `;
+
+            return;
+        }
+
+        movies.forEach(movie => {
+
+            const poster = movie.poster
+                ? movie.poster
+                : "https://via.placeholder.com/500x750?text=No+Poster";
+
+            const year = movie.year
+                ? movie.year
+                : "Unknown year";
+
+            const overview = movie.overview
+                ? movie.overview
+                : "No description available.";
+
+            const card = document.createElement("div");
+
+            card.className =
+                "col-12 col-sm-6 col-lg-4 col-xl-3";
+
+            card.innerHTML = `
+
+                <div class="movie-result">
+
+                    <img
+                        src="${escapeHtml(poster)}"
+                        class="poster"
+                        alt="${escapeHtml(movie.title)}"
+                    >
+
+                    <div class="movie-info">
+
+                        <div class="movie-title">
+                            ${escapeHtml(movie.title)}
+                        </div>
+
+                        <div class="movie-year">
+                            ${escapeHtml(year)}
+                        </div>
+
+                        <div class="movie-overview">
+                            ${escapeHtml(overview)}
+                        </div>
+
+                        <div class="tmdb-id">
+                            TMDb ID: ${escapeHtml(String(movie.tmdb_id))}
+                        </div>
+
+                        <button
+                            class="btn btn-primary w-100 mt-3"
+                            onclick="addMovie(${movie.tmdb_id}, this)"
+                        >
+                            Add Movie
+                        </button>
+
+                    </div>
+
+                </div>
+            `;
+
+            resultsContainer.appendChild(card);
+
+        });
+
+    }
+
+
+    // =========================================================
+    // ADD MOVIE
+    // =========================================================
+
+    async function addMovie(tmdbId, button) {
+
+        button.disabled = true;
+
+        const originalText =
+            button.textContent;
+
+        button.textContent =
+            "Adding...";
+
+        hideStatus();
+
+        try {
+
+            const response = await fetch(
+                WORKER_URL + "/add",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        tmdb_id: tmdbId
+                    })
+                }
+            );
+
+            const data =
+                await response.json();
+
+            if (!response.ok || !data.success) {
+
+                if (response.status === 409) {
+
+                    throw new Error(
+                        "This movie is already in CineVerse."
+                    );
+                }
+
+                throw new Error(
+                    data.error ||
+                    "Failed to add movie."
+                );
+            }
+
+            button.textContent =
+                "Added ✓";
+
+            button.classList.remove(
+                "btn-primary"
+            );
+
+            button.classList.add(
+                "btn-success"
+            );
+
+            showStatus(
+                "Movie added successfully. GitHub Actions will now update movies.json.",
+                "success"
+            );
+
+        } catch (error) {
+
+            button.disabled = false;
+
+            button.textContent =
+                originalText;
+
+            showStatus(
+                error.message ||
+                "Failed to add movie.",
+                "danger"
+            );
+
+        }
+
+    }
+
+
+    // =========================================================
+    // STATUS MESSAGE
+    // =========================================================
+
+    function showStatus(message, type) {
+
+        status.className =
+            "alert alert-" + type + " status";
+
+        status.textContent =
+            message;
+
+        status.style.display =
+            "block";
+    }
+
+
+    function hideStatus() {
+
+        status.style.display =
+            "none";
+    }
+
+
+    // =========================================================
+    // BASIC HTML ESCAPING
+    // =========================================================
+
+    function escapeHtml(value) {
+
+        const div =
+            document.createElement("div");
+
+        div.textContent =
+            value;
+
+        return div.innerHTML;
+    }
+
+</script>
+
+</body>
+</html>
