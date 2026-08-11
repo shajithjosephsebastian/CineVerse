@@ -262,5 +262,16 @@
     "poster": "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
     "description": "All unemployed, Ki-taek's family takes peculiar interest in the wealthy and glamorous Parks for their livelihood until they get entangled in an unexpected incident.",
     "video": "https://streamimdb.ru/embed/movie/tt6751668"
+  },
+  {
+    "id": "tt12042730",
+    "tmdb_id": 687163,
+    "title": "Parasite",
+    "year": 2019,
+    "genre": "Comedy, Thriller, Drama",
+    "rating": 8.49,
+    "poster": "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+    "description": "All unemployed, Ki-taek's family takes peculiar interest in the wealthy and glamorous Parks for their livelihood until they get entangled in an unexpected incident.",
+    "video": "https://streamimdb.ru/embed/movie/tt12042730"
   }
 ]
