@@ -4,7 +4,7 @@
     "title": "F1",
     "year": 2025,
     "genre": "Action, Drama",
-    "rating": 7.816,
+    "rating": 7.817,
     "poster": "https://image.tmdb.org/t/p/w500/9PXZIUsSDh4alB80jheWX4fhZmy.jpg",
     "description": "Racing legend Sonny Hayes is coaxed out of retirement to lead a struggling Formula 1 team—and mentor a young hotshot driver—while chasing one more chance at glory.",
     "video": "https://streamimdb.ru/embed/movie/tt16311594"
@@ -44,7 +44,7 @@
     "title": "Blade Runner 2049",
     "year": 2017,
     "genre": "Science Fiction, Drama",
-    "rating": 7.6,
+    "rating": 7.601,
     "poster": "https://image.tmdb.org/t/p/w500/gajva2L0rPYkEWjzgFlBXCAVBE5.jpg",
     "description": "Thirty years after the events of the first film, a new blade runner, LAPD Officer K, unearths a long-buried secret that has the potential to plunge what's left of society into chaos. K's discovery leads him on a quest to find Rick Deckard, a former LAPD blade runner who has been missing for 30 years.",
     "video": "https://streamimdb.ru/embed/movie/tt1856101"
@@ -74,7 +74,7 @@
     "title": "Dune: Part Two",
     "year": 2024,
     "genre": "Science Fiction, Adventure",
-    "rating": 8.1,
+    "rating": 8.131,
     "poster": "https://image.tmdb.org/t/p/w500/6izwz7rsy95ARzTR3poZ8H6c5pp.jpg",
     "description": "Follow the mythic journey of Paul Atreides as he unites with Chani and the Fremen while on a path of revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the known universe, Paul endeavors to prevent a terrible future only he can foresee.",
     "video": "https://streamimdb.ru/embed/movie/tt15239678"
@@ -144,9 +144,39 @@
     "title": "Schindler's List",
     "year": 1993,
     "genre": "Drama, History, War",
-    "rating": 8.6,
+    "rating": 8.57,
     "poster": "https://image.tmdb.org/t/p/w500/sF1U4EUQS8YHUYjNl3pMGNIQyr0.jpg",
     "description": "The true story of how businessman Oskar Schindler saved over a thousand Jewish lives from the Nazis while they worked as slaves in his factory during World War II.",
     "video": "https://streamimdb.ru/embed/movie/tt0108052"
+  },
+  {
+    "id": "tt0120737",
+    "title": "The Lord of the Rings: The Fellowship of the Ring",
+    "year": 2001,
+    "genre": "Adventure, Fantasy, Action",
+    "rating": 8.441,
+    "poster": "https://image.tmdb.org/t/p/w500/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg",
+    "description": "Young hobbit Frodo Baggins, after inheriting a mysterious ring from his uncle Bilbo, must leave his home in order to keep it from falling into the hands of its evil creator. Along the way, a fellowship is formed to protect the ringbearer and make sure that the ring arrives at its final destination: Mt. Doom, the only place where it can be destroyed.",
+    "video": "https://streamimdb.ru/embed/movie/tt0120737"
+  },
+  {
+    "id": "tt0110912",
+    "title": "Pulp Fiction",
+    "year": 1994,
+    "genre": "Thriller, Crime, Comedy",
+    "rating": 8.481,
+    "poster": "https://image.tmdb.org/t/p/w500/vQWk5YBFWF4bZaofAbv0tShwBvQ.jpg",
+    "description": "A burger-loving hit man, his philosophical partner, a drug-addled gangster's moll and a washed-up boxer converge in this sprawling, comedic crime caper. Their adventures unfurl in three stories that ingeniously trip back and forth in time.",
+    "video": "https://streamimdb.ru/embed/movie/tt0110912"
+  },
+  {
+    "id": "tt0060196",
+    "title": "The Good, the Bad and the Ugly",
+    "year": 1966,
+    "genre": "Western",
+    "rating": 8.5,
+    "poster": "https://image.tmdb.org/t/p/w500/bX2xnavhMYjWDoZp1VM6VnU1xwe.jpg",
+    "description": "While the Civil War rages on between the Union and the Confederacy, three men – a quiet loner, a ruthless hitman, and a Mexican bandit – comb the American Southwest in search of a strongbox containing $200,000 in stolen gold.",
+    "video": "https://streamimdb.ru/embed/movie/tt0060196"
   }
 ]
