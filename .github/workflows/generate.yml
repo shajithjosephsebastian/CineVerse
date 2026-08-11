@@ -1,31 +1,48 @@
-name: Generate Movies Database
+name: Generate and Deploy CineVerse
 
 on:
   push:
+    branches:
+      - main
     paths:
       - "imdb_list.json"
       - "scripts/generate_movies.py"
+      - "requirements.txt"
+      - "index.html"
+      - "movie.html"
+      - "player.html"
+      - "css/**"
+      - "js/**"
+      - "assets/**"
 
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
-  generate:
+
+  build-and-deploy:
+
     runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
 
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v6
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
@@ -36,14 +53,14 @@ jobs:
         run: |
           python scripts/generate_movies.py
 
-      - name: Commit generated movies.json
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
 
-          git add data/movies.json
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: "."
 
-          git diff --cached --quiet || (
-            git commit -m "Auto update movies.json"
-            git push
-          )
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
