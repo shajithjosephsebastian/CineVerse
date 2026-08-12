@@ -554,6 +554,32 @@ footer p:first-child{
     border-color:var(--gold);
 }
 
+/* Trailer modal */
+.trailer-modal .modal-content{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:10px;
+    box-shadow:0 25px 60px rgba(0,0,0,.6);
+}
+.trailer-modal .modal-header{
+    border-bottom:1px solid var(--border);
+    padding:16px 20px;
+}
+.trailer-modal .modal-title{
+    font-family:var(--font-display);
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:var(--gold);
+}
+.trailer-modal .modal-body{
+    background:var(--bg-deep);
+    border-radius:0 0 10px 10px;
+    overflow:hidden;
+}
+.trailer-modal iframe{
+    border:0;
+}
+
 /* Skeleton text lines for the detail page */
 .skeleton-line{
     height:16px;
