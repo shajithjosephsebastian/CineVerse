@@ -779,5 +779,16 @@
     "poster": "https://image.tmdb.org/t/p/w500/mgLY1aQayVX6dQ2DiylLAhjEG8w.jpg",
     "description": "A man who loses his belief in God meets the spirit of a young woman unable to remember what happened to her.",
     "video": "https://streamimdb.ru/embed/movie/tt32362695"
+  },
+  {
+    "id": "tt0088763",
+    "tmdb_id": 105,
+    "title": "Back to the Future",
+    "year": 1985,
+    "genre": "Adventure, Comedy, Science Fiction",
+    "rating": 8.328,
+    "poster": "https://image.tmdb.org/t/p/w500/vN5B5WgYscRGcQpVhHl6p9DDTP0.jpg",
+    "description": "Eighties teenager Marty McFly is accidentally sent back in time to 1955, inadvertently disrupting his parents' first meeting and attracting his mother's romantic interest. Marty must repair the damage to history by rekindling his parents' romance and - with the help of his eccentric inventor friend Doc Brown - return to 1985.",
+    "video": "https://streamimdb.ru/embed/movie/tt0088763"
   }
 ]
