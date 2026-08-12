@@ -91,12 +91,43 @@
                     <i class="fa-solid fa-play"></i>
                     Watch Now
                 </a>
+                <button
+                    type="button"
+                    id="trailerButton"
+                    class="back-btn d-none"
+                    data-bs-toggle="modal"
+                    data-bs-target="#trailerModal">
+                    <i class="fa-solid fa-clapperboard"></i>
+                    Watch Trailer
+                </button>
                 <a
                     href="index.html"
                     class="back-btn">
                     <i class="fa-solid fa-arrow-left"></i>
                     Back
                 </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trailer Modal -->
+    <div class="modal fade trailer-modal" id="trailerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="trailerModalLabel">Trailer</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="ratio ratio-16x9">
+                        <iframe
+                            id="trailerFrame"
+                            allow="autoplay; encrypted-media"
+                            allowfullscreen
+                            referrerpolicy="strict-origin-when-cross-origin">
+                        </iframe>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
