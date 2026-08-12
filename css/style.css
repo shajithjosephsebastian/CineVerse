@@ -272,6 +272,7 @@ a{
     border-radius:10px;
     overflow:hidden;
     transition:transform .3s, box-shadow .3s, border-color .3s;
+    cursor:pointer;
     border:1px solid var(--border);
     height:100%;
     opacity:0;
@@ -289,7 +290,6 @@ a{
 .poster-frame{
     position:relative;
     overflow:hidden;
-    cursor:pointer;
 }
 /* sprocket-hole perforation strip: the signature detail, echoed from hero rule-lines */
 .poster-frame::before,
