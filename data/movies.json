@@ -1077,5 +1077,29 @@
     "description": "In the 22nd century, a paraplegic Marine is dispatched to the moon Pandora on a unique mission, but becomes torn between following orders and protecting an alien civilization.",
     "video": "https://streamimdb.ru/embed/movie/tt0499549",
     "trailer": "https://www.youtube.com/embed/jm2sNLIPPvA"
+  },
+  {
+    "id": "tt1630029",
+    "tmdb_id": 76600,
+    "title": "Avatar: The Way of Water",
+    "year": 2022,
+    "genre": "Action, Adventure, Science Fiction",
+    "rating": 7.59,
+    "poster": "https://image.tmdb.org/t/p/w500/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg",
+    "description": "Set more than a decade after the events of the first film, learn the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure.",
+    "video": "https://streamimdb.ru/embed/movie/tt1630029",
+    "trailer": "https://www.youtube.com/embed/o5F8MOz_IDw"
+  },
+  {
+    "id": "tt1757678",
+    "tmdb_id": 83533,
+    "title": "Avatar: Fire and Ash",
+    "year": 2025,
+    "genre": "Science Fiction, Adventure, Fantasy",
+    "rating": 7.6,
+    "poster": "https://image.tmdb.org/t/p/w500/bRBeSHfGHwkEpImlhxPmOcUsaeg.jpg",
+    "description": "In the wake of the devastating war against the RDA and the loss of their eldest son, Jake Sully and Neytiri face a new threat on Pandora: the Ash People, a violent and power-hungry Na'vi tribe led by the ruthless Varang. Jake's family must fight for their survival and the future of Pandora in a conflict that pushes them to their emotional and physical limits.",
+    "video": "https://streamimdb.ru/embed/movie/tt1757678",
+    "trailer": "https://www.youtube.com/embed/Ma1x7ikpid8"
   }
 ]
