@@ -100,6 +100,52 @@ movies = []
 new_movies = 0
 cached_movies = 0
 updated_entries = 0
+trailers_added = 0
+
+
+# =============================================================
+# GET TRAILER
+#
+# Reads the trailer out of a movie details response that was
+# already fetched with append_to_response=videos, so this adds
+# ZERO extra TMDb requests — the trailer data rides along with
+# the movie details we're fetching anyway.
+# =============================================================
+
+def get_trailer(movie):
+
+    if not movie:
+        return ""
+
+    videos = movie.get("videos", {}).get("results", [])
+
+    youtube_trailers = [
+        v for v in videos
+        if v.get("site") == "YouTube"
+        and v.get("type") == "Trailer"
+    ]
+
+    if not youtube_trailers:
+        return ""
+
+    official = [
+        v for v in youtube_trailers
+        if v.get("official") is True
+    ]
+
+    chosen = (
+        official[0]
+        if official
+        else youtube_trailers[0]
+    )
+
+    key = chosen.get("key")
+
+    if not key:
+        return ""
+
+    return f"https://www.youtube.com/embed/{key}"
+
 
 # =============================================================
 # PROCESS MOVIES
@@ -211,7 +257,7 @@ for item in movie_list:
 
         url = (
             f"https://api.themoviedb.org/3/movie/"
-            f"{tmdb_id}?language=en-US"
+            f"{tmdb_id}?language=en-US&append_to_response=videos"
         )
 
         response = requests.get(
@@ -298,7 +344,7 @@ for item in movie_list:
 
         details_url = (
             f"https://api.themoviedb.org/3/movie/"
-            f"{tmdb_id}?language=en-US"
+            f"{tmdb_id}?language=en-US&append_to_response=videos"
         )
 
         details_response = requests.get(
@@ -392,6 +438,18 @@ for item in movie_list:
         )
 
     # =========================================================
+    # TRAILER
+    #
+    # Comes free from the same request above thanks to
+    # append_to_response=videos — no extra TMDb call.
+    # =========================================================
+
+    trailer = get_trailer(movie)
+
+    if trailer:
+        trailers_added += 1
+
+    # =========================================================
     # CREATE MOVIE OBJECT
     # =========================================================
 
@@ -426,7 +484,9 @@ for item in movie_list:
             ""
         ),
 
-        "video": video
+        "video": video,
+
+        "trailer": trailer
     }
 
     movies.append(movie_data)
@@ -483,5 +543,6 @@ print("========================================")
 print(f"Cached movies:   {cached_movies}")
 print(f"New movies:      {new_movies}")
 print(f"Updated entries: {updated_entries}")
+print(f"Trailers added:  {trailers_added}")
 print(f"Total movies:    {len(movies)}")
 print("========================================")
