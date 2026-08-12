@@ -1,47 +1,51 @@
-const params = new URLSearchParams(window.location.search);
+const skeleton = document.getElementById("playerSkeleton");
+const content = document.getElementById("playerContent");
+const notFound = document.getElementById("playerNotFound");
 
+function splitGenres(genreField){
+    return (genreField || "")
+        .split(",")
+        .map(g => g.trim())
+        .filter(Boolean);
+}
+
+const params = new URLSearchParams(window.location.search);
 const movieId = params.get("id");
 
+function showNotFound(){
+    skeleton.classList.add("d-none");
+    content.classList.add("d-none");
+    notFound.classList.remove("d-none");
+}
+
 fetch("data/movies.json")
-.then(response => response.json())
-.then(movies=>{
+    .then(response => response.json())
+    .then(movies => {
+        const movie = movies.find(m => m.id === movieId);
+        if(!movie){
+            showNotFound();
+            return;
+        }
 
-    const movie = movies.find(m=>m.id===movieId);
+        document.title = movie.title + " | CineVerse";
+        document.getElementById("playerTitle").textContent = movie.title;
+        document.getElementById("playerDescription").textContent = movie.description;
 
-    if(!movie){
-
-        document.body.innerHTML=`
-
-        <div class="container text-center mt-5">
-
-            <h2>
-
-                Movie not found
-
-            </h2>
-
-        </div>
-
+        const genreChips = splitGenres(movie.genre)
+            .map(g => `<span class="meta-chip"><i class="fa-solid fa-masks-theater"></i> ${g}</span>`)
+            .join("");
+        document.getElementById("playerMeta").innerHTML = `
+            <span class="meta-chip"><i class="fa-solid fa-star"></i> ${movie.rating}</span>
+            <span class="meta-chip"><i class="fa-regular fa-calendar"></i> ${movie.year}</span>
+            ${genreChips}
         `;
 
-        return;
+        document.getElementById("videoFrame").src = movie.video;
 
-    }
-
-    document.title = movie.title;
-
-    document.getElementById("playerTitle").textContent = movie.title;
-
-    document.getElementById("playerDescription").textContent =
-        movie.description;
-
-    document.getElementById("playerMeta").innerHTML =
-
-        `⭐ ${movie.rating} |
-         📅 ${movie.year} |
-         🎭 ${movie.genre}`;
-
-    document.getElementById("videoFrame").src =
-        movie.video;
-
-});
+        skeleton.classList.add("d-none");
+        content.classList.remove("d-none");
+    })
+    .catch(error => {
+        console.error(error);
+        showNotFound();
+    });
