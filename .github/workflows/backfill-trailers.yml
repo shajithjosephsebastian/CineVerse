@@ -1,0 +1,39 @@
+name: Backfill Movie Trailers (one-time)
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  backfill-trailers:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Backfill trailers
+        env:
+          TMDB_API_TOKEN: ${{ secrets.TMDB_API_TOKEN }}
+        run: |
+          python scripts/backfill_trailers.py
+
+      - name: Commit updated movies.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/movies.json
+          if git diff --cached --quiet; then
+            echo "No trailer changes to commit"
+          else
+            git commit -m "Backfill trailers for existing movies"
+            git push
+          fi
