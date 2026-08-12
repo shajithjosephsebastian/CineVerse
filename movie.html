@@ -1,125 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
-
-    <title>CineVerse</title>
-
+    <title>CineVerse — Movie Details</title>
     <!-- Bootstrap -->
-
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
         rel="stylesheet">
-
     <!-- Icons -->
-
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
-    <link rel="stylesheet"
-          href="css/style.css">
-
+    <!-- Fonts: Bebas Neue (marquee display), Inter (body), JetBrains Mono (ticket data) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
+<!-- Marquee bulb strip -->
+<div class="bulb-strip" aria-hidden="true"></div>
+
 <!-- Navbar -->
-
 <nav class="navbar navbar-expand-lg navbar-dark">
-
     <div class="container">
-
-        <a class="navbar-brand fw-bold"
-           href="index.html">
-
-            🎬 CineVerse
-
+        <a class="navbar-brand" href="index.html">
+            <span class="brand-mark"><i class="fa-solid fa-film"></i></span>
+            CINE<span class="brand-accent">VERSE</span>
         </a>
-
     </div>
-
 </nav>
 
+<!-- Breadcrumb -->
+<div class="container">
+    <a href="index.html" class="back-link">
+        <i class="fa-solid fa-arrow-left"></i> Back to Now Showing
+    </a>
+</div>
+
 <!-- Movie Details -->
+<div class="container py-4" id="movieDetail">
 
-<div class="container py-5">
-
-    <div class="row">
-
-        <!-- Poster -->
-
+    <!-- Loading skeleton, shown until movie.js populates the page -->
+    <div class="row" id="detailSkeleton">
         <div class="col-lg-4 mb-4">
-
-            <img
-                id="moviePoster"
-                class="img-fluid rounded shadow">
-
+            <div class="skeleton-card" style="height:520px;"></div>
         </div>
-
-        <!-- Details -->
-
         <div class="col-lg-8">
+            <div class="skeleton-line skeleton-line-title"></div>
+            <div class="skeleton-line skeleton-line-meta"></div>
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line" style="width:70%;"></div>
+        </div>
+    </div>
 
-            <h1 id="movieTitle"></h1>
-
-            <div
-                id="movieMeta"
-                class="mb-3 text-secondary">
-
+    <!-- Populated content, hidden until ready -->
+    <div class="row d-none" id="detailContent">
+        <!-- Poster -->
+        <div class="col-lg-4 mb-4">
+            <div class="poster-frame detail-poster-frame">
+                <img
+                    id="moviePoster"
+                    class="img-fluid movie-poster detail-poster"
+                    alt="">
+                <span class="rating-badge" id="movieRatingBadge">
+                    <i class="fa-solid fa-star"></i> <span id="movieRating"></span>
+                </span>
             </div>
+        </div>
+        <!-- Details -->
+        <div class="col-lg-8">
+            <p class="eyebrow">Now Showing</p>
+            <h1 id="movieTitle" class="detail-title"></h1>
 
-            <p
-                id="movieDescription"
-                class="lead">
+            <div id="movieMeta" class="detail-meta"></div>
 
-            </p>
+            <div class="filmstrip-divider detail-divider" aria-hidden="true"></div>
 
-            <div class="mt-4">
+            <p id="movieDescription" class="detail-description"></p>
 
+            <div class="mt-4 d-flex flex-wrap gap-3">
                 <a
                     id="watchButton"
-                    class="btn btn-primary btn-lg">
-
-                    <i class="fas fa-play"></i>
-
-                    Watch Movie
-
+                    class="watch-btn detail-watch-btn">
+                    <i class="fa-solid fa-play"></i>
+                    Watch Now
                 </a>
-
                 <a
                     href="index.html"
-                    class="btn btn-outline-light btn-lg ms-2">
-
-                    <i class="fas fa-arrow-left"></i>
-
+                    class="back-btn">
+                    <i class="fa-solid fa-arrow-left"></i>
                     Back
-
                 </a>
-
             </div>
-
         </div>
+    </div>
 
+    <!-- Not-found state -->
+    <div class="error-state d-none" id="detailNotFound">
+        <i class="fa-solid fa-film"></i>
+        <h3>Feature not found</h3>
+        <p>This one isn't in our catalog. It may have left the marquee.</p>
+        <a href="index.html" class="watch-btn detail-watch-btn mt-3 d-inline-block">
+            <i class="fa-solid fa-arrow-left"></i> Back to Now Showing
+        </a>
     </div>
 
 </div>
 
 <footer class="text-center mt-5">
-
-    © 2026 CineVerse
-
+    <div class="footer-reel" aria-hidden="true"></div>
+    <p class="mb-1">🎬 CineVerse</p>
+    <p class="mb-0">© 2026 CineVerse. Grab your popcorn.</p>
 </footer>
 
 <script src="js/movie.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
-
 </html>
