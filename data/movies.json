@@ -911,5 +911,137 @@
     "poster": "https://image.tmdb.org/t/p/w500/jbOSUAWMGzGL1L4EaUF8K6zYFo7.jpg",
     "description": "Mufasa, a cub lost and alone, meets a sympathetic lion named Taka, the heir to a royal bloodline. The chance meeting sets in motion an expansive journey of a group of misfits searching for their destiny.",
     "video": "https://streamimdb.ru/embed/movie/tt13186482"
+  },
+  {
+    "id": "tt0407887",
+    "tmdb_id": 1422,
+    "title": "The Departed",
+    "year": 2006,
+    "genre": "Drama, Thriller, Crime",
+    "rating": 8.159,
+    "poster": "https://image.tmdb.org/t/p/w500/nT97ifVT2J1yMQmeq20Qblg61T.jpg",
+    "description": "To take down South Boston's Irish Mafia, the police send in one of their own to infiltrate the underworld, not realizing the syndicate has done likewise. While an undercover cop curries favor with the mob kingpin, a career criminal rises through the police ranks. But both sides soon discover there's a mole among them.",
+    "video": "https://streamimdb.ru/embed/movie/tt0407887"
+  },
+  {
+    "id": "tt0482571",
+    "tmdb_id": 1124,
+    "title": "The Prestige",
+    "year": 2006,
+    "genre": "Drama, Mystery, Science Fiction",
+    "rating": 8.211,
+    "poster": "https://image.tmdb.org/t/p/w500/Ag2B2KHKQPukjH7WutmgnnSNurZ.jpg",
+    "description": "A mysterious story of two magicians whose intense rivalry leads them on a life-long battle for supremacy -- full of obsession, deceit and jealousy with dangerous and deadly consequences.",
+    "video": "https://streamimdb.ru/embed/movie/tt0482571"
+  },
+  {
+    "id": "tt0145487",
+    "tmdb_id": 557,
+    "title": "Spider-Man",
+    "year": 2002,
+    "genre": "Action, Science Fiction",
+    "rating": 7.342,
+    "poster": "https://image.tmdb.org/t/p/w500/nXdAh5vUwERL4WGVMaee8RoDEAS.jpg",
+    "description": "After being bitten by a genetically altered spider at Oscorp, nerdy but endearing high school student Peter Parker is endowed with amazing powers to become the superhero known as Spider-Man.",
+    "video": "https://streamimdb.ru/embed/movie/tt0145487"
+  },
+  {
+    "id": "tt0413300",
+    "tmdb_id": 559,
+    "title": "Spider-Man 3",
+    "year": 2007,
+    "genre": "Action, Adventure, Science Fiction",
+    "rating": 6.5,
+    "poster": "https://image.tmdb.org/t/p/w500/sJMTTGjtjvrMZ7G0oP9D13wNUum.jpg",
+    "description": "The seemingly invincible Spider-Man goes up against an all-new crop of villains—including the shape-shifting Sandman. While Spider-Man’s superpowers are altered by an alien organism, his alter ego, Peter Parker, deals with nemesis Eddie Brock and also gets caught up in a love triangle.",
+    "video": "https://streamimdb.ru/embed/movie/tt0413300"
+  },
+  {
+    "id": "tt0316654",
+    "tmdb_id": 558,
+    "title": "Spider-Man 2",
+    "year": 2004,
+    "genre": "Action, Adventure, Science Fiction",
+    "rating": 7.323,
+    "poster": "https://image.tmdb.org/t/p/w500/aGuvNAaaZuWXYQQ6N2v7DeuP6mB.jpg",
+    "description": "Peter Parker is going through a major identity crisis. Burned out from being Spider-Man, he decides to shelve his superhero alter ego, which leaves the city suffering in the wake of carnage left by the evil Doc Ock. In the meantime, Parker still can't act on his feelings for Mary Jane Watson, a girl he's loved since childhood. A certain anger begins to brew in his best friend Harry Osborn as well...",
+    "video": "https://streamimdb.ru/embed/movie/tt0316654"
+  },
+  {
+    "id": "tt0948470",
+    "tmdb_id": 1930,
+    "title": "The Amazing Spider-Man",
+    "year": 2012,
+    "genre": "Action, Adventure, Science Fiction",
+    "rating": 6.748,
+    "poster": "https://image.tmdb.org/t/p/w500/jexoNYnPd6vVrmygwF6QZmWPFdu.jpg",
+    "description": "A teenage Peter Parker grapples with both high school and amazing super-human crises as his alter-ego Spider-Man.",
+    "video": "https://streamimdb.ru/embed/movie/tt0948470"
+  },
+  {
+    "id": "tt1872181",
+    "tmdb_id": 102382,
+    "title": "The Amazing Spider-Man 2",
+    "year": 2014,
+    "genre": "Action, Adventure, Science Fiction",
+    "rating": 6.553,
+    "poster": "https://image.tmdb.org/t/p/w500/dGjoPttcbKR5VWg1jQuNFB247KL.jpg",
+    "description": "For Peter Parker, life is busy. Between taking out the bad guys as Spider-Man and spending time with the person he loves, Gwen Stacy, high school graduation cannot come quickly enough. Peter has not forgotten about the promise he made to Gwen’s father to protect her by staying away, but that is a promise he cannot keep. Things will change for Peter when a new villain, Electro, emerges, an old friend, Harry Osborn, returns, and Peter uncovers new clues about his past.",
+    "video": "https://streamimdb.ru/embed/movie/tt1872181"
+  },
+  {
+    "id": "tt2250912",
+    "tmdb_id": 315635,
+    "title": "Spider-Man: Homecoming",
+    "year": 2017,
+    "genre": "Action, Adventure, Science Fiction",
+    "rating": 7.332,
+    "poster": "https://image.tmdb.org/t/p/w500/c24sv2weTHPsmDa7jEMN0m2P3RT.jpg",
+    "description": "Following the events of Captain America: Civil War, Peter Parker, with the help of his mentor Tony Stark, tries to balance his life as an ordinary high school student in Queens, New York City, with fighting crime as his superhero alter ego Spider-Man as a new threat, the Vulture, emerges.",
+    "video": "https://streamimdb.ru/embed/movie/tt2250912"
+  },
+  {
+    "id": "tt6320628",
+    "tmdb_id": 429617,
+    "title": "Spider-Man: Far From Home",
+    "year": 2019,
+    "genre": "Action, Adventure, Science Fiction",
+    "rating": 7.393,
+    "poster": "https://image.tmdb.org/t/p/w500/4q2NNj4S5dG2RLF9CpXsej7yXl.jpg",
+    "description": "Peter Parker and his friends go on a summer trip to Europe. However, they will hardly be able to rest - Peter will have to agree to help Nick Fury uncover the mystery of creatures that cause natural disasters and destruction throughout the continent.",
+    "video": "https://streamimdb.ru/embed/movie/tt6320628"
+  },
+  {
+    "id": "tt10872600",
+    "tmdb_id": 634649,
+    "title": "Spider-Man: No Way Home",
+    "year": 2021,
+    "genre": "Action, Adventure, Science Fiction",
+    "rating": 7.938,
+    "poster": "https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+    "description": "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
+    "video": "https://streamimdb.ru/embed/movie/tt10872600"
+  },
+  {
+    "id": "tt4633694",
+    "tmdb_id": 324857,
+    "title": "Spider-Man: Into the Spider-Verse",
+    "year": 2018,
+    "genre": "Animation, Action, Adventure, Science Fiction",
+    "rating": 8.394,
+    "poster": "https://image.tmdb.org/t/p/w500/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
+    "description": "Struggling to find his place in the world while juggling school and family, Brooklyn teenager Miles Morales is unexpectedly bitten by a radioactive spider and develops unfathomable powers just like the one and only Spider-Man. While wrestling with the implications of his new abilities, Miles discovers a super collider created by the madman Wilson \"Kingpin\" Fisk, causing others from across the Spider-Verse to be inadvertently transported to his dimension.",
+    "video": "https://streamimdb.ru/embed/movie/tt4633694"
+  },
+  {
+    "id": "tt22084616",
+    "tmdb_id": 969681,
+    "title": "Spider-Man: Brand New Day",
+    "year": 2026,
+    "genre": "Science Fiction, Action, Adventure",
+    "rating": 7.863,
+    "poster": "https://image.tmdb.org/t/p/w500/iPOn6DinuVyLY17YM9mKuPofV08.jpg",
+    "description": "Fighting crime full-time as Spider-Man in a world that doesn't remember him—and the pressure of seeing his old friends move on without him—sparks a change in Peter Parker he may not have the power to control. But that transformation might also be the only thing that can stop a shocking new threat to the city and those he loves - a powerful villain no one can even see.",
+    "video": "https://streamimdb.ru/embed/movie/tt22084616"
   }
 ]
