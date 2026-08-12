@@ -845,5 +845,16 @@
     "poster": "https://image.tmdb.org/t/p/w500/2cxhvwyEwRlysAmRH4iodkvo0z5.jpg",
     "description": "Years after witnessing the death of the revered hero Maximus at the hands of his uncle, Lucius is forced to enter the Colosseum after his home is conquered by the tyrannical Emperors who now lead Rome with an iron fist. With rage in his heart and the future of the Empire at stake, Lucius must look to his past to find strength and honor to return the glory of Rome to its people.",
     "video": "https://streamimdb.ru/embed/movie/tt9218128"
+  },
+  {
+    "id": "tt0245429",
+    "tmdb_id": 129,
+    "title": "Spirited Away",
+    "year": 2001,
+    "genre": "Animation, Family, Fantasy",
+    "rating": 8.534,
+    "poster": "https://image.tmdb.org/t/p/w500/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
+    "description": "A young girl, Chihiro, becomes trapped in a strange new world of spirits. When her parents undergo a mysterious transformation, she must call upon the courage she never knew she had to free her family.",
+    "video": "https://streamimdb.ru/embed/movie/tt0245429"
   }
 ]
