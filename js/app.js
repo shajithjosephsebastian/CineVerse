@@ -36,9 +36,18 @@ async function loadMovies(){
     }
 }
 
+// Split a movie's genre field into individual genre names (handles "Action, Adventure")
+function splitGenres(genreField){
+    return (genreField || "")
+        .split(",")
+        .map(g => g.trim())
+        .filter(Boolean);
+}
+
 // Build genre filter pills from the loaded catalog
 function buildGenreBar(movieList){
-    const genres = ["All", ...new Set(movieList.map(m => m.genre).filter(Boolean))];
+    const allGenres = movieList.flatMap(m => splitGenres(m.genre));
+    const genres = ["All", ...new Set(allGenres)];
     genreBar.innerHTML = genres.map(genre => `
         <button
             type="button"
@@ -62,7 +71,7 @@ function buildGenreBar(movieList){
 function applyFilters(){
     const search = searchBox.value.toLowerCase();
     const filtered = movies.filter(movie => {
-        const matchesGenre = activeGenre === "All" || movie.genre === activeGenre;
+        const matchesGenre = activeGenre === "All" || splitGenres(movie.genre).includes(activeGenre);
         const matchesSearch =
             movie.title.toLowerCase().includes(search) ||
             movie.genre.toLowerCase().includes(search) ||
@@ -88,7 +97,7 @@ function displayMovies(movieList){
     movieContainer.innerHTML = movieList.map((movie, i) => `
         <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
             <div class="movie-card" style="animation-delay:${Math.min(i, 8) * 0.05}s">
-                <div class="poster-frame">
+                <div class="poster-frame" onclick="openMovie('${movie.id}')">
                     <img
                         src="${movie.poster}"
                         class="movie-poster"
