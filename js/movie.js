@@ -1,56 +1,76 @@
-const params = new URLSearchParams(window.location.search);
+const skeleton = document.getElementById("detailSkeleton");
+const content = document.getElementById("detailContent");
+const notFound = document.getElementById("detailNotFound");
 
-const movieId = params.get("id");
+// Reuse the same genre-splitting logic as the catalog page (handles "Action, Sci-Fi")
+function splitGenres(genreField){
+    return (genreField || "")
+        .split(",")
+        .map(g => g.trim())
+        .filter(Boolean);
+}
 
-fetch("data/movies.json")
-.then(response => response.json())
-.then(movies => {
+function getMovieId(){
+    const params = new URLSearchParams(window.location.search);
+    return params.get("id");
+}
 
-    const movie = movies.find(m => m.id === movieId);
+function showNotFound(){
+    skeleton.classList.add("d-none");
+    content.classList.add("d-none");
+    notFound.classList.remove("d-none");
+}
 
-    if(!movie){
+function renderMovie(movie){
+    document.title = `${movie.title} — CineVerse`;
 
-        document.body.innerHTML = `
-        <div class="container text-center mt-5">
-
-            <h1>Movie Not Found</h1>
-
-            <a href="index.html"
-               class="btn btn-primary mt-3">
-
-               Go Home
-
-            </a>
-
-        </div>
-        `;
-
-        return;
-
-    }
-
-    document.title = movie.title + " | CineVerse";
-
-    document.getElementById("moviePoster").src = movie.poster;
+    const poster = document.getElementById("moviePoster");
+    poster.src = movie.poster;
+    poster.alt = movie.title;
 
     document.getElementById("movieTitle").textContent = movie.title;
+    document.getElementById("movieRating").textContent = movie.rating;
 
-    document.getElementById("movieMeta").innerHTML = `
-        ⭐ ${movie.rating}
-        &nbsp;&nbsp;|&nbsp;&nbsp;
-        📅 ${movie.year}
-        &nbsp;&nbsp;|&nbsp;&nbsp;
-        🎭 ${movie.genre}
+    const meta = document.getElementById("movieMeta");
+    const genreChips = splitGenres(movie.genre)
+        .map(g => `<span class="meta-chip"><i class="fa-solid fa-masks-theater"></i> ${g}</span>`)
+        .join("");
+    meta.innerHTML = `
+        <span class="meta-chip"><i class="fa-regular fa-calendar"></i> ${movie.year}</span>
+        ${genreChips}
     `;
 
-    document.getElementById("movieDescription").textContent = movie.description;
+    document.getElementById("movieDescription").textContent =
+        movie.description || "No synopsis available for this title yet.";
 
-    document.getElementById("watchButton").href =
-        `player.html?id=${movie.id}`;
+    const watchButton = document.getElementById("watchButton");
+    watchButton.href = `player.html?id=${movie.id}`;
 
-})
-.catch(error => {
+    skeleton.classList.add("d-none");
+    content.classList.remove("d-none");
+}
 
-    console.error(error);
+async function loadMovie(){
+    const id = getMovieId();
+    if (!id) {
+        showNotFound();
+        return;
+    }
+    try {
+        const response = await fetch("data/movies.json");
+        if (!response.ok) throw new Error("Request failed");
+        const movies = await response.json();
+        const movie = movies.find(m => String(m.id) === String(id));
+        if (!movie) {
+            showNotFound();
+            return;
+        }
+        renderMovie(movie);
+    }
+    catch(error){
+        console.error(error);
+        showNotFound();
+    }
+}
 
-});
+loadMovie();
