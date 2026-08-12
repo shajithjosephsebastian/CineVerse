@@ -790,5 +790,38 @@
     "poster": "https://image.tmdb.org/t/p/w500/vN5B5WgYscRGcQpVhHl6p9DDTP0.jpg",
     "description": "Eighties teenager Marty McFly is accidentally sent back in time to 1955, inadvertently disrupting his parents' first meeting and attracting his mother's romantic interest. Marty must repair the damage to history by rekindling his parents' romance and - with the help of his eccentric inventor friend Doc Brown - return to 1985.",
     "video": "https://streamimdb.ru/embed/movie/tt0088763"
+  },
+  {
+    "id": "tt0266697",
+    "tmdb_id": 24,
+    "title": "Kill Bill: Vol. 1",
+    "year": 2003,
+    "genre": "Action, Crime",
+    "rating": 7.971,
+    "poster": "https://image.tmdb.org/t/p/w500/v7TaX8kXMXs5yFFGR41guUDNcnB.jpg",
+    "description": "An assassin is shot by her ruthless employer, Bill, and other members of their assassination circle – but she lives to plot her vengeance.",
+    "video": "https://streamimdb.ru/embed/movie/tt0266697"
+  },
+  {
+    "id": "tt0378194",
+    "tmdb_id": 393,
+    "title": "Kill Bill: Vol. 2",
+    "year": 2004,
+    "genre": "Action, Crime, Thriller",
+    "rating": 7.876,
+    "poster": "https://image.tmdb.org/t/p/w500/2yhg0mZQMhDyvUQ4rG1IZ4oIA8L.jpg",
+    "description": "The Bride unwaveringly continues on her roaring rampage of revenge against the band of assassins who had tried to kill her and her unborn child. She visits each of her former associates one-by-one, checking off the victims on her Death List Five until there's nothing left to do … but kill Bill.",
+    "video": "https://streamimdb.ru/embed/movie/tt0378194"
+  },
+  {
+    "id": "tt6019206",
+    "tmdb_id": 414419,
+    "title": "Kill Bill: The Whole Bloody Affair",
+    "year": 2011,
+    "genre": "Action, Crime",
+    "rating": 8.114,
+    "poster": "https://image.tmdb.org/t/p/w500/nSOJfWJCdVFZQwXQA7RXn7FIIiY.jpg",
+    "description": "A former assassin, known simply as The Bride, wakes from a coma four years after her jealous ex-lover Bill attempts to murder her on her wedding day. Fueled by an insatiable desire for revenge, she vows to get even with every person who contributed to the loss of her unborn child, her entire wedding party, and four years of her life.  After devising a hit list, The Bride sets off on her quest, enduring unspeakable injury and unscrupulous enemies.",
+    "video": "https://streamimdb.ru/embed/movie/tt6019206"
   }
 ]
