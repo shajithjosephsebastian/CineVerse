@@ -96,8 +96,8 @@ function displayMovies(movieList){
     }
     movieContainer.innerHTML = movieList.map((movie, i) => `
         <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-            <div class="movie-card" style="animation-delay:${Math.min(i, 8) * 0.05}s">
-                <div class="poster-frame" onclick="openMovie('${movie.id}')">
+            <div class="movie-card" style="animation-delay:${Math.min(i, 8) * 0.05}s" onclick="openMovie('${movie.id}')">
+                <div class="poster-frame">
                     <img
                         src="${movie.poster}"
                         class="movie-poster"
@@ -117,7 +117,7 @@ function displayMovies(movieList){
                     </div>
                     <button
                         class="watch-btn"
-                        onclick="openMovie('${movie.id}')">
+                        onclick="event.stopPropagation(); openMovie('${movie.id}')">
                         Watch Now
                     </button>
                 </div>
