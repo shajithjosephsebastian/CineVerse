@@ -823,5 +823,27 @@
     "poster": "https://image.tmdb.org/t/p/w500/nSOJfWJCdVFZQwXQA7RXn7FIIiY.jpg",
     "description": "A former assassin, known simply as The Bride, wakes from a coma four years after her jealous ex-lover Bill attempts to murder her on her wedding day. Fueled by an insatiable desire for revenge, she vows to get even with every person who contributed to the loss of her unborn child, her entire wedding party, and four years of her life.  After devising a hit list, The Bride sets off on her quest, enduring unspeakable injury and unscrupulous enemies.",
     "video": "https://streamimdb.ru/embed/movie/tt6019206"
+  },
+  {
+    "id": "tt0172495",
+    "tmdb_id": 98,
+    "title": "Gladiator",
+    "year": 2000,
+    "genre": "Action, Drama, Adventure",
+    "rating": 8.23,
+    "poster": "https://image.tmdb.org/t/p/w500/wN2xWp1eIwCKOD0BHTcErTBv1Uq.jpg",
+    "description": "After the death of Emperor Marcus Aurelius, his devious son takes power and demotes Maximus, one of Rome's most capable generals who Marcus preferred. Eventually, Maximus is forced to become a gladiator and battle to the death against other men for the amusement of paying audiences.",
+    "video": "https://streamimdb.ru/embed/movie/tt0172495"
+  },
+  {
+    "id": "tt9218128",
+    "tmdb_id": 558449,
+    "title": "Gladiator II",
+    "year": 2024,
+    "genre": "Action, Adventure, Drama",
+    "rating": 6.601,
+    "poster": "https://image.tmdb.org/t/p/w500/2cxhvwyEwRlysAmRH4iodkvo0z5.jpg",
+    "description": "Years after witnessing the death of the revered hero Maximus at the hands of his uncle, Lucius is forced to enter the Colosseum after his home is conquered by the tyrannical Emperors who now lead Rome with an iron fist. With rage in his heart and the future of the Empire at stake, Lucius must look to his past to find strength and honor to return the glory of Rome to its people.",
+    "video": "https://streamimdb.ru/embed/movie/tt9218128"
   }
 ]
