@@ -603,6 +603,29 @@ footer p:first-child{
 }
 
 /* ==========================
+   Player Page
+========================== */
+.screen-frame{
+    position:relative;
+    border-radius:10px;
+    padding:10px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    box-shadow:
+        0 0 0 1px rgba(0,0,0,.4),
+        0 25px 60px rgba(0,0,0,.55),
+        0 0 90px -20px rgba(216,169,78,.25);
+}
+.screen-frame .ratio{
+    border-radius:5px;
+    overflow:hidden;
+    background:var(--bg-deep);
+}
+.screen-frame iframe{
+    border:0;
+}
+
+/* ==========================
    Responsive
 ========================== */
 @media(max-width:768px){
