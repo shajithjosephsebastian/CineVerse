@@ -867,5 +867,49 @@
     "poster": "https://image.tmdb.org/t/p/w500/k9tv1rXZbOhH7eiCk378x61kNQ1.jpg",
     "description": "In the final months of World War II, 14-year-old Seita and his sister Setsuko are orphaned when their mother is killed during an air raid in Kobe, Japan. After a falling out with their aunt, they move into an abandoned bomb shelter. With no surviving relatives and their emergency rations depleted, Seita and Setsuko struggle to survive.",
     "video": "https://streamimdb.ru/embed/movie/tt0095327"
+  },
+  {
+    "id": "tt0110357",
+    "tmdb_id": 8587,
+    "title": "The Lion King",
+    "year": 1994,
+    "genre": "Animation, Family, Drama",
+    "rating": 8.252,
+    "poster": "https://image.tmdb.org/t/p/w500/sKCr78MXSLixwmZ8DyJLrpMsd15.jpg",
+    "description": "Young lion prince Simba, eager to one day become king of the Pride Lands, grows up under the watchful eye of his father Mufasa; all the while his villainous uncle Scar conspires to take the throne for himself. Amid betrayal and tragedy, Simba must confront his past and find his rightful place in the Circle of Life.",
+    "video": "https://streamimdb.ru/embed/movie/tt0110357"
+  },
+  {
+    "id": "tt0120131",
+    "tmdb_id": 9732,
+    "title": "The Lion King II: Simba's Pride",
+    "year": 1998,
+    "genre": "Adventure, Animation, Drama, Family, Romance",
+    "rating": 6.941,
+    "poster": "https://image.tmdb.org/t/p/w500/sWR1x6UCMCGN9xEf8RGhPS934X0.jpg",
+    "description": "The circle of life continues for Simba, now fully grown and in his rightful place as the king of Pride Rock. Simba and Nala have given birth to a daughter, Kiara who's as rebellious as her father was. But Kiara drives her parents to distraction when she catches the eye of Kovu, the son of the evil lioness, Zira. Will Kovu steal Kiara's heart?",
+    "video": "https://streamimdb.ru/embed/movie/tt0120131"
+  },
+  {
+    "id": "tt6105098",
+    "tmdb_id": 420818,
+    "title": "The Lion King",
+    "year": 2019,
+    "genre": "Adventure, Drama, Family, Animation",
+    "rating": 7.094,
+    "poster": "https://image.tmdb.org/t/p/w500/dzBtMocZuJbjLOXvrl4zGYigDzh.jpg",
+    "description": "Simba idolizes his father, King Mufasa, and takes to heart his own royal destiny. But not everyone in the kingdom celebrates the new cub's arrival. Scar, Mufasa's brother—and former heir to the throne—has plans of his own. The battle for Pride Rock is ravaged with betrayal, tragedy and drama, ultimately resulting in Simba's exile. With help from a curious pair of newfound friends, Simba will have to figure out how to grow up and take back what is rightfully his.",
+    "video": "https://streamimdb.ru/embed/movie/tt6105098"
+  },
+  {
+    "id": "tt13186482",
+    "tmdb_id": 762509,
+    "title": "Mufasa: The Lion King",
+    "year": 2024,
+    "genre": "Adventure, Family, Animation",
+    "rating": 7.295,
+    "poster": "https://image.tmdb.org/t/p/w500/jbOSUAWMGzGL1L4EaUF8K6zYFo7.jpg",
+    "description": "Mufasa, a cub lost and alone, meets a sympathetic lion named Taka, the heir to a royal bloodline. The chance meeting sets in motion an expansive journey of a group of misfits searching for their destiny.",
+    "video": "https://streamimdb.ru/embed/movie/tt13186482"
   }
 ]
