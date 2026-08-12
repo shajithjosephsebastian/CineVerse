@@ -46,8 +46,32 @@ function renderMovie(movie){
     const watchButton = document.getElementById("watchButton");
     watchButton.href = `player.html?id=${movie.id}`;
 
+    setupTrailer(movie.trailer);
+
     skeleton.classList.add("d-none");
     content.classList.remove("d-none");
+}
+
+// Show the trailer button only if a trailer exists, and lazy-load
+// the iframe on modal open so it doesn't load or play in the background.
+function setupTrailer(trailerUrl){
+    const trailerButton = document.getElementById("trailerButton");
+    const trailerFrame = document.getElementById("trailerFrame");
+    const trailerModalEl = document.getElementById("trailerModal");
+
+    if (!trailerUrl) {
+        trailerButton.classList.add("d-none");
+        return;
+    }
+
+    trailerButton.classList.remove("d-none");
+
+    trailerModalEl.addEventListener("show.bs.modal", () => {
+        trailerFrame.src = `${trailerUrl}?autoplay=1`;
+    });
+    trailerModalEl.addEventListener("hidden.bs.modal", () => {
+        trailerFrame.src = "";
+    });
 }
 
 async function loadMovie(){
