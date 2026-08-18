@@ -113,28 +113,6 @@
         </div>
     </div>
 
-    <!-- Trailer Modal -->
-    <div class="modal fade trailer-modal" id="trailerModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="trailerModalLabel">Trailer</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-0">
-                    <div class="ratio ratio-16x9">
-                        <iframe
-                            id="trailerFrame"
-                            allow="autoplay; encrypted-media"
-                            allowfullscreen
-                            referrerpolicy="strict-origin-when-cross-origin">
-                        </iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Not-found state -->
     <div class="error-state d-none" id="detailNotFound">
         <i class="fa-solid fa-film"></i>
@@ -152,6 +130,30 @@
     <p class="mb-1">🎬 CineVerse</p>
     <p class="mb-0">© 2026 CineVerse. Grab your popcorn.</p>
 </footer>
+
+<!-- Trailer Modal — kept as a direct child of body (not nested in a
+     positioned container) so Bootstrap's stacking/backdrop cleanup
+     behaves correctly. -->
+<div class="modal fade trailer-modal" id="trailerModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="trailerModalLabel">Trailer</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="ratio ratio-16x9">
+                    <iframe
+                        id="trailerFrame"
+                        allow="autoplay; encrypted-media"
+                        allowfullscreen
+                        referrerpolicy="strict-origin-when-cross-origin">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="js/movie.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
