@@ -101,6 +101,7 @@ new_movies = 0
 cached_movies = 0
 updated_entries = 0
 trailers_added = 0
+failed_movies = 0
 
 
 # =============================================================
@@ -233,6 +234,11 @@ for item in movie_list:
 
     # =========================================================
     # NEW MOVIE
+    #
+    # Everything below is wrapped in a try/except: if this one
+    # movie fails (bad ID, TMDb hiccup, unexpected response
+    # shape), we log it and move on to the next movie instead
+    # of losing the entire run's progress.
     # =========================================================
 
     print(
@@ -240,258 +246,285 @@ for item in movie_list:
         f"IMDb={imdb_id}, TMDb={tmdb_id}"
     )
 
-    movie = None
+    try:
 
-    # =========================================================
-    # CASE 1
-    # TMDb ID available
-    #
-    # ONE TMDb request
-    # =========================================================
+        movie = None
 
-    if tmdb_id:
+        # =====================================================
+        # CASE 1
+        # TMDb ID available
+        #
+        # ONE TMDb request
+        # =====================================================
 
-        print(
-            f"Fetching TMDb details: {tmdb_id}"
-        )
-
-        url = (
-            f"https://api.themoviedb.org/3/movie/"
-            f"{tmdb_id}?language=en-US&append_to_response=videos"
-        )
-
-        response = requests.get(
-            url,
-            headers=headers
-        )
-
-        response.raise_for_status()
-
-        movie = response.json()
-
-        if not movie.get("id"):
+        if tmdb_id:
 
             print(
-                f"Movie not found: TMDb ID {tmdb_id}"
+                f"Fetching TMDb details: {tmdb_id}"
+            )
+
+            url = (
+                f"https://api.themoviedb.org/3/movie/"
+                f"{tmdb_id}?language=en-US&append_to_response=videos"
+            )
+
+            response = requests.get(
+                url,
+                headers=headers,
+                timeout=20
+            )
+
+            response.raise_for_status()
+
+            movie = response.json()
+
+            if not movie.get("id"):
+
+                print(
+                    f"Movie not found: TMDb ID {tmdb_id}"
+                )
+
+                continue
+
+            # -------------------------------------------------
+            # Get IMDb ID from the same TMDb response
+            # -------------------------------------------------
+
+            if not imdb_id:
+
+                imdb_id = movie.get("imdb_id", "")
+
+                if imdb_id:
+                    imdb_id = str(imdb_id)
+
+        # =====================================================
+        # CASE 2
+        # Only IMDb ID available
+        #
+        # TWO TMDb requests
+        #
+        # IMDb → /find
+        # TMDb → /movie
+        #
+        # This is only for old entries.
+        # =====================================================
+
+        elif imdb_id and imdb_id.startswith("tt"):
+
+            print(
+                f"Finding TMDb ID for IMDb ID: "
+                f"{imdb_id}"
+            )
+
+            find_url = (
+                f"https://api.themoviedb.org/3/find/"
+                f"{imdb_id}?external_source=imdb_id"
+            )
+
+            response = requests.get(
+                find_url,
+                headers=headers,
+                timeout=20
+            )
+
+            response.raise_for_status()
+
+            result = response.json()
+
+            if not result.get("movie_results"):
+
+                print(
+                    f"Movie not found: IMDb ID {imdb_id}"
+                )
+
+                continue
+
+            tmdb_id = str(
+                result["movie_results"][0]["id"]
+            )
+
+            # -------------------------------------------------
+            # Get full movie details
+            # -------------------------------------------------
+
+            print(
+                f"Fetching full details: "
+                f"TMDb ID {tmdb_id}"
+            )
+
+            details_url = (
+                f"https://api.themoviedb.org/3/movie/"
+                f"{tmdb_id}?language=en-US&append_to_response=videos"
+            )
+
+            details_response = requests.get(
+                details_url,
+                headers=headers,
+                timeout=20
+            )
+
+            details_response.raise_for_status()
+
+            movie = details_response.json()
+
+        # =====================================================
+        # INVALID ENTRY
+        # =====================================================
+
+        else:
+
+            print(
+                f"Invalid movie entry: "
+                f"{item}"
             )
 
             continue
 
-        # -----------------------------------------------------
-        # Get IMDb ID from the same TMDb response
-        # -----------------------------------------------------
+        # =====================================================
+        # UPDATE imdb_list.json
+        #
+        # This is the important part.
+        #
+        # The IMDb ID comes directly from the movie details
+        # response, so NO additional TMDb request is needed.
+        # =====================================================
 
-        if not imdb_id:
+        original_item = dict(item)
 
-            imdb_id = movie.get("imdb_id", "")
+        if imdb_id:
+            item["imdb"] = imdb_id
 
-            if imdb_id:
-                imdb_id = str(imdb_id)
+        if tmdb_id:
+            item["tmdb"] = str(tmdb_id)
 
-    # =========================================================
-    # CASE 2
-    # Only IMDb ID available
-    #
-    # TWO TMDb requests
-    #
-    # IMDb → /find
-    # TMDb → /movie
-    #
-    # This is only for old entries.
-    # =========================================================
+        if item != original_item:
+            updated_entries += 1
 
-    elif imdb_id and imdb_id.startswith("tt"):
+        # =====================================================
+        # GENRES
+        # =====================================================
 
-        print(
-            f"Finding TMDb ID for IMDb ID: "
-            f"{imdb_id}"
-        )
+        genres = [
+            genre_lookup.get(
+                genre["id"],
+                str(genre["id"])
+            )
+            for genre in movie.get("genres", [])
+        ]
 
-        find_url = (
-            f"https://api.themoviedb.org/3/find/"
-            f"{imdb_id}?external_source=imdb_id"
-        )
+        # =====================================================
+        # POSTER
+        # =====================================================
 
-        response = requests.get(
-            find_url,
-            headers=headers
-        )
+        poster = ""
 
-        response.raise_for_status()
+        if movie.get("poster_path"):
 
-        result = response.json()
-
-        if not result.get("movie_results"):
-
-            print(
-                f"Movie not found: IMDb ID {imdb_id}"
+            poster = (
+                "https://image.tmdb.org/t/p/w500"
+                + movie["poster_path"]
             )
 
-            continue
+        # =====================================================
+        # YEAR
+        # =====================================================
 
-        tmdb_id = str(
-            result["movie_results"][0]["id"]
-        )
+        year = ""
 
-        # -----------------------------------------------------
-        # Get full movie details
-        # -----------------------------------------------------
+        if movie.get("release_date"):
+
+            year = movie["release_date"][:4]
+
+        # =====================================================
+        # VIDEO
+        # =====================================================
+
+        video = ""
+
+        if imdb_id:
+
+            video = (
+                f"https://streamimdb.ru/embed/movie/"
+                f"{imdb_id}"
+            )
+
+        # =====================================================
+        # TRAILER
+        #
+        # Comes free from the same request above thanks to
+        # append_to_response=videos — no extra TMDb call.
+        # =====================================================
+
+        trailer = get_trailer(movie)
+
+        if trailer:
+            trailers_added += 1
+
+        # =====================================================
+        # CREATE MOVIE OBJECT
+        # =====================================================
+
+        movie_data = {
+
+            "id": imdb_id if imdb_id else tmdb_id,
+
+            "tmdb_id": int(tmdb_id)
+            if tmdb_id
+            else "",
+
+            "title": movie.get(
+                "title",
+                ""
+            ),
+
+            "year": int(year)
+            if year
+            else "",
+
+            "genre": ", ".join(genres),
+
+            "rating": movie.get(
+                "vote_average",
+                0
+            ),
+
+            "poster": poster,
+
+            "description": movie.get(
+                "overview",
+                ""
+            ),
+
+            "video": video,
+
+            "trailer": trailer
+        }
+
+        movies.append(movie_data)
+
+        new_movies += 1
+
+    except requests.RequestException as error:
 
         print(
-            f"Fetching full details: "
-            f"TMDb ID {tmdb_id}"
+            f"  FAILED (network/TMDb error) for "
+            f"IMDb={imdb_id}, TMDb={tmdb_id}: {error}"
         )
 
-        details_url = (
-            f"https://api.themoviedb.org/3/movie/"
-            f"{tmdb_id}?language=en-US&append_to_response=videos"
-        )
-
-        details_response = requests.get(
-            details_url,
-            headers=headers
-        )
-
-        details_response.raise_for_status()
-
-        movie = details_response.json()
-
-    # =========================================================
-    # INVALID ENTRY
-    # =========================================================
-
-    else:
-
-        print(
-            f"Invalid movie entry: "
-            f"{item}"
-        )
+        failed_movies += 1
 
         continue
 
-    # =========================================================
-    # UPDATE imdb_list.json
-    #
-    # This is the important part.
-    #
-    # The IMDb ID comes directly from the movie details
-    # response, so NO additional TMDb request is needed.
-    # =========================================================
+    except (KeyError, ValueError, TypeError) as error:
 
-    original_item = dict(item)
-
-    if imdb_id:
-        item["imdb"] = imdb_id
-
-    if tmdb_id:
-        item["tmdb"] = str(tmdb_id)
-
-    if item != original_item:
-        updated_entries += 1
-
-    # =========================================================
-    # GENRES
-    # =========================================================
-
-    genres = [
-        genre_lookup.get(
-            genre["id"],
-            str(genre["id"])
-        )
-        for genre in movie.get("genres", [])
-    ]
-
-    # =========================================================
-    # POSTER
-    # =========================================================
-
-    poster = ""
-
-    if movie.get("poster_path"):
-
-        poster = (
-            "https://image.tmdb.org/t/p/w500"
-            + movie["poster_path"]
+        print(
+            f"  FAILED (unexpected data) for "
+            f"IMDb={imdb_id}, TMDb={tmdb_id}: {error}"
         )
 
-    # =========================================================
-    # YEAR
-    # =========================================================
+        failed_movies += 1
 
-    year = ""
-
-    if movie.get("release_date"):
-
-        year = movie["release_date"][:4]
-
-    # =========================================================
-    # VIDEO
-    # =========================================================
-
-    video = ""
-
-    if imdb_id:
-
-        video = (
-            f"https://streamimdb.ru/embed/movie/"
-            f"{imdb_id}"
-        )
-
-    # =========================================================
-    # TRAILER
-    #
-    # Comes free from the same request above thanks to
-    # append_to_response=videos — no extra TMDb call.
-    # =========================================================
-
-    trailer = get_trailer(movie)
-
-    if trailer:
-        trailers_added += 1
-
-    # =========================================================
-    # CREATE MOVIE OBJECT
-    # =========================================================
-
-    movie_data = {
-
-        "id": imdb_id if imdb_id else tmdb_id,
-
-        "tmdb_id": int(tmdb_id)
-        if tmdb_id
-        else "",
-
-        "title": movie.get(
-            "title",
-            ""
-        ),
-
-        "year": int(year)
-        if year
-        else "",
-
-        "genre": ", ".join(genres),
-
-        "rating": movie.get(
-            "vote_average",
-            0
-        ),
-
-        "poster": poster,
-
-        "description": movie.get(
-            "overview",
-            ""
-        ),
-
-        "video": video,
-
-        "trailer": trailer
-    }
-
-    movies.append(movie_data)
-
-    new_movies += 1
+        continue
 
 # =============================================================
 # SAVE imdb_list.json
@@ -544,5 +577,6 @@ print(f"Cached movies:   {cached_movies}")
 print(f"New movies:      {new_movies}")
 print(f"Updated entries: {updated_entries}")
 print(f"Trailers added:  {trailers_added}")
+print(f"Failed movies:   {failed_movies}")
 print(f"Total movies:    {len(movies)}")
 print("========================================")
