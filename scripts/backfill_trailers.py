@@ -4,10 +4,14 @@ import time
 import requests
 
 # =============================================================
-# ONE-TIME TRAILER BACKFILL
+# ONE-TIME MEDIA BACKFILL
 #
-# Goes through data/movies.json once and fills in a "trailer"
-# field for any movie that doesn't have one yet.
+# Goes through data/movies.json once and fills in "trailer"
+# and "backdrop" for any movie missing either one.
+#
+# Uses append_to_response=videos on the movie-details endpoint,
+# so both fields come from a SINGLE request per movie — same
+# cost as backfilling trailer alone.
 #
 # This is separate from generate_movies.py on purpose: the
 # normal pipeline should stay at 0 TMDb requests for cached
@@ -36,24 +40,9 @@ movies_file = "data/movies.json"
 # official YouTube trailer, fall back to the first one found.
 # =============================================================
 
-def get_trailer(tmdb_id):
+def get_trailer(details):
 
-    url = (
-        f"https://api.themoviedb.org/3/movie/"
-        f"{tmdb_id}/videos?language=en-US"
-    )
-
-    response = requests.get(
-        url,
-        headers=headers,
-        timeout=15
-    )
-
-    response.raise_for_status()
-
-    data = response.json()
-
-    videos = data.get("results", [])
+    videos = details.get("videos", {}).get("results", [])
 
     youtube_trailers = [
         v for v in videos
@@ -84,6 +73,30 @@ def get_trailer(tmdb_id):
 
 
 # =============================================================
+# GET DETAILS
+#
+# One request, returns both videos and backdrop_path.
+# =============================================================
+
+def get_details(tmdb_id):
+
+    url = (
+        f"https://api.themoviedb.org/3/movie/"
+        f"{tmdb_id}?language=en-US&append_to_response=videos"
+    )
+
+    response = requests.get(
+        url,
+        headers=headers,
+        timeout=15
+    )
+
+    response.raise_for_status()
+
+    return response.json()
+
+
+# =============================================================
 # LOAD movies.json
 # =============================================================
 
@@ -98,8 +111,9 @@ if not isinstance(movies, list):
 # BACKFILL
 # =============================================================
 
-updated = 0
-skipped_has_trailer = 0
+trailers_updated = 0
+backdrops_updated = 0
+skipped_complete = 0
 skipped_no_tmdb_id = 0
 failed = 0
 
@@ -107,9 +121,12 @@ for movie in movies:
 
     title = movie.get("title", "Unknown")
 
-    # Already has a trailer, nothing to do
-    if movie.get("trailer"):
-        skipped_has_trailer += 1
+    needs_trailer = not movie.get("trailer")
+    needs_backdrop = not movie.get("backdrop")
+
+    # Already has both, nothing to do
+    if not needs_trailer and not needs_backdrop:
+        skipped_complete += 1
         continue
 
     tmdb_id = movie.get("tmdb_id")
@@ -119,18 +136,40 @@ for movie in movies:
         skipped_no_tmdb_id += 1
         continue
 
-    print(f"Fetching trailer: {title} (TMDb {tmdb_id})")
+    print(f"Fetching details: {title} (TMDb {tmdb_id})")
 
     try:
 
-        trailer = get_trailer(tmdb_id)
+        details = get_details(tmdb_id)
 
-        movie["trailer"] = trailer
+        if needs_trailer:
 
-        if trailer:
-            updated += 1
-        else:
-            print(f"  No YouTube trailer found for {title}")
+            trailer = get_trailer(details)
+
+            movie["trailer"] = trailer
+
+            if trailer:
+                trailers_updated += 1
+            else:
+                print(f"  No YouTube trailer found for {title}")
+
+        if needs_backdrop:
+
+            backdrop = ""
+
+            if details.get("backdrop_path"):
+
+                backdrop = (
+                    "https://image.tmdb.org/t/p/w1280"
+                    + details["backdrop_path"]
+                )
+
+            movie["backdrop"] = backdrop
+
+            if backdrop:
+                backdrops_updated += 1
+            else:
+                print(f"  No backdrop found for {title}")
 
     except requests.RequestException as error:
 
@@ -155,10 +194,11 @@ with open(movies_file, "w", encoding="utf-8") as f:
 
 print()
 print("========================================")
-print("Trailer backfill complete!")
+print("Media backfill complete!")
 print("========================================")
-print(f"Trailers added:        {updated}")
-print(f"Already had trailer:   {skipped_has_trailer}")
+print(f"Trailers added:        {trailers_updated}")
+print(f"Backdrops added:       {backdrops_updated}")
+print(f"Already complete:      {skipped_complete}")
 print(f"No tmdb_id (skipped):  {skipped_no_tmdb_id}")
 print(f"Failed:                {failed}")
 print(f"Total movies:          {len(movies)}")
