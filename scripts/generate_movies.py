@@ -426,6 +426,23 @@ for item in movie_list:
             )
 
         # =====================================================
+        # BACKDROP
+        #
+        # Comes free from the same response as poster/trailer —
+        # no extra TMDb request. Used as a full-bleed banner on
+        # the movie detail page.
+        # =====================================================
+
+        backdrop = ""
+
+        if movie.get("backdrop_path"):
+
+            backdrop = (
+                "https://image.tmdb.org/t/p/w1280"
+                + movie["backdrop_path"]
+            )
+
+        # =====================================================
         # YEAR
         # =====================================================
 
@@ -489,6 +506,8 @@ for item in movie_list:
             ),
 
             "poster": poster,
+
+            "backdrop": backdrop,
 
             "description": movie.get(
                 "overview",
