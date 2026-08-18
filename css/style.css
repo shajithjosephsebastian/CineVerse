@@ -232,13 +232,47 @@ a{
 }
 
 /* ==========================
-   Genre filter bar
+   Genre filter bar + My List toggle
 ========================== */
+.filter-row{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    margin-bottom:30px;
+    flex-wrap:wrap;
+}
+.mylist-toggle{
+    font-family:var(--font-mono);
+    font-size:.78rem;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+    color:var(--text-muted);
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:7px 16px;
+    cursor:pointer;
+    transition:.2s;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    white-space:nowrap;
+    flex-shrink:0;
+}
+.mylist-toggle:hover{
+    color:var(--text);
+    border-color:var(--crimson-bright);
+}
+.mylist-toggle.active{
+    background:var(--crimson);
+    border-color:var(--crimson);
+    color:#fff;
+    font-weight:600;
+}
 .genre-bar{
     display:flex;
     flex-wrap:wrap;
     gap:10px;
-    margin-bottom:30px;
 }
 .genre-pill{
     font-family:var(--font-mono);
@@ -334,6 +368,34 @@ a{
     display:flex;
     align-items:center;
     gap:4px;
+}
+.watchlist-btn{
+    position:absolute;
+    top:14px;
+    left:12px;
+    z-index:3;
+    width:30px;
+    height:30px;
+    border-radius:6px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(5,5,7,.65);
+    backdrop-filter:blur(4px);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:.85rem;
+    cursor:pointer;
+    transition:.2s;
+}
+.watchlist-btn:hover{
+    border-color:var(--gold);
+    color:var(--gold-bright);
+}
+.watchlist-btn.active{
+    background:var(--crimson);
+    border-color:var(--crimson);
+    color:#fff;
 }
 .movie-content{
     padding:16px 15px;
@@ -578,6 +640,78 @@ footer p:first-child{
 .back-btn:hover{
     color:var(--text);
     border-color:var(--gold);
+}
+.back-btn.active{
+    background:var(--crimson);
+    border-color:var(--crimson);
+    color:#fff;
+}
+
+/* Related / Similar Movies horizontal scroll row */
+.related-section{
+    margin-top:56px;
+}
+.related-scroll{
+    display:flex;
+    gap:18px;
+    overflow-x:auto;
+    padding-bottom:10px;
+    scrollbar-width:thin;
+    scrollbar-color:var(--border) transparent;
+}
+.related-scroll::-webkit-scrollbar{
+    height:6px;
+}
+.related-scroll::-webkit-scrollbar-thumb{
+    background:var(--border);
+    border-radius:10px;
+}
+.related-card{
+    flex:0 0 170px;
+    display:block;
+    text-decoration:none;
+    color:var(--text);
+    transition:transform .25s;
+}
+.related-card:hover{
+    transform:translateY(-4px);
+    color:var(--text);
+}
+.related-card .poster-frame{
+    border-radius:10px;
+    overflow:hidden;
+    border:1px solid var(--border);
+    transition:border-color .25s;
+}
+.related-card:hover .poster-frame{
+    border-color:var(--gold);
+}
+.related-card .movie-poster{
+    height:245px;
+}
+.related-card-title{
+    font-size:.9rem;
+    font-weight:600;
+    margin-top:10px;
+    line-height:1.3;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.related-card-year{
+    font-family:var(--font-mono);
+    font-size:.75rem;
+    color:var(--text-muted);
+    margin-top:2px;
+}
+
+@media(max-width:768px){
+    .related-card{
+        flex-basis:140px;
+    }
+    .related-card .movie-poster{
+        height:200px;
+    }
 }
 
 /* Trailer modal */
