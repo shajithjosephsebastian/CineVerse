@@ -24,6 +24,11 @@ function showNotFound(){
 function renderMovie(movie){
     document.title = `${movie.title} — CineVerse`;
 
+    if (movie.backdrop) {
+        document.getElementById("backdropHero")
+            .style.setProperty("--backdrop-image", `url("${movie.backdrop}")`);
+    }
+
     const poster = document.getElementById("moviePoster");
     poster.src = movie.poster;
     poster.alt = movie.title;
