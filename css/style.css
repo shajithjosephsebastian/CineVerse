@@ -454,6 +454,30 @@ footer p:first-child{
 /* ==========================
    Movie Detail Page
 ========================== */
+
+/* Full-bleed backdrop band behind the movie details.
+   --backdrop-image is set per-movie by movie.js; when unset,
+   this still looks intentional thanks to the gradient alone. */
+.backdrop-hero{
+    position:relative;
+    height:44vh;
+    min-height:300px;
+    max-height:460px;
+    margin-top:-4px; /* tuck under the bulb strip / navbar seam */
+    margin-bottom:-110px; /* content card overlaps up into the fade */
+    background:
+        radial-gradient(ellipse 900px 500px at 50% 0%, rgba(216,169,78,.12), transparent 65%),
+        linear-gradient(180deg, rgba(5,5,7,.35) 0%, rgba(5,5,7,.75) 55%, var(--bg) 100%),
+        var(--backdrop-image, none);
+    background-size:cover;
+    background-position:center 20%;
+}
+
+.detail-content{
+    position:relative;
+    z-index:1;
+}
+
 .back-link{
     display:inline-flex;
     align-items:center;
@@ -465,6 +489,8 @@ footer p:first-child{
     text-transform:uppercase;
     margin-top:24px;
     transition:.2s;
+    position:relative;
+    z-index:1;
 }
 .back-link:hover{
     color:var(--gold-bright);
@@ -620,6 +646,11 @@ footer p:first-child{
     }
     .detail-description{
         max-width:none;
+    }
+    .backdrop-hero{
+        height:30vh;
+        min-height:200px;
+        margin-bottom:-60px;
     }
 }
 @media(prefers-reduced-motion:reduce){
