@@ -4,6 +4,7 @@ const genreBar = document.getElementById("genreBar");
 
 let movies = [];
 let activeGenre = "All";
+let myListActive = false;
 
 // Skeleton loading placeholders while data loads
 function showSkeletons(count = 8){
@@ -44,6 +45,14 @@ function splitGenres(genreField){
         .filter(Boolean);
 }
 
+// My List toggle
+const myListToggle = document.getElementById("myListToggle");
+myListToggle.addEventListener("click", () => {
+    myListActive = !myListActive;
+    myListToggle.classList.toggle("active", myListActive);
+    applyFilters();
+});
+
 // Build genre filter pills from the loaded catalog
 function buildGenreBar(movieList){
     const allGenres = movieList.flatMap(m => splitGenres(m.genre));
@@ -67,16 +76,18 @@ function buildGenreBar(movieList){
     });
 }
 
-// Combine search + genre filters
+// Combine search + genre + watchlist filters
 function applyFilters(){
     const search = searchBox.value.toLowerCase();
+    const watchlist = getWatchlist();
     const filtered = movies.filter(movie => {
         const matchesGenre = activeGenre === "All" || splitGenres(movie.genre).includes(activeGenre);
         const matchesSearch =
             movie.title.toLowerCase().includes(search) ||
             movie.genre.toLowerCase().includes(search) ||
             (movie.description || "").toLowerCase().includes(search);
-        return matchesGenre && matchesSearch;
+        const matchesWatchlist = !myListActive || watchlist.includes(String(movie.id));
+        return matchesGenre && matchesSearch && matchesWatchlist;
     });
     displayMovies(filtered);
 }
@@ -85,11 +96,14 @@ function applyFilters(){
 function displayMovies(movieList){
     movieContainer.innerHTML = "";
     if(movieList.length === 0){
+        const message = myListActive
+            ? "Tap the bookmark icon on a movie to add it here."
+            : "Try a different title, genre, or search term.";
         movieContainer.innerHTML = `
             <div class="empty-state">
                 <i class="fa-solid fa-clapperboard"></i>
                 <h3>No movies found</h3>
-                <p>Try a different title, genre, or search term.</p>
+                <p>${message}</p>
             </div>
         `;
         return;
@@ -103,6 +117,13 @@ function displayMovies(movieList){
                         class="movie-poster"
                         alt="${movie.title}"
                         loading="lazy">
+                    <button
+                        type="button"
+                        class="watchlist-btn${isInWatchlist(movie.id) ? " active" : ""}"
+                        onclick="event.stopPropagation(); handleWatchlistToggle('${movie.id}', this)"
+                        aria-label="Toggle watchlist">
+                        <i class="fa-solid fa-bookmark"></i>
+                    </button>
                     <span class="rating-badge">
                         <i class="fa-solid fa-star"></i> ${movie.rating}
                     </span>
@@ -132,6 +153,17 @@ searchBox.addEventListener("input", applyFilters);
 // Open Movie
 function openMovie(id){
     window.location.href = `movie.html?id=${id}`;
+}
+
+// Toggle a movie's watchlist state from its card button
+function handleWatchlistToggle(id, button){
+    const inList = toggleWatchlist(id);
+    button.classList.toggle("active", inList);
+
+    // If viewing My List and an item was just removed, drop it immediately
+    if (myListActive && !inList) {
+        applyFilters();
+    }
 }
 
 loadMovies();
