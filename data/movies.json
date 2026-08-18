@@ -1298,5 +1298,18 @@
     "video": "https://streamimdb.ru/embed/movie/tt1757678",
     "trailer": "https://www.youtube.com/embed/Ma1x7ikpid8",
     "backdrop": "https://image.tmdb.org/t/p/w1280/sdZSjtGUTSN8B3al5o0f2WoQfQQ.jpg"
+  },
+  {
+    "id": "tt5177120",
+    "tmdb_id": 799583,
+    "title": "The Ministry of Ungentlemanly Warfare",
+    "year": 2024,
+    "genre": "Action, Comedy, War",
+    "rating": 6.996,
+    "poster": "https://image.tmdb.org/t/p/w500/8aF0iAKH9MJMYAZdi0Slg77RYa2.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/hm21I7yc6oYBogTloET3eXsVPlq.jpg",
+    "description": "During World War II, the British Army assigns a group of competent soldiers to carry out a mission against the Nazi forces behind enemy lines... A true story about a secret British WWII organization — the Special Operations Executive. Founded by Winston Churchill, their irregular warfare against the Germans helped to change the course of the war, and gave birth to modern black operations.",
+    "video": "https://streamimdb.ru/embed/movie/tt5177120",
+    "trailer": "https://www.youtube.com/embed/zvwDen1Wrx8"
   }
 ]
