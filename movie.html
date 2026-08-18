@@ -35,6 +35,9 @@
     </div>
 </nav>
 
+<!-- Backdrop banner, filled from TMDb's backdrop image when available -->
+<div class="backdrop-hero" id="backdropHero" aria-hidden="true"></div>
+
 <!-- Breadcrumb -->
 <div class="container">
     <a href="index.html" class="back-link">
@@ -43,7 +46,7 @@
 </div>
 
 <!-- Movie Details -->
-<div class="container py-4" id="movieDetail">
+<div class="container py-4 detail-content" id="movieDetail">
 
     <!-- Loading skeleton, shown until movie.js populates the page -->
     <div class="row" id="detailSkeleton">
