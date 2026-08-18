@@ -21,7 +21,7 @@ function showNotFound(){
     notFound.classList.remove("d-none");
 }
 
-function renderMovie(movie){
+function renderMovie(movie, allMovies){
     document.title = `${movie.title} — CineVerse`;
 
     if (movie.backdrop) {
@@ -52,9 +52,81 @@ function renderMovie(movie){
     watchButton.href = `player.html?id=${movie.id}`;
 
     setupTrailer(movie.trailer);
+    setupWatchlist(movie.id);
+    renderRelated(movie, allMovies);
 
     skeleton.classList.add("d-none");
     content.classList.remove("d-none");
+}
+
+// Toggle add/remove from the watchlist, reflecting current state on load
+function setupWatchlist(movieId){
+    const button = document.getElementById("watchlistButton");
+    const label = document.getElementById("watchlistButtonLabel");
+
+    function paint(inList){
+        button.classList.toggle("active", inList);
+        label.textContent = inList ? "In Watchlist" : "Add to Watchlist";
+    }
+
+    paint(isInWatchlist(movieId));
+
+    button.addEventListener("click", () => {
+        const inList = toggleWatchlist(movieId);
+        paint(inList);
+    });
+}
+
+// Find movies sharing at least one genre, ranked by how many genres
+// they share, then by rating. Shows nothing if there's no overlap.
+function getRelatedMovies(movie, allMovies, limit = 8){
+    const currentGenres = splitGenres(movie.genre);
+
+    return allMovies
+        .filter(m => String(m.id) !== String(movie.id))
+        .map(m => {
+            const sharedGenres = splitGenres(m.genre)
+                .filter(g => currentGenres.includes(g)).length;
+            return { movie: m, sharedGenres };
+        })
+        .filter(entry => entry.sharedGenres > 0)
+        .sort((a, b) =>
+            b.sharedGenres - a.sharedGenres ||
+            (b.movie.rating || 0) - (a.movie.rating || 0)
+        )
+        .slice(0, limit)
+        .map(entry => entry.movie);
+}
+
+function renderRelated(movie, allMovies){
+    const section = document.getElementById("relatedSection");
+    const scroll = document.getElementById("relatedScroll");
+
+    const related = getRelatedMovies(movie, allMovies);
+
+    if (related.length === 0) {
+        section.classList.add("d-none");
+        return;
+    }
+
+    scroll.innerHTML = related.map(m => `
+        <a class="related-card" href="movie.html?id=${m.id}">
+            <div class="poster-frame">
+                <img
+                    src="${m.poster}"
+                    class="movie-poster"
+                    alt="${m.title}"
+                    loading="lazy">
+                <span class="rating-badge">
+                    <i class="fa-solid fa-star"></i> ${m.rating}
+                </span>
+            </div>
+            <div class="related-card-title">${m.title}</div>
+            <div class="related-card-year">${m.year}</div>
+        </a>
+    `).join("");
+
+    section.classList.remove("d-none");
 }
 
 // Show the trailer button only if a trailer exists, and lazy-load
@@ -94,7 +166,7 @@ async function loadMovie(){
             showNotFound();
             return;
         }
-        renderMovie(movie);
+        renderMovie(movie, movies);
     }
     catch(error){
         console.error(error);
