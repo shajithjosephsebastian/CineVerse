@@ -369,6 +369,12 @@ a{
     align-items:center;
     gap:4px;
 }
+.rating-badge.rating-badge-unreleased{
+    background:var(--surface-light);
+    color:var(--text-muted);
+    border:1px solid var(--border);
+    font-weight:500;
+}
 .watchlist-btn{
     position:absolute;
     top:14px;
@@ -814,6 +820,42 @@ footer p:first-child{
 }
 .screen-frame iframe{
     border:0;
+}
+
+/* ==========================
+   404 Page
+========================== */
+.not-found-page{
+    text-align:center;
+    padding:90px 20px 60px;
+    max-width:640px;
+    margin:0 auto;
+}
+.not-found-code{
+    font-family:var(--font-display);
+    font-size:7rem;
+    line-height:1;
+    color:var(--gold);
+    letter-spacing:2px;
+    margin-top:10px;
+}
+.not-found-divider{
+    max-width:200px;
+    margin:20px auto 26px;
+}
+.not-found-message{
+    color:var(--text-muted);
+    font-size:1.05rem;
+    line-height:1.7;
+}
+
+@media(max-width:768px){
+    .not-found-code{
+        font-size:4.5rem;
+    }
+    .not-found-page{
+        padding:60px 20px 40px;
+    }
 }
 
 /* ==========================
