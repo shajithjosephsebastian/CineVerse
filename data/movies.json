@@ -1493,5 +1493,31 @@
     "description": "In 1979, a group of college students find a Sumerian Book of the Dead in an old wilderness cabin they've rented for a weekend getaway.",
     "video": "https://streamimdb.ru/embed/movie/tt0083907",
     "trailer": "https://www.youtube.com/embed/0cQmKgV0cug"
+  },
+  {
+    "id": "tt1156398",
+    "tmdb_id": 19908,
+    "title": "Zombieland",
+    "year": 2009,
+    "genre": "Comedy, Horror",
+    "rating": 7.261,
+    "poster": "https://image.tmdb.org/t/p/w500/dUkAmAyPVqubSBNRjRqCgHggZcK.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/oihWVx3imvRKujnGmSDYhfG1gI5.jpg",
+    "description": "Columbus has made a habit of running from what scares him. Tallahassee doesn't have fears. If he did, he'd kick their ever-living ass. In a world overrun by zombies, these two are perfectly evolved survivors. But now, they're about to stare down the most terrifying prospect of all: each other.",
+    "video": "https://streamimdb.ru/embed/movie/tt1156398",
+    "trailer": "https://www.youtube.com/embed/8m9EVP8X7N8"
+  },
+  {
+    "id": "tt1560220",
+    "tmdb_id": 338967,
+    "title": "Zombieland: Double Tap",
+    "year": 2019,
+    "genre": "Horror, Comedy",
+    "rating": 6.891,
+    "poster": "https://image.tmdb.org/t/p/w500/dtRbVsUb5O12WWO54SRpiMtHKC0.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/e7tMI0zVKJB2TS74TaBifIZIkCp.jpg",
+    "description": "Columbus, Tallahassee, Wichita, and Little Rock move to the American heartland as they face off against evolved zombies, fellow survivors, and the growing pains of the snarky makeshift family.",
+    "video": "https://streamimdb.ru/embed/movie/tt1560220",
+    "trailer": "https://www.youtube.com/embed/ZlW9yhUKlkQ"
   }
 ]
