@@ -1727,5 +1727,31 @@
     "description": "Bryan, a medical courier, unwittingly finds himself fighting for survival as one fateful, horrifying night collapses around him in chaos.",
     "video": "https://streamimdb.ru/embed/movie/tt35538033",
     "trailer": "https://www.youtube.com/embed/mNd1gb19A-c"
+  },
+  {
+    "id": "tt13024674",
+    "tmdb_id": 796499,
+    "title": "Army of Thieves",
+    "year": 2021,
+    "genre": "Action, Crime, Comedy",
+    "rating": 6.797,
+    "poster": "https://image.tmdb.org/t/p/w500/j04Oepj3LGTWSb1ltXm0pcy50Xq.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/bo4evsmoKb16AD1OhHgVOlgJtBw.jpg",
+    "description": "A mysterious woman recruits bank teller Ludwig Dieter to lead a group of aspiring thieves on a top-secret heist during the early stages of the zombie apocalypse.",
+    "video": "https://streamimdb.ru/embed/movie/tt13024674",
+    "trailer": "https://www.youtube.com/embed/Ith2WetKXlg"
+  },
+  {
+    "id": "tt0993840",
+    "tmdb_id": 503736,
+    "title": "Army of the Dead",
+    "year": 2021,
+    "genre": "Crime, Action, Horror",
+    "rating": 6.188,
+    "poster": "https://image.tmdb.org/t/p/w500/gCIsRxzcxvmuLYeAvWgoOuSxszF.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/c0izdYdnTe4uMRifHgvTA85wPz0.jpg",
+    "description": "Following a zombie outbreak in Las Vegas, a group of mercenaries take the ultimate gamble: venturing into the quarantine zone to pull off the greatest heist ever attempted.",
+    "video": "https://streamimdb.ru/embed/movie/tt0993840",
+    "trailer": "https://www.youtube.com/embed/tI1JGPhYBS8"
   }
 ]
