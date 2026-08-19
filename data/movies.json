@@ -1753,5 +1753,18 @@
     "description": "Following a zombie outbreak in Las Vegas, a group of mercenaries take the ultimate gamble: venturing into the quarantine zone to pull off the greatest heist ever attempted.",
     "video": "https://streamimdb.ru/embed/movie/tt0993840",
     "trailer": "https://www.youtube.com/embed/tI1JGPhYBS8"
+  },
+  {
+    "id": "tt8850222",
+    "tmdb_id": 581392,
+    "title": "Peninsula",
+    "year": 2020,
+    "genre": "Horror, Action, Thriller, Adventure",
+    "rating": 6.704,
+    "poster": "https://image.tmdb.org/t/p/w500/eeqvAzCccAZOhU3RfbvHB3s44S6.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/gEjNlhZhyHeto6Fy5wWy5Uk3A9D.jpg",
+    "description": "A soldier and his team battle hordes of post-apocalyptic zombies in the wastelands of the Korean Peninsula.",
+    "video": "https://streamimdb.ru/embed/movie/tt8850222",
+    "trailer": "https://www.youtube.com/embed/cRvHl1dThlg"
   }
 ]
