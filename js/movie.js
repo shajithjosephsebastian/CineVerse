@@ -10,6 +10,19 @@ function splitGenres(genreField){
         .filter(Boolean);
 }
 
+// TMDb reports 0.0 when a movie has no votes yet (usually unreleased), not
+// as an actual rating — showing "⭐ 0.0" would misread as a real bad score.
+function ratingBadgeContent(rating){
+    if (!rating || rating <= 0) {
+        return `<i class="fa-regular fa-clock"></i> Unreleased`;
+    }
+    return `<i class="fa-solid fa-star"></i> ${rating}`;
+}
+
+function isUnreleasedRating(rating){
+    return !rating || rating <= 0;
+}
+
 function getMovieId(){
     const params = new URLSearchParams(window.location.search);
     return params.get("id");
@@ -21,8 +34,42 @@ function showNotFound(){
     notFound.classList.remove("d-none");
 }
 
+// Updates an existing <meta> tag's content by property/name attribute.
+// NOTE: this only affects what's in the DOM after JS runs. Most link-preview
+// bots (WhatsApp, Discord, iMessage, etc.) fetch the raw HTML and do NOT
+// execute JavaScript, so this won't make shared movie links show that
+// movie's own poster/title in a chat preview — those will keep showing the
+// generic tags from the <head>. True per-movie previews would need the page
+// pre-rendered server-side (or at build time) with the movie's data already
+// baked into the HTML. This is still worth doing for the browser tab title/
+// icon, bookmarks, and any crawler that does run JS.
+function setMetaTag(attr, key, content){
+    const selector = `meta[${attr}="${key}"]`;
+    let tag = document.querySelector(selector);
+    if (!tag) {
+        tag = document.createElement("meta");
+        tag.setAttribute(attr, key);
+        document.head.appendChild(tag);
+    }
+    tag.setAttribute("content", content);
+}
+
+function updateMetaForMovie(movie){
+    const description = movie.description
+        ? movie.description.slice(0, 160)
+        : "Browse movies, watch trailers, and build your watchlist on CineVerse.";
+
+    setMetaTag("property", "og:title", `${movie.title} — CineVerse`);
+    setMetaTag("property", "og:description", description);
+
+    if (movie.backdrop || movie.poster) {
+        setMetaTag("property", "og:image", movie.backdrop || movie.poster);
+    }
+}
+
 function renderMovie(movie, allMovies){
     document.title = `${movie.title} — CineVerse`;
+    updateMetaForMovie(movie);
 
     if (movie.backdrop) {
         document.getElementById("backdropHero")
@@ -34,7 +81,10 @@ function renderMovie(movie, allMovies){
     poster.alt = movie.title;
 
     document.getElementById("movieTitle").textContent = movie.title;
-    document.getElementById("movieRating").textContent = movie.rating;
+
+    const ratingBadge = document.getElementById("movieRatingBadge");
+    ratingBadge.classList.toggle("rating-badge-unreleased", isUnreleasedRating(movie.rating));
+    ratingBadge.innerHTML = ratingBadgeContent(movie.rating);
 
     const meta = document.getElementById("movieMeta");
     const genreChips = splitGenres(movie.genre)
@@ -117,8 +167,8 @@ function renderRelated(movie, allMovies){
                     class="movie-poster"
                     alt="${m.title}"
                     loading="lazy">
-                <span class="rating-badge">
-                    <i class="fa-solid fa-star"></i> ${m.rating}
+                <span class="rating-badge${isUnreleasedRating(m.rating) ? " rating-badge-unreleased" : ""}">
+                    ${ratingBadgeContent(m.rating)}
                 </span>
             </div>
             <div class="related-card-title">${m.title}</div>
