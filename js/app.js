@@ -45,6 +45,15 @@ function splitGenres(genreField){
         .filter(Boolean);
 }
 
+// TMDb reports 0.0 when a movie has no votes yet (usually unreleased), not
+// as an actual rating — showing "⭐ 0.0" would misread as a real bad score.
+function ratingBadgeHTML(rating){
+    if (!rating || rating <= 0) {
+        return `<span class="rating-badge rating-badge-unreleased"><i class="fa-regular fa-clock"></i> Unreleased</span>`;
+    }
+    return `<span class="rating-badge"><i class="fa-solid fa-star"></i> ${rating}</span>`;
+}
+
 // My List toggle
 const myListToggle = document.getElementById("myListToggle");
 myListToggle.addEventListener("click", () => {
@@ -124,9 +133,7 @@ function displayMovies(movieList){
                         aria-label="Toggle watchlist">
                         <i class="fa-solid fa-bookmark"></i>
                     </button>
-                    <span class="rating-badge">
-                        <i class="fa-solid fa-star"></i> ${movie.rating}
-                    </span>
+                    ${ratingBadgeHTML(movie.rating)}
                 </div>
                 <div class="movie-content">
                     <div class="movie-title">
