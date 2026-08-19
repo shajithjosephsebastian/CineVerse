@@ -1454,5 +1454,31 @@
     "description": "Shaun lives a supremely uneventful life, which revolves around his girlfriend, his mother, and, above all, his local pub. This gentle routine is threatened when the dead return to life and make strenuous attempts to snack on ordinary Londoners.",
     "video": "https://streamimdb.ru/embed/movie/tt0365748",
     "trailer": "https://www.youtube.com/embed/_QuY93B2FS0"
+  },
+  {
+    "id": "tt0363547",
+    "tmdb_id": 924,
+    "title": "Dawn of the Dead",
+    "year": 2004,
+    "genre": "Horror, Science Fiction, Action",
+    "rating": 7.088,
+    "poster": "https://image.tmdb.org/t/p/w500/ttquyxStEEctzghtA2f4PUGprDr.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/rspbS1E9wJtslrb8amfJgtMBUVh.jpg",
+    "description": "A group of survivors take refuge in a shopping mall after the world is taken over by aggressive, flesh-eating zombies.",
+    "video": "https://streamimdb.ru/embed/movie/tt0363547",
+    "trailer": "https://www.youtube.com/embed/DV8mJcuYVaA"
+  },
+  {
+    "id": "tt1077258",
+    "tmdb_id": 1992,
+    "title": "Planet Terror",
+    "year": 2007,
+    "genre": "Horror, Action, Thriller",
+    "rating": 6.692,
+    "poster": "https://image.tmdb.org/t/p/w500/3705GxG0RN9XDV5y9IiXKYHw1fK.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/iZBUOcku0xv9MMfiEMXiDqErPXl.jpg",
+    "description": "Two doctors find their graveyard shift inundated with townspeople ravaged by sores. Among the wounded is Cherry Darling, a dancer whose leg was ripped from her body. As the invalids quickly become enraged aggressors, Cherry and her ex-boyfriend El Wray lead a team of accidental warriors into the night.",
+    "video": "https://streamimdb.ru/embed/movie/tt1077258",
+    "trailer": "https://www.youtube.com/embed/j1cjXKdox0M"
   }
 ]
