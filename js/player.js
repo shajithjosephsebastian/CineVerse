@@ -34,8 +34,13 @@ fetch("data/movies.json")
         const genreChips = splitGenres(movie.genre)
             .map(g => `<span class="meta-chip"><i class="fa-solid fa-masks-theater"></i> ${g}</span>`)
             .join("");
+
+        const ratingChip = (!movie.rating || movie.rating <= 0)
+            ? `<span class="meta-chip"><i class="fa-regular fa-clock"></i> Unreleased</span>`
+            : `<span class="meta-chip"><i class="fa-solid fa-star"></i> ${movie.rating}</span>`;
+
         document.getElementById("playerMeta").innerHTML = `
-            <span class="meta-chip"><i class="fa-solid fa-star"></i> ${movie.rating}</span>
+            ${ratingChip}
             <span class="meta-chip"><i class="fa-regular fa-calendar"></i> ${movie.year}</span>
             ${genreChips}
         `;
