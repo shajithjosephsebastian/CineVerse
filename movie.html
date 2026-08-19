@@ -5,6 +5,16 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
     <title>CineVerse — Movie Details</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <!-- Open Graph / social sharing (generic fallback — see note in movie.js
+         about why this can't be movie-specific on a static site) -->
+    <meta property="og:type" content="video.movie">
+    <meta property="og:site_name" content="CineVerse">
+    <meta property="og:title" content="CineVerse — Movie Details">
+    <meta property="og:description" content="Browse movies, watch trailers, and build your watchlist on CineVerse.">
+    <meta property="og:image" content="https://shajithjosephsebastian.github.io/CineVerse/assets/og-banner.jpg">
+    <meta name="twitter:card" content="summary_large_image">
     <!-- Bootstrap -->
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
@@ -71,9 +81,7 @@
                     id="moviePoster"
                     class="img-fluid movie-poster detail-poster"
                     alt="">
-                <span class="rating-badge" id="movieRatingBadge">
-                    <i class="fa-solid fa-star"></i> <span id="movieRating"></span>
-                </span>
+                <span class="rating-badge" id="movieRatingBadge"></span>
             </div>
         </div>
         <!-- Details -->
