@@ -1441,5 +1441,18 @@
     "description": "The living dead have taken over the world, and the remaining humans live in a walled city to protect themselves as they cope with the situation.",
     "video": "https://streamimdb.ru/embed/movie/tt0418819",
     "trailer": "https://www.youtube.com/embed/atXJB9luiko"
+  },
+  {
+    "id": "tt0365748",
+    "tmdb_id": 747,
+    "title": "Shaun of the Dead",
+    "year": 2004,
+    "genre": "Horror, Comedy",
+    "rating": 7.545,
+    "poster": "https://image.tmdb.org/t/p/w500/dgXPhzNJH8HFTBjXPB177yNx6RI.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/wb34q3VgzHgL8frVMywrN3wXmqx.jpg",
+    "description": "Shaun lives a supremely uneventful life, which revolves around his girlfriend, his mother, and, above all, his local pub. This gentle routine is threatened when the dead return to life and make strenuous attempts to snack on ordinary Londoners.",
+    "video": "https://streamimdb.ru/embed/movie/tt0365748",
+    "trailer": "https://www.youtube.com/embed/_QuY93B2FS0"
   }
 ]
