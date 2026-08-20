@@ -147,6 +147,30 @@ def get_trailer(movie):
 
     return f"https://www.youtube.com/embed/{key}"
 
+def get_director(movie):
+    crew = movie.get("credits", {}).get("crew", [])
+    for person in crew:
+        if person.get("job") == "Director":
+            return person.get("name", "")
+    return ""
+
+
+def get_cast(movie, limit=5):
+    cast = movie.get("credits", {}).get("cast", [])
+    names = [person.get("name", "") for person in cast[:limit]]
+    return ", ".join(n for n in names if n)
+
+
+def get_certification(movie):
+    results = movie.get("release_dates", {}).get("results", [])
+    for entry in results:
+        if entry.get("iso_3166_1") == "US":
+            for release in entry.get("release_dates", []):
+                cert = release.get("certification")
+                if cert:
+                    return cert
+    return ""
+
 
 # =============================================================
 # PROCESS MOVIES
@@ -265,7 +289,7 @@ for item in movie_list:
 
             url = (
                 f"https://api.themoviedb.org/3/movie/"
-                f"{tmdb_id}?language=en-US&append_to_response=videos"
+                f"{tmdb_id}?language=en-US&append_to_response=videos,credits,release_dates"
             )
 
             response = requests.get(
@@ -354,7 +378,7 @@ for item in movie_list:
 
             details_url = (
                 f"https://api.themoviedb.org/3/movie/"
-                f"{tmdb_id}?language=en-US&append_to_response=videos"
+                f"{tmdb_id}?language=en-US&append_to_response=videos,credits,release_dates"
             )
 
             details_response = requests.get(
@@ -516,7 +540,15 @@ for item in movie_list:
 
             "video": video,
 
-            "trailer": trailer
+            "trailer": trailer,
+
+            "runtime": movie.get("runtime") or "",
+
+            "director": get_director(movie),
+
+            "cast": get_cast(movie),
+
+            "certification": get_certification(movie)
         }
 
         movies.append(movie_data)
