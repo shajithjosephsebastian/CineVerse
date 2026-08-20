@@ -1,10 +1,12 @@
 const movieContainer = document.getElementById("movieContainer");
 const searchBox = document.querySelector(".search-box");
 const genreBar = document.getElementById("genreBar");
+const sortSelect = document.getElementById("sortSelect");
 
 let movies = [];
 let activeGenre = "All";
 let myListActive = false;
+let activeSort = "newest";
 
 // Skeleton loading placeholders while data loads
 function showSkeletons(count = 8){
@@ -18,15 +20,22 @@ function showSkeletons(count = 8){
 // Load Movies
 async function loadMovies(){
     showSkeletons();
+
     try {
         const response = await fetch("data/movies.json");
-        if (!response.ok) throw new Error("Request failed");
+
+        if (!response.ok) {
+            throw new Error("Request failed");
+        }
+
         movies = await response.json();
+
         buildGenreBar(movies);
-        displayMovies(movies);
+        applyFilters();
     }
     catch(error){
         console.error(error);
+
         movieContainer.innerHTML = `
             <div class="error-state">
                 <i class="fa-solid fa-film"></i>
@@ -37,7 +46,8 @@ async function loadMovies(){
     }
 }
 
-// Split a movie's genre field into individual genre names (handles "Action, Adventure")
+// Split a movie's genre field into individual genre names
+// Handles "Action, Adventure"
 function splitGenres(genreField){
     return (genreField || "")
         .split(",")
@@ -45,27 +55,174 @@ function splitGenres(genreField){
         .filter(Boolean);
 }
 
-// TMDb reports 0.0 when a movie has no votes yet (usually unreleased), not
-// as an actual rating — showing "⭐ 0.0" would misread as a real bad score.
+// TMDb reports 0.0 when a movie has no votes yet (usually unreleased),
+// not as an actual rating.
 function ratingBadgeHTML(rating){
     if (!rating || rating <= 0) {
-        return `<span class="rating-badge rating-badge-unreleased"><i class="fa-regular fa-clock"></i> Unreleased</span>`;
+        return `
+            <span class="rating-badge rating-badge-unreleased">
+                <i class="fa-regular fa-clock"></i>
+                Unreleased
+            </span>
+        `;
     }
-    return `<span class="rating-badge"><i class="fa-solid fa-star"></i> ${rating}</span>`;
+
+    return `
+        <span class="rating-badge">
+            <i class="fa-solid fa-star"></i>
+            ${rating}
+        </span>
+    `;
 }
 
-// My List toggle
+// =============================================================
+// SORTING
+// =============================================================
+
+function sortMovies(movieList){
+
+    const sorted = [...movieList];
+
+    switch(activeSort){
+
+        // -----------------------------------------------------
+        // NEWEST ADDED
+        //
+        // movies.json follows the order of imdb_list.json.
+        // The newest movie is therefore at the end.
+        // -----------------------------------------------------
+
+        case "newest":
+            return sorted.reverse();
+
+        // -----------------------------------------------------
+        // RATING HIGH → LOW
+        // -----------------------------------------------------
+
+        case "rating-desc":
+            return sorted.sort((a, b) => {
+                const ratingA = Number(a.rating) || 0;
+                const ratingB = Number(b.rating) || 0;
+
+                return ratingB - ratingA;
+            });
+
+        // -----------------------------------------------------
+        // RATING LOW → HIGH
+        // -----------------------------------------------------
+
+        case "rating-asc":
+            return sorted.sort((a, b) => {
+                const ratingA = Number(a.rating) || 0;
+                const ratingB = Number(b.rating) || 0;
+
+                return ratingA - ratingB;
+            });
+
+        // -----------------------------------------------------
+        // YEAR NEWEST → OLDEST
+        // -----------------------------------------------------
+
+        case "year-desc":
+            return sorted.sort((a, b) => {
+                const yearA = Number(a.year) || 0;
+                const yearB = Number(b.year) || 0;
+
+                return yearB - yearA;
+            });
+
+        // -----------------------------------------------------
+        // YEAR OLDEST → NEWEST
+        // -----------------------------------------------------
+
+        case "year-asc":
+            return sorted.sort((a, b) => {
+                const yearA = Number(a.year) || 0;
+                const yearB = Number(b.year) || 0;
+
+                return yearA - yearB;
+            });
+
+        // -----------------------------------------------------
+        // TITLE A → Z
+        // -----------------------------------------------------
+
+        case "title-asc":
+            return sorted.sort((a, b) =>
+                (a.title || "").localeCompare(
+                    b.title || "",
+                    undefined,
+                    { sensitivity: "base" }
+                )
+            );
+
+        // -----------------------------------------------------
+        // TITLE Z → A
+        // -----------------------------------------------------
+
+        case "title-desc":
+            return sorted.sort((a, b) =>
+                (b.title || "").localeCompare(
+                    a.title || "",
+                    undefined,
+                    { sensitivity: "base" }
+                )
+            );
+
+        default:
+            return sorted;
+    }
+}
+
+// =============================================================
+// SORT CONTROL
+// =============================================================
+
+if (sortSelect){
+
+    sortSelect.addEventListener("change", () => {
+
+        activeSort = sortSelect.value;
+
+        applyFilters();
+
+    });
+
+}
+
+// =============================================================
+// MY LIST TOGGLE
+// =============================================================
+
 const myListToggle = document.getElementById("myListToggle");
+
 myListToggle.addEventListener("click", () => {
+
     myListActive = !myListActive;
-    myListToggle.classList.toggle("active", myListActive);
+
+    myListToggle.classList.toggle(
+        "active",
+        myListActive
+    );
+
     applyFilters();
 });
 
-// Build genre filter pills from the loaded catalog
+// =============================================================
+// BUILD GENRE FILTER PILLS
+// =============================================================
+
 function buildGenreBar(movieList){
-    const allGenres = movieList.flatMap(m => splitGenres(m.genre));
-    const genres = ["All", ...new Set(allGenres)];
+
+    const allGenres = movieList.flatMap(
+        m => splitGenres(m.genre)
+    );
+
+    const genres = [
+        "All",
+        ...new Set(allGenres)
+    ];
+
     genreBar.innerHTML = genres.map(genre => `
         <button
             type="button"
@@ -76,38 +233,80 @@ function buildGenreBar(movieList){
     `).join("");
 
     genreBar.querySelectorAll(".genre-pill").forEach(pill => {
+
         pill.addEventListener("click", () => {
+
             activeGenre = pill.dataset.genre;
-            genreBar.querySelectorAll(".genre-pill").forEach(p => p.classList.remove("active"));
+
+            genreBar
+                .querySelectorAll(".genre-pill")
+                .forEach(p =>
+                    p.classList.remove("active")
+                );
+
             pill.classList.add("active");
+
             applyFilters();
+
         });
+
     });
 }
 
-// Combine search + genre + watchlist filters
+// =============================================================
+// COMBINE SEARCH + GENRE + WATCHLIST + SORT
+// =============================================================
+
 function applyFilters(){
+
     const search = searchBox.value.toLowerCase();
+
     const watchlist = getWatchlist();
+
     const filtered = movies.filter(movie => {
-        const matchesGenre = activeGenre === "All" || splitGenres(movie.genre).includes(activeGenre);
+
+        const matchesGenre =
+            activeGenre === "All" ||
+            splitGenres(movie.genre).includes(activeGenre);
+
         const matchesSearch =
             movie.title.toLowerCase().includes(search) ||
             movie.genre.toLowerCase().includes(search) ||
-            (movie.description || "").toLowerCase().includes(search);
-        const matchesWatchlist = !myListActive || watchlist.includes(String(movie.id));
-        return matchesGenre && matchesSearch && matchesWatchlist;
+            (movie.description || "")
+                .toLowerCase()
+                .includes(search);
+
+        const matchesWatchlist =
+            !myListActive ||
+            watchlist.includes(String(movie.id));
+
+        return (
+            matchesGenre &&
+            matchesSearch &&
+            matchesWatchlist
+        );
+
     });
-    displayMovies(filtered);
+
+    const sorted = sortMovies(filtered);
+
+    displayMovies(sorted);
 }
 
-// Display Movies
+// =============================================================
+// DISPLAY MOVIES
+// =============================================================
+
 function displayMovies(movieList){
+
     movieContainer.innerHTML = "";
+
     if(movieList.length === 0){
+
         const message = myListActive
             ? "Tap the bookmark icon on a movie to add it here."
             : "Try a different title, genre, or search term.";
+
         movieContainer.innerHTML = `
             <div class="empty-state">
                 <i class="fa-solid fa-clapperboard"></i>
@@ -115,62 +314,125 @@ function displayMovies(movieList){
                 <p>${message}</p>
             </div>
         `;
+
         return;
     }
+
     movieContainer.innerHTML = movieList.map((movie, i) => `
+
         <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-            <div class="movie-card" style="animation-delay:${Math.min(i, 8) * 0.05}s" onclick="openMovie('${movie.id}')">
+
+            <div
+                class="movie-card"
+                style="animation-delay:${Math.min(i, 8) * 0.05}s"
+                onclick="openMovie('${movie.id}')">
+
                 <div class="poster-frame">
+
                     <img
                         src="${movie.poster}"
                         class="movie-poster"
                         alt="${movie.title}"
                         loading="lazy">
+
                     <button
                         type="button"
                         class="watchlist-btn${isInWatchlist(movie.id) ? " active" : ""}"
                         onclick="event.stopPropagation(); handleWatchlistToggle('${movie.id}', this)"
                         aria-label="Toggle watchlist">
+
                         <i class="fa-solid fa-bookmark"></i>
+
                     </button>
+
                     ${ratingBadgeHTML(movie.rating)}
+
                 </div>
+
                 <div class="movie-content">
+
                     <div class="movie-title">
                         ${movie.title}
                     </div>
+
                     <div class="movie-info">
-                        <span><i class="fa-regular fa-calendar"></i> ${movie.year}</span>
-                        <span><i class="fa-solid fa-masks-theater"></i> ${movie.genre}</span>
+
+                        <span>
+                            <i class="fa-regular fa-calendar"></i>
+                            ${movie.year}
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-masks-theater"></i>
+                            ${movie.genre}
+                        </span>
+
                     </div>
+
                     <button
                         class="watch-btn"
                         onclick="event.stopPropagation(); openMovie('${movie.id}')">
+
                         Watch Now
+
                     </button>
+
                 </div>
+
             </div>
+
         </div>
+
     `).join("");
 }
 
-// Search
-searchBox.addEventListener("input", applyFilters);
+// =============================================================
+// SEARCH
+// =============================================================
 
-// Open Movie
+searchBox.addEventListener(
+    "input",
+    applyFilters
+);
+
+// =============================================================
+// OPEN MOVIE
+// =============================================================
+
 function openMovie(id){
-    window.location.href = `movie.html?id=${id}`;
+
+    window.location.href =
+        `movie.html?id=${id}`;
+
 }
 
-// Toggle a movie's watchlist state from its card button
+// =============================================================
+// TOGGLE WATCHLIST
+// =============================================================
+
 function handleWatchlistToggle(id, button){
-    const inList = toggleWatchlist(id);
-    button.classList.toggle("active", inList);
 
-    // If viewing My List and an item was just removed, drop it immediately
-    if (myListActive && !inList) {
+    const inList = toggleWatchlist(
+        id
+    );
+
+    button.classList.toggle(
+        "active",
+        inList
+    );
+
+    // If viewing My List and an item was just removed,
+    // drop it immediately.
+    if(myListActive && !inList){
+
         applyFilters();
+
     }
+
 }
+
+// =============================================================
+// START
+// =============================================================
 
 loadMovies();
