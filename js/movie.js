@@ -87,11 +87,23 @@ function renderMovie(movie, allMovies){
     ratingBadge.innerHTML = ratingBadgeContent(movie.rating);
 
     const meta = document.getElementById("movieMeta");
+
     const genreChips = splitGenres(movie.genre)
         .map(g => `<span class="meta-chip"><i class="fa-solid fa-masks-theater"></i> ${g}</span>`)
         .join("");
+
+    const runtimeChip = movie.runtime
+        ? `<span class="meta-chip"><i class="fa-regular fa-clock"></i> ${Math.floor(movie.runtime / 60)}h ${movie.runtime % 60}m</span>`
+        : "";
+
+    const certChip = movie.certification
+        ? `<span class="meta-chip"><i class="fa-solid fa-shield-halved"></i> ${movie.certification}</span>`
+        : "";
+
     meta.innerHTML = `
         <span class="meta-chip"><i class="fa-regular fa-calendar"></i> ${movie.year}</span>
+        ${runtimeChip}
+        ${certChip}
         ${genreChips}
     `;
 
@@ -103,10 +115,31 @@ function renderMovie(movie, allMovies){
 
     setupTrailer(movie.trailer);
     setupWatchlist(movie.id);
+    setupCredits(movie);
     renderRelated(movie, allMovies);
 
     skeleton.classList.add("d-none");
     content.classList.remove("d-none");
+}
+
+// =============================================================
+// CREDITS
+// =============================================================
+
+function setupCredits(movie){
+    const el = document.getElementById("movieCredits");
+
+    let html = "";
+
+    if (movie.director) {
+        html += `<p><span class="credit-label">Director</span> ${movie.director}</p>`;
+    }
+
+    if (movie.cast) {
+        html += `<p><span class="credit-label">Cast</span> ${movie.cast}</p>`;
+    }
+
+    el.innerHTML = html;
 }
 
 // Toggle add/remove from the watchlist, reflecting current state on load
@@ -196,6 +229,7 @@ function setupTrailer(trailerUrl){
     trailerModalEl.addEventListener("show.bs.modal", () => {
         trailerFrame.src = `${trailerUrl}?autoplay=1`;
     });
+
     trailerModalEl.addEventListener("hidden.bs.modal", () => {
         trailerFrame.src = "";
     });
@@ -203,24 +237,39 @@ function setupTrailer(trailerUrl){
 
 async function loadMovie(){
     const id = getMovieId();
+
     if (!id) {
         showNotFound();
         return;
     }
+
     try {
+
         const response = await fetch("data/movies.json");
-        if (!response.ok) throw new Error("Request failed");
+
+        if (!response.ok) {
+            throw new Error("Request failed");
+        }
+
         const movies = await response.json();
-        const movie = movies.find(m => String(m.id) === String(id));
+
+        const movie = movies.find(
+            m => String(m.id) === String(id)
+        );
+
         if (!movie) {
             showNotFound();
             return;
         }
+
         renderMovie(movie, movies);
+
     }
     catch(error){
+
         console.error(error);
         showNotFound();
+
     }
 }
 
