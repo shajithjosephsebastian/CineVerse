@@ -335,6 +335,77 @@ a{
 }
 
 /* ==========================
+   Sort control
+========================== */
+
+.sort-wrap{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-left:auto;
+    flex-shrink:0;
+}
+
+.sort-label{
+    font-family:var(--font-mono);
+    font-size:.78rem;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+    color:var(--text-muted);
+    display:flex;
+    align-items:center;
+    gap:6px;
+    white-space:nowrap;
+}
+
+.sort-label i{
+    color:var(--gold);
+}
+
+.sort-select{
+    font-family:var(--font-mono);
+    font-size:.78rem;
+    letter-spacing:.2px;
+    color:var(--text-muted);
+    background-color:var(--surface);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:7px 34px 7px 12px;
+    cursor:pointer;
+    outline:none;
+    transition:.2s;
+
+    /* Custom dropdown arrow */
+    appearance:none;
+    -webkit-appearance:none;
+
+    background-image:
+        linear-gradient(45deg, transparent 50%, var(--gold) 50%),
+        linear-gradient(135deg, var(--gold) 50%, transparent 50%);
+    background-position:
+        calc(100% - 14px) 50%,
+        calc(100% - 9px) 50%;
+    background-size:5px 5px;
+    background-repeat:no-repeat;
+}
+
+.sort-select:hover{
+    color:var(--text);
+    border-color:var(--gold);
+}
+
+.sort-select:focus{
+    color:var(--text);
+    border-color:var(--gold);
+    box-shadow:0 0 0 3px rgba(216,169,78,.12);
+}
+
+.sort-select option{
+    background:var(--surface);
+    color:var(--text);
+}
+
+/* ==========================
    Movie Card
 ========================== */
 .movie-card{
@@ -1021,6 +1092,14 @@ footer p:first-child{
 
     .filmstrip-divider{
         display:none;
+    }
+    .sort-wrap{
+        margin-left:0;
+        width:100%;
+    }
+
+    .sort-select{
+        flex:1;
     }
 }
 
