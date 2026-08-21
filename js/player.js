@@ -1,18 +1,15 @@
+// =====================================================
+// VIDEO PLAYER PAGE (player.html)
+// Reads ?id= from the URL, finds the movie in
+// movies.json, and loads its video into the iframe.
+// =====================================================
+
 const skeleton = document.getElementById("playerSkeleton");
 const content = document.getElementById("playerContent");
 const notFound = document.getElementById("playerNotFound");
+const movieId = new URLSearchParams(window.location.search).get("id");
 
-function splitGenres(genreField){
-    return (genreField || "")
-        .split(",")
-        .map(g => g.trim())
-        .filter(Boolean);
-}
-
-const params = new URLSearchParams(window.location.search);
-const movieId = params.get("id");
-
-function showNotFound(){
+function showNotFound() {
     skeleton.classList.add("d-none");
     content.classList.add("d-none");
     notFound.classList.remove("d-none");
@@ -22,28 +19,19 @@ fetch("data/movies.json")
     .then(response => response.json())
     .then(movies => {
         const movie = movies.find(m => m.id === movieId);
-        if(!movie){
-            showNotFound();
-            return;
-        }
+        if (!movie) return showNotFound();
 
-        document.title = movie.title + " | CineVerse";
+        document.title = `${movie.title} | CineVerse`;
         document.getElementById("playerTitle").textContent = movie.title;
         document.getElementById("playerDescription").textContent = movie.description;
 
         const genreChips = splitGenres(movie.genre)
-            .map(g => `<span class="meta-chip"><i class="fa-solid fa-masks-theater"></i> ${g}</span>`)
-            .join("");
-
-        const ratingChip = (!movie.rating || movie.rating <= 0)
-            ? `<span class="meta-chip"><i class="fa-regular fa-clock"></i> Unreleased</span>`
-            : `<span class="meta-chip"><i class="fa-solid fa-star"></i> ${movie.rating}</span>`;
+            .map(g => `<span class="meta-chip"><i class="fa-solid fa-masks-theater"></i> ${g}</span>`).join("");
 
         document.getElementById("playerMeta").innerHTML = `
-            ${ratingChip}
+            <span class="meta-chip">${ratingBadgeContent(movie.rating)}</span>
             <span class="meta-chip"><i class="fa-regular fa-calendar"></i> ${movie.year}</span>
-            ${genreChips}
-        `;
+            ${genreChips}`;
 
         document.getElementById("videoFrame").src = movie.video;
 
