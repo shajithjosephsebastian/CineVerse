@@ -1,79 +1,57 @@
+// =====================================================
+// MOVIE DETAIL PAGE (movie.html)
+// Reads ?id= from the URL, finds that movie in
+// movies.json, and populates the page: poster, meta,
+// credits, trailer modal, watchlist button, and a
+// "Similar Movies" row computed from shared genres.
+// =====================================================
+
 const skeleton = document.getElementById("detailSkeleton");
 const content = document.getElementById("detailContent");
 const notFound = document.getElementById("detailNotFound");
 
-// Reuse the same genre-splitting logic as the catalog page (handles "Action, Sci-Fi")
-function splitGenres(genreField){
-    return (genreField || "")
-        .split(",")
-        .map(g => g.trim())
-        .filter(Boolean);
+function getMovieId() {
+    return new URLSearchParams(window.location.search).get("id");
 }
 
-// TMDb reports 0.0 when a movie has no votes yet (usually unreleased), not
-// as an actual rating — showing "⭐ 0.0" would misread as a real bad score.
-function ratingBadgeContent(rating){
-    if (!rating || rating <= 0) {
-        return `<i class="fa-regular fa-clock"></i> Unreleased`;
-    }
-    return `<i class="fa-solid fa-star"></i> ${rating}`;
-}
-
-function isUnreleasedRating(rating){
-    return !rating || rating <= 0;
-}
-
-function getMovieId(){
-    const params = new URLSearchParams(window.location.search);
-    return params.get("id");
-}
-
-function showNotFound(){
+function showNotFound() {
     skeleton.classList.add("d-none");
     content.classList.add("d-none");
     notFound.classList.remove("d-none");
 }
 
-// Updates an existing <meta> tag's content by property/name attribute.
-// NOTE: this only affects what's in the DOM after JS runs. Most link-preview
-// bots (WhatsApp, Discord, iMessage, etc.) fetch the raw HTML and do NOT
-// execute JavaScript, so this won't make shared movie links show that
-// movie's own poster/title in a chat preview — those will keep showing the
-// generic tags from the <head>. True per-movie previews would need the page
-// pre-rendered server-side (or at build time) with the movie's data already
-// baked into the HTML. This is still worth doing for the browser tab title/
-// icon, bookmarks, and any crawler that does run JS.
-function setMetaTag(attr, key, content){
-    const selector = `meta[${attr}="${key}"]`;
-    let tag = document.querySelector(selector);
+// ---------- OPEN GRAPH META (best effort) ----------
+// NOTE: most link-preview bots (WhatsApp, Discord, iMessage) fetch raw
+// HTML and do NOT run JavaScript, so this won't make shared movie links
+// show that movie's own poster/title in a chat preview — those still see
+// the generic tags in <head>. True per-movie previews need the page
+// pre-rendered server-side. Still worth doing for the tab title, bookmarks,
+// and any crawler that does run JS.
+function setMetaTag(attr, key, value) {
+    let tag = document.querySelector(`meta[${attr}="${key}"]`);
     if (!tag) {
         tag = document.createElement("meta");
         tag.setAttribute(attr, key);
         document.head.appendChild(tag);
     }
-    tag.setAttribute("content", content);
+    tag.setAttribute("content", value);
 }
 
-function updateMetaForMovie(movie){
-    const description = movie.description
-        ? movie.description.slice(0, 160)
-        : "Browse movies, watch trailers, and build your watchlist on CineVerse.";
-
+function updateMetaForMovie(movie) {
     setMetaTag("property", "og:title", `${movie.title} — CineVerse`);
-    setMetaTag("property", "og:description", description);
-
-    if (movie.backdrop || movie.poster) {
-        setMetaTag("property", "og:image", movie.backdrop || movie.poster);
-    }
+    setMetaTag("property", "og:description",
+        movie.description ? movie.description.slice(0, 160) : "Browse movies, watch trailers, and build your watchlist on CineVerse.");
+    if (movie.backdrop || movie.poster) setMetaTag("property", "og:image", movie.backdrop || movie.poster);
 }
 
-function renderMovie(movie, allMovies){
+// ---------- RENDER ----------
+
+function renderMovie(movie, allMovies) {
     document.title = `${movie.title} — CineVerse`;
     updateMetaForMovie(movie);
 
     if (movie.backdrop) {
-        document.getElementById("backdropHero")
-            .style.setProperty("--backdrop-image", `url("${movie.backdrop}")`);
+        document.getElementById("backdropHero").style.setProperty("--backdrop-image", `url("${movie.backdrop}")`);
     }
 
     const poster = document.getElementById("moviePoster");
@@ -86,32 +64,21 @@ function renderMovie(movie, allMovies){
     ratingBadge.classList.toggle("rating-badge-unreleased", isUnreleasedRating(movie.rating));
     ratingBadge.innerHTML = ratingBadgeContent(movie.rating);
 
-    const meta = document.getElementById("movieMeta");
-
     const genreChips = splitGenres(movie.genre)
-        .map(g => `<span class="meta-chip"><i class="fa-solid fa-masks-theater"></i> ${g}</span>`)
-        .join("");
-
+        .map(g => `<span class="meta-chip"><i class="fa-solid fa-masks-theater"></i> ${g}</span>`).join("");
     const runtimeChip = movie.runtime
-        ? `<span class="meta-chip"><i class="fa-regular fa-clock"></i> ${Math.floor(movie.runtime / 60)}h ${movie.runtime % 60}m</span>`
-        : "";
-
+        ? `<span class="meta-chip"><i class="fa-regular fa-clock"></i> ${Math.floor(movie.runtime / 60)}h ${movie.runtime % 60}m</span>` : "";
     const certChip = movie.certification
-        ? `<span class="meta-chip"><i class="fa-solid fa-shield-halved"></i> ${movie.certification}</span>`
-        : "";
+        ? `<span class="meta-chip"><i class="fa-solid fa-shield-halved"></i> ${movie.certification}</span>` : "";
 
-    meta.innerHTML = `
+    document.getElementById("movieMeta").innerHTML = `
         <span class="meta-chip"><i class="fa-regular fa-calendar"></i> ${movie.year}</span>
-        ${runtimeChip}
-        ${certChip}
-        ${genreChips}
-    `;
+        ${runtimeChip}${certChip}${genreChips}`;
 
     document.getElementById("movieDescription").textContent =
         movie.description || "No synopsis available for this title yet.";
 
-    const watchButton = document.getElementById("watchButton");
-    watchButton.href = `player.html?id=${movie.id}`;
+    document.getElementById("watchButton").href = `player.html?id=${movie.id}`;
 
     setupTrailer(movie.trailer);
     setupWatchlist(movie.id);
@@ -122,69 +89,48 @@ function renderMovie(movie, allMovies){
     content.classList.remove("d-none");
 }
 
-// =============================================================
-// CREDITS
-// =============================================================
+// ---------- CREDITS ----------
 
-function setupCredits(movie){
-    const el = document.getElementById("movieCredits");
-
+function setupCredits(movie) {
     let html = "";
-
-    if (movie.director) {
-        html += `<p><span class="credit-label">Director</span> ${movie.director}</p>`;
-    }
-
-    if (movie.cast) {
-        html += `<p><span class="credit-label">Cast</span> ${movie.cast}</p>`;
-    }
-
-    el.innerHTML = html;
+    if (movie.director) html += `<p><span class="credit-label">Director</span> ${movie.director}</p>`;
+    if (movie.cast) html += `<p><span class="credit-label">Cast</span> ${movie.cast}</p>`;
+    document.getElementById("movieCredits").innerHTML = html;
 }
 
-// Toggle add/remove from the watchlist, reflecting current state on load
-function setupWatchlist(movieId){
+// ---------- WATCHLIST BUTTON ----------
+
+function setupWatchlist(movieId) {
     const button = document.getElementById("watchlistButton");
     const label = document.getElementById("watchlistButtonLabel");
 
-    function paint(inList){
+    const paint = inList => {
         button.classList.toggle("active", inList);
         label.textContent = inList ? "In Watchlist" : "Add to Watchlist";
-    }
+    };
 
     paint(isInWatchlist(movieId));
-
-    button.addEventListener("click", () => {
-        const inList = toggleWatchlist(movieId);
-        paint(inList);
-    });
+    button.addEventListener("click", () => paint(toggleWatchlist(movieId)));
 }
 
-// Find movies sharing at least one genre, ranked by how many genres
-// they share, then by rating. Shows nothing if there's no overlap.
-function getRelatedMovies(movie, allMovies, limit = 8){
+// ---------- RELATED MOVIES ----------
+// Ranked by how many genres they share with the current movie, then
+// by rating. Section stays hidden if nothing shares a genre.
+
+function getRelatedMovies(movie, allMovies, limit = 8) {
     const currentGenres = splitGenres(movie.genre);
 
     return allMovies
         .filter(m => String(m.id) !== String(movie.id))
-        .map(m => {
-            const sharedGenres = splitGenres(m.genre)
-                .filter(g => currentGenres.includes(g)).length;
-            return { movie: m, sharedGenres };
-        })
-        .filter(entry => entry.sharedGenres > 0)
-        .sort((a, b) =>
-            b.sharedGenres - a.sharedGenres ||
-            (b.movie.rating || 0) - (a.movie.rating || 0)
-        )
+        .map(m => ({ movie: m, shared: splitGenres(m.genre).filter(g => currentGenres.includes(g)).length }))
+        .filter(entry => entry.shared > 0)
+        .sort((a, b) => b.shared - a.shared || (b.movie.rating || 0) - (a.movie.rating || 0))
         .slice(0, limit)
         .map(entry => entry.movie);
 }
 
-function renderRelated(movie, allMovies){
+function renderRelated(movie, allMovies) {
     const section = document.getElementById("relatedSection");
-    const scroll = document.getElementById("relatedScroll");
-
     const related = getRelatedMovies(movie, allMovies);
 
     if (related.length === 0) {
@@ -192,29 +138,24 @@ function renderRelated(movie, allMovies){
         return;
     }
 
-    scroll.innerHTML = related.map(m => `
+    document.getElementById("relatedScroll").innerHTML = related.map(m => `
         <a class="related-card" href="movie.html?id=${m.id}">
             <div class="poster-frame">
-                <img
-                    src="${m.poster}"
-                    class="movie-poster"
-                    alt="${m.title}"
-                    loading="lazy">
-                <span class="rating-badge${isUnreleasedRating(m.rating) ? " rating-badge-unreleased" : ""}">
-                    ${ratingBadgeContent(m.rating)}
-                </span>
+                <img src="${m.poster}" class="movie-poster" alt="${m.title}" loading="lazy">
+                ${ratingBadgeHTML(m.rating)}
             </div>
             <div class="related-card-title">${m.title}</div>
             <div class="related-card-year">${m.year}</div>
-        </a>
-    `).join("");
+        </a>`).join("");
 
     section.classList.remove("d-none");
 }
 
-// Show the trailer button only if a trailer exists, and lazy-load
-// the iframe on modal open so it doesn't load or play in the background.
-function setupTrailer(trailerUrl){
+// ---------- TRAILER MODAL ----------
+// Button only shows if a trailer exists. The iframe src is set on open
+// and cleared on close so the trailer doesn't load/play in the background.
+
+function setupTrailer(trailerUrl) {
     const trailerButton = document.getElementById("trailerButton");
     const trailerFrame = document.getElementById("trailerFrame");
     const trailerModalEl = document.getElementById("trailerModal");
@@ -225,51 +166,27 @@ function setupTrailer(trailerUrl){
     }
 
     trailerButton.classList.remove("d-none");
-
-    trailerModalEl.addEventListener("show.bs.modal", () => {
-        trailerFrame.src = `${trailerUrl}?autoplay=1`;
-    });
-
-    trailerModalEl.addEventListener("hidden.bs.modal", () => {
-        trailerFrame.src = "";
-    });
+    trailerModalEl.addEventListener("show.bs.modal", () => { trailerFrame.src = `${trailerUrl}?autoplay=1`; });
+    trailerModalEl.addEventListener("hidden.bs.modal", () => { trailerFrame.src = ""; });
 }
 
-async function loadMovie(){
-    const id = getMovieId();
+// ---------- LOAD ----------
 
-    if (!id) {
-        showNotFound();
-        return;
-    }
+async function loadMovie() {
+    const id = getMovieId();
+    if (!id) return showNotFound();
 
     try {
-
         const response = await fetch("data/movies.json");
-
-        if (!response.ok) {
-            throw new Error("Request failed");
-        }
-
+        if (!response.ok) throw new Error("Request failed");
         const movies = await response.json();
+        const movie = movies.find(m => String(m.id) === String(id));
 
-        const movie = movies.find(
-            m => String(m.id) === String(id)
-        );
-
-        if (!movie) {
-            showNotFound();
-            return;
-        }
-
+        if (!movie) return showNotFound();
         renderMovie(movie, movies);
-
-    }
-    catch(error){
-
+    } catch (error) {
         console.error(error);
         showNotFound();
-
     }
 }
 
