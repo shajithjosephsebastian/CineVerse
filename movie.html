@@ -2,15 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CineVerse — Movie Details</title>
 
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
-    <!-- Open Graph / social sharing (generic fallback — see note in movie.js
-         about why this can't be movie-specific on a static site) -->
+    <!-- Open Graph fallback (generic — see the note in movie.js about why per-movie
+         previews aren't possible without server-side rendering) -->
     <meta property="og:type" content="video.movie">
     <meta property="og:site_name" content="CineVerse">
     <meta property="og:title" content="CineVerse — Movie Details">
@@ -18,311 +16,123 @@
     <meta property="og:image" content="https://shajithjosephsebastian.github.io/CineVerse/assets/og-banner.jpg">
     <meta name="twitter:card" content="summary_large_image">
 
-    <!-- Bootstrap -->
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
-        rel="stylesheet">
-
-    <!-- Icons -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
-    <!-- Fonts: Bebas Neue (marquee display), Inter (body), JetBrains Mono (ticket data) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap"
-        rel="stylesheet">
-
-    <!-- Custom CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-<!-- Marquee bulb strip -->
 <div class="bulb-strip" aria-hidden="true"></div>
 
-<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
         <a class="navbar-brand" href="index.html">
-            <span class="brand-mark">
-                <i class="fa-solid fa-film"></i>
-            </span>
+            <span class="brand-mark"><i class="fa-solid fa-film"></i></span>
             CINE<span class="brand-accent">VERSE</span>
         </a>
     </div>
 </nav>
 
-<!-- Backdrop banner, filled from TMDb's backdrop image when available -->
-<div
-    class="backdrop-hero"
-    id="backdropHero"
-    aria-hidden="true">
-</div>
+<!-- Filled from the movie's TMDb backdrop via movie.js; a graceful gradient-only
+     look if there isn't one, so nothing looks broken either way -->
+<div class="backdrop-hero" id="backdropHero" aria-hidden="true"></div>
 
-<!-- Breadcrumb -->
 <div class="container">
-    <a href="index.html" class="back-link">
-        <i class="fa-solid fa-arrow-left"></i>
-        Back to Now Showing
-    </a>
+    <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Now Showing</a>
 </div>
 
-<!-- Movie Details -->
 <div class="container py-4 detail-content" id="movieDetail">
 
-    <!-- Loading skeleton, shown until movie.js populates the page -->
+    <!-- Shown until movie.js finishes fetching + rendering -->
     <div class="row" id="detailSkeleton">
-
-        <div class="col-lg-4 mb-4">
-            <div
-                class="skeleton-card"
-                style="height:520px;">
-            </div>
-        </div>
-
+        <div class="col-lg-4 mb-4"><div class="skeleton-card" style="height:520px;"></div></div>
         <div class="col-lg-8">
             <div class="skeleton-line skeleton-line-title"></div>
             <div class="skeleton-line skeleton-line-meta"></div>
             <div class="skeleton-line"></div>
             <div class="skeleton-line"></div>
-            <div
-                class="skeleton-line"
-                style="width:70%;">
-            </div>
+            <div class="skeleton-line" style="width:70%;"></div>
         </div>
-
     </div>
 
-    <!-- Populated content, hidden until ready -->
+    <!-- Populated by movie.js -->
     <div class="row d-none" id="detailContent">
-
-        <!-- Poster -->
         <div class="col-lg-4 mb-4">
-
             <div class="poster-frame detail-poster-frame">
-
-                <img
-                    id="moviePoster"
-                    class="img-fluid movie-poster detail-poster"
-                    alt="">
-
-                <span
-                    class="rating-badge"
-                    id="movieRatingBadge">
-                </span>
-
+                <img id="moviePoster" class="img-fluid movie-poster detail-poster" alt="">
+                <span class="rating-badge" id="movieRatingBadge"></span>
             </div>
-
         </div>
 
-        <!-- Details -->
         <div class="col-lg-8">
+            <p class="eyebrow">Now Showing</p>
+            <h1 id="movieTitle" class="detail-title"></h1>
+            <div id="movieMeta" class="detail-meta"></div>
+            <div class="filmstrip-divider detail-divider" aria-hidden="true"></div>
+            <p id="movieDescription" class="detail-description"></p>
 
-            <p class="eyebrow">
-                Now Showing
-            </p>
-
-            <h1
-                id="movieTitle"
-                class="detail-title">
-            </h1>
-
-            <div
-                id="movieMeta"
-                class="detail-meta">
-            </div>
-
-            <div
-                class="filmstrip-divider detail-divider"
-                aria-hidden="true">
-            </div>
-
-            <p
-                id="movieDescription"
-                class="detail-description">
-            </p>
-
-            <!-- Director + Cast -->
-            <div
-                class="detail-credits"
-                id="movieCredits">
-            </div>
+            <!-- Director + cast, filled if TMDb has credits -->
+            <div class="detail-credits" id="movieCredits"></div>
 
             <div class="mt-4 d-flex flex-wrap gap-3">
-
-                <a
-                    id="watchButton"
-                    class="watch-btn detail-watch-btn">
-                    <i class="fa-solid fa-play"></i>
-                    Watch Now
-                </a>
-
-                <button
-                    type="button"
-                    id="trailerButton"
-                    class="back-btn d-none"
-                    data-bs-toggle="modal"
-                    data-bs-target="#trailerModal">
-
-                    <i class="fa-solid fa-clapperboard"></i>
-                    Watch Trailer
-
+                <a id="watchButton" class="watch-btn detail-watch-btn"><i class="fa-solid fa-play"></i> Watch Now</a>
+                <button type="button" id="trailerButton" class="back-btn d-none" data-bs-toggle="modal" data-bs-target="#trailerModal">
+                    <i class="fa-solid fa-clapperboard"></i> Watch Trailer
                 </button>
-
-                <button
-                    type="button"
-                    id="watchlistButton"
-                    class="back-btn">
-
-                    <i class="fa-solid fa-bookmark"></i>
-
-                    <span id="watchlistButtonLabel">
-                        Add to Watchlist
-                    </span>
-
+                <button type="button" id="watchlistButton" class="back-btn">
+                    <i class="fa-solid fa-bookmark"></i> <span id="watchlistButtonLabel">Add to Watchlist</span>
                 </button>
-
-                <a
-                    href="index.html"
-                    class="back-btn">
-
-                    <i class="fa-solid fa-arrow-left"></i>
-                    Back
-
-                </a>
-
+                <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back</a>
             </div>
-
         </div>
-
     </div>
 
-    <!-- Related movies, shown only when we find any sharing a genre -->
-    <div
-        class="related-section d-none"
-        id="relatedSection">
-
+    <!-- Similar Movies — shown only when something shares a genre -->
+    <div class="related-section d-none" id="relatedSection">
         <div class="section-head">
-
-            <h2>
-                Similar Movies
-            </h2>
-
-            <div
-                class="filmstrip-divider"
-                aria-hidden="true">
-            </div>
-
+            <h2>Similar Movies</h2>
+            <div class="filmstrip-divider" aria-hidden="true"></div>
         </div>
-
-        <div
-            class="related-scroll"
-            id="relatedScroll">
-        </div>
-
+        <div class="related-scroll" id="relatedScroll"></div>
     </div>
 
-    <!-- Not-found state -->
-    <div
-        class="error-state d-none"
-        id="detailNotFound">
-
+    <div class="error-state d-none" id="detailNotFound">
         <i class="fa-solid fa-film"></i>
-
-        <h3>
-            Feature not found
-        </h3>
-
-        <p>
-            This one isn't in our catalog. It may have left the marquee.
-        </p>
-
-        <a
-            href="index.html"
-            class="watch-btn detail-watch-btn mt-3 d-inline-block">
-
-            <i class="fa-solid fa-arrow-left"></i>
-            Back to Now Showing
-
-        </a>
-
+        <h3>Feature not found</h3>
+        <p>This one isn't in our catalog. It may have left the marquee.</p>
+        <a href="index.html" class="watch-btn detail-watch-btn mt-3 d-inline-block"><i class="fa-solid fa-arrow-left"></i> Back to Now Showing</a>
     </div>
 
 </div>
 
 <footer class="text-center mt-5">
-
-    <div
-        class="footer-reel"
-        aria-hidden="true">
-    </div>
-
-    <p class="mb-1">
-        🎬 CineVerse
-    </p>
-
-    <p class="mb-0">
-        © 2026 CineVerse. Grab your popcorn.
-    </p>
-
+    <div class="footer-reel" aria-hidden="true"></div>
+    <p class="mb-1">🎬 CineVerse</p>
+    <p class="mb-0">© 2026 CineVerse. Grab your popcorn.</p>
 </footer>
 
-<!-- Trailer Modal — kept as a direct child of body (not nested in a
-     positioned container) so Bootstrap's stacking/backdrop cleanup
-     behaves correctly. -->
-
-<div
-    class="modal fade trailer-modal"
-    id="trailerModal"
-    tabindex="-1"
-    aria-hidden="true">
-
+<!-- Kept as a direct child of <body> (not nested in a positioned container) —
+     Bootstrap's modal stacking/backdrop cleanup breaks otherwise. -->
+<div class="modal fade trailer-modal" id="trailerModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
-
         <div class="modal-content">
-
             <div class="modal-header">
-
-                <h5
-                    class="modal-title"
-                    id="trailerModalLabel">
-                    Trailer
-                </h5>
-
-                <button
-                    type="button"
-                    class="btn-close btn-close-white"
-                    data-bs-dismiss="modal"
-                    aria-label="Close">
-                </button>
-
+                <h5 class="modal-title" id="trailerModalLabel">Trailer</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-
             <div class="modal-body p-0">
-
                 <div class="ratio ratio-16x9">
-
-                    <iframe
-                        id="trailerFrame"
-                        allow="autoplay; encrypted-media"
-                        allowfullscreen
-                        referrerpolicy="strict-origin-when-cross-origin">
-                    </iframe>
-
+                    <iframe id="trailerFrame" allow="autoplay; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </div>
 
+<script src="js/utils.js"></script>
 <script src="js/watchlist.js"></script>
 <script src="js/movie.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
