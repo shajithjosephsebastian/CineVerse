@@ -3,6 +3,9 @@ const ALLOWED_ORIGIN =
 
 const SESSION_DURATION = 60 * 60; // 1 hour
 
+const RATE_LIMIT_WINDOW = 120; // 2 minutes, in seconds
+const RATE_LIMIT_MAX = 5;      // failed login attempts allowed per window
+
 
 // =========================================================
 // CORS
@@ -227,6 +230,79 @@ async function isAuthenticated(request, env) {
 
 
 // =========================================================
+// LOGIN RATE LIMITING
+//
+// Tracks failed login attempts per IP in KV (Workers have no
+// memory between requests, so this needs somewhere persistent).
+// Fails OPEN if RATE_LIMIT_KV isn't bound — a missing binding
+// should never lock out the real admin, just skip the limit.
+// =========================================================
+
+async function checkRateLimit(env, ip) {
+
+    if (!env.RATE_LIMIT_KV) {
+        console.log("RATE_LIMIT_KV not bound — rate limiting disabled.");
+        return { blocked: false };
+    }
+
+    const record = JSON.parse(
+        await env.RATE_LIMIT_KV.get(`login_attempts:${ip}`) || "null"
+    );
+
+    const now = Math.floor(Date.now() / 1000);
+
+    if (
+        record &&
+        now - record.windowStart < RATE_LIMIT_WINDOW &&
+        record.count >= RATE_LIMIT_MAX
+    ) {
+        return {
+            blocked: true,
+            retryAfter: RATE_LIMIT_WINDOW - (now - record.windowStart)
+        };
+    }
+
+    return { blocked: false };
+}
+
+
+async function recordFailedAttempt(env, ip) {
+
+    if (!env.RATE_LIMIT_KV) {
+        return;
+    }
+
+    const key = `login_attempts:${ip}`;
+
+    const record = JSON.parse(
+        await env.RATE_LIMIT_KV.get(key) || "null"
+    );
+
+    const now = Math.floor(Date.now() / 1000);
+
+    const updated = (record && now - record.windowStart < RATE_LIMIT_WINDOW)
+        ? { windowStart: record.windowStart, count: record.count + 1 }
+        : { windowStart: now, count: 1 };
+
+    await env.RATE_LIMIT_KV.put(
+        key,
+        JSON.stringify(updated),
+        { expirationTtl: RATE_LIMIT_WINDOW + 30 }
+    );
+}
+
+
+async function clearRateLimit(env, ip) {
+
+    if (!env.RATE_LIMIT_KV) {
+        return;
+    }
+
+    await env.RATE_LIMIT_KV.delete(`login_attempts:${ip}`);
+}
+
+
+// =========================================================
 // WORKER
 // =========================================================
 
@@ -279,6 +355,9 @@ export default {
         // {
         //     "password": "your-password"
         // }
+        //
+        // Blocked with 429 after RATE_LIMIT_MAX failed attempts
+        // from the same IP within RATE_LIMIT_WINDOW seconds.
         // =====================================================
 
         if (
@@ -294,6 +373,21 @@ export default {
                         success: false,
                         error: "ADMIN_PASSWORD is not configured."
                     }, 500);
+                }
+
+
+                const ip =
+                    request.headers.get("CF-Connecting-IP") || "unknown";
+
+                const rateCheck =
+                    await checkRateLimit(env, ip);
+
+                if (rateCheck.blocked) {
+
+                    return jsonResponse({
+                        success: false,
+                        error: `Too many failed attempts. Try again in ${rateCheck.retryAfter}s.`
+                    }, 429);
                 }
 
 
@@ -322,11 +416,17 @@ export default {
                     env.ADMIN_PASSWORD
                 ) {
 
+                    await recordFailedAttempt(env, ip);
+
                     return jsonResponse({
                         success: false,
                         error: "Invalid password."
                     }, 401);
                 }
+
+
+                // Correct password — clear any prior failed attempts
+                await clearRateLimit(env, ip);
 
 
                 // Create temporary token
