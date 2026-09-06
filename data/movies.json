@@ -3228,5 +3228,39 @@
     "director": "Jeethu Joseph",
     "cast": "Asif Ali, Renji Panicker, Baburaj, Jaffer Idukki, Hannah Reji Koshy",
     "certification": ""
+  },
+  {
+    "id": "tt25274786",
+    "tmdb_id": 1065918,
+    "title": "Kannur Squad",
+    "year": 2023,
+    "genre": "Thriller, Crime",
+    "rating": 6.736,
+    "poster": "https://image.tmdb.org/t/p/w500/mGR5OVq4edV7zMicFRdBAWyeCeu.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/43gYXnTAqrVc0lMtjwT5yWN0TaR.jpg",
+    "description": "The gripping saga of a police officer and his team, their challenging journey to nab a criminal gang across the country. Further, it shows how he leads his team towards triumph, amidst professional uncertainities in this gripping drama.",
+    "video": "https://streamimdb.ru/embed/movie/tt25274786",
+    "trailer": "",
+    "runtime": 160,
+    "director": "Roby Varghese Raj",
+    "cast": "Mammootty, Rony David Raj, Azees Nedumangad, Shabareesh Varma, Kishore",
+    "certification": ""
+  },
+  {
+    "id": "tt10452480",
+    "tmdb_id": 651353,
+    "title": "Kettiyollaanu Ente Maalakha",
+    "year": 2019,
+    "genre": "Drama, Romance, Family",
+    "rating": 6.389,
+    "poster": "https://image.tmdb.org/t/p/w500/2tM8cGy8KKN4cnzUZz4aObRHWo7.jpg",
+    "backdrop": "",
+    "description": "Sleevachan, a simple farmer, struggles to navigate the emotional and physical intimacies of marriage with his wife Rincy. This leads him on a journey toward understanding consent and building a meaningful bond with his wife.",
+    "video": "https://streamimdb.ru/embed/movie/tt10452480",
+    "trailer": "https://www.youtube.com/embed/UBwvF56p-xo",
+    "runtime": 135,
+    "director": "Nissam Basheer",
+    "cast": "Asif Ali, Veena Nandakumar, Basil Joseph, Jaffer Idukki, Rony David Raj",
+    "certification": ""
   }
 ]
