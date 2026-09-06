@@ -2735,5 +2735,22 @@
     "director": "Vineeth Sreenivasan",
     "cast": "Pranav Mohanlal, Darshana Rajendran, Kalyani Priyadarshan, Aswath Lal, Vijayaraghavan",
     "certification": ""
+  },
+  {
+    "id": "tt33399641",
+    "tmdb_id": 1357259,
+    "title": "Dheeram",
+    "year": 2025,
+    "genre": "Crime, Mystery, Thriller",
+    "rating": 3.5,
+    "poster": "https://image.tmdb.org/t/p/w500/gBjwUtLXAsT2USTnviGyc2LlugC.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/gcceqDCIgY57EUKtr7cq1hNb45y.jpg",
+    "description": "A police officer investigates pattern killings in Calicut, discovering a vengeful killer's scheme. As he unravels the truth, he faces a moral dilemma between law and justice for a bereaved parent.",
+    "video": "https://streamimdb.ru/embed/movie/tt33399641",
+    "trailer": "",
+    "runtime": 151,
+    "director": "Jithin Suresh T",
+    "cast": "Indrajith Sukumaran, Varalaxmi Sarathkumar, Renji Panicker, Nishanth Sagar, Divya Pillai",
+    "certification": ""
   }
 ]
