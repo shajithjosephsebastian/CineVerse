@@ -2531,5 +2531,39 @@
     "director": "Martin Joseph",
     "cast": "Shane Nigam, Shobi Thilakan, Dinesh Prabhakar, Nandan Unni, Saniya Fathima",
     "certification": ""
+  },
+  {
+    "id": "tt10717738",
+    "tmdb_id": 657593,
+    "title": "Anjaam Pathiraa",
+    "year": 2020,
+    "genre": "Crime, Thriller, Mystery",
+    "rating": 7.612,
+    "poster": "https://image.tmdb.org/t/p/w500/38AT5UZ276dRO1dNzgvQSiYYQ7u.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/nyv6bC3nkFwQHy9QI1btneSBTZu.jpg",
+    "description": "A psychologist with a keen interest in criminology gets entangled in a tough serial killer case which the police find hard to crack.",
+    "video": "https://streamimdb.ru/embed/movie/tt10717738",
+    "trailer": "",
+    "runtime": 144,
+    "director": "Midhun Manuel Thomas",
+    "cast": "Kunchacko Boban, Unnimaya Prasad, Jinu Joseph, Abhiram Radhakrishnan, Sreenath Bhasi",
+    "certification": ""
+  },
+  {
+    "id": "tt28288786",
+    "tmdb_id": 1149791,
+    "title": "Premalu",
+    "year": 2024,
+    "genre": "Romance, Comedy",
+    "rating": 7.736,
+    "poster": "https://image.tmdb.org/t/p/w500/uPpmBjY3znUqGY8kYwI5xvOrSc0.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/gDyLcjvmdAhmYqjCMwZ9PndnAVm.jpg",
+    "description": "Sachin, a carefree graduate, crosses paths with Reenu, a spirited IT professional, in Hyderabad. As their friendship deepens, unspoken feelings, career ambitions and life choices challenge their bond.",
+    "video": "https://streamimdb.ru/embed/movie/tt28288786",
+    "trailer": "https://www.youtube.com/embed/OnxChVgg6N8",
+    "runtime": 155,
+    "director": "Girish A. D.",
+    "cast": "Naslen, Mamitha Baiju, Sangeeth Prathap, Shyam Mohan, Akhila Bhargavan",
+    "certification": ""
   }
 ]
