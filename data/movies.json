@@ -2616,5 +2616,22 @@
     "director": "Alphonse Puthren",
     "cast": "Nivin Pauly, Madonna Sebastian, Sai Pallavi, Anupama Parameswaran, Shabareesh Varma",
     "certification": ""
+  },
+  {
+    "id": "tt13885428",
+    "tmdb_id": 834664,
+    "title": "Anweshippin Kandethum",
+    "year": 2024,
+    "genre": "Crime, Thriller, Drama",
+    "rating": 6.956,
+    "poster": "https://image.tmdb.org/t/p/w500/i32ooxvEsy5V6hDucB7hsELT9Vo.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/82sMBMHziUTGczj1D4YtlJjoX5z.jpg",
+    "description": "A team of four expert policemen go through extreme trials and tribulations to find the killer of a young woman.",
+    "video": "https://streamimdb.ru/embed/movie/tt13885428",
+    "trailer": "https://www.youtube.com/embed/FQZ5_AtbO2o",
+    "runtime": 143,
+    "director": "Darwin Kuriakose",
+    "cast": "Tovino Thomas, Vineeth Thattil David, Siddique, Pramod Veliyanad, Indrans",
+    "certification": ""
   }
 ]
