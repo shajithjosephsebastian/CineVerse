@@ -2771,6 +2771,23 @@
     "certification": ""
   },
   {
+    "id": "tt2218988",
+    "tmdb_id": 117751,
+    "title": "Ustad Hotel",
+    "year": 2012,
+    "genre": "Drama, Comedy",
+    "rating": 7.535,
+    "poster": "https://image.tmdb.org/t/p/w500/88QYspKRArRutF3t0Bzj0JYFlcI.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/u792SfQyGVFpAsIAm44sILx2eLN.jpg",
+    "description": "When his father refuses to support his choice of a career, an aspiring chef tries to fulfil his dream by helping his grandfather run his small eatery.",
+    "video": "https://streamimdb.ru/embed/movie/tt2218988",
+    "trailer": "https://www.youtube.com/embed/Z1m3y4L1yzY",
+    "runtime": 150,
+    "director": "Anwar Rasheed",
+    "cast": "Dulquer Salmaan, Thilakan, Nithya Menen, Siddique, Mamukkoya",
+    "certification": ""
+  },
+  {
     "id": "tt38286171",
     "tmdb_id": 1545486,
     "title": "Unmadham",
@@ -2805,6 +2822,23 @@
     "certification": ""
   },
   {
+    "id": "None",
+    "tmdb_id": 939464,
+    "title": "Olam",
+    "year": 2023,
+    "genre": "",
+    "rating": 0.0,
+    "poster": "https://image.tmdb.org/t/p/w500/l5y38ZGQDPbCZfOvxr85gS15y4p.jpg",
+    "backdrop": "",
+    "description": "",
+    "video": "https://streamimdb.ru/embed/movie/None",
+    "trailer": "https://www.youtube.com/embed/F8BCGtxWtLU",
+    "runtime": "",
+    "director": "V S Abhilash",
+    "cast": "Lenaa, Arjun Ashokan, Binu Pappu, Harisree Ashokan, Noby Marcose",
+    "certification": ""
+  },
+  {
     "id": "tt29272469",
     "tmdb_id": 1222140,
     "title": "Golam",
@@ -2836,6 +2870,40 @@
     "runtime": 133,
     "director": "Jis Joy",
     "cast": "Biju Menon, Asif Ali, Miya George, Anusree Nair, Dileesh Pothan",
+    "certification": ""
+  },
+  {
+    "id": "tt7026666",
+    "tmdb_id": 785585,
+    "title": "Kurup",
+    "year": 2021,
+    "genre": "Thriller, Crime",
+    "rating": 6.331,
+    "poster": "https://image.tmdb.org/t/p/w500/7DUKMFykp7pNpppbf8M6YDWrTYb.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/uAxfRNDmaLN9M1hjbGuBtJEVKfG.jpg",
+    "description": "The Film is based on the infamous 'Charlie Murder Case' in the Indian State of Kerala where the main culprit Sukumara Kurup has been on the run for decades and is still not been caught. The story revolves around the perspective of Sukumara Kurup and the Police officers who were investigating the case.",
+    "video": "https://streamimdb.ru/embed/movie/tt7026666",
+    "trailer": "",
+    "runtime": 155,
+    "director": "Srinath Rajendran",
+    "cast": "Dulquer Salmaan, Sobhita Dhulipala, Indrajith Sukumaran, Tovino Thomas, Shine Tom Chacko",
+    "certification": ""
+  },
+  {
+    "id": "tt30089457",
+    "tmdb_id": 1244068,
+    "title": "Ponman",
+    "year": 2025,
+    "genre": "Drama, Comedy, Thriller",
+    "rating": 7.926,
+    "poster": "https://image.tmdb.org/t/p/w500/cdXS0DcshLFUpuKQAU5dW7Qk1A2.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/imQXxsEn0WZW8WzxtWsfYt7RDL2.jpg",
+    "description": "Ajesh,a jewellery agent lends 25 sovereigns of gold to Bruno for his sister Steffi's wedding, only to recover just half. When he demands the rest, he’s drawn into a tense comeback battle with Steffi's husband Mariano, an infamous prawn farmer in coastal Kollam.",
+    "video": "https://streamimdb.ru/embed/movie/tt30089457",
+    "trailer": "",
+    "runtime": 125,
+    "director": "Jyothish Shankar",
+    "cast": "Basil Joseph, Lijomol Jose, Anand Manmadhan, Sajin Gopu, Deepak Parambol",
     "certification": ""
   }
 ]
