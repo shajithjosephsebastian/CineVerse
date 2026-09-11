@@ -3262,5 +3262,22 @@
     "director": "Nissam Basheer",
     "cast": "Asif Ali, Veena Nandakumar, Basil Joseph, Jaffer Idukki, Rony David Raj",
     "certification": ""
+  },
+  {
+    "id": "tt33379543",
+    "tmdb_id": 1235877,
+    "title": "Jana Nayagan",
+    "year": 2026,
+    "genre": "Action, Drama",
+    "rating": 5.3,
+    "poster": "https://image.tmdb.org/t/p/w500/jt8pfSIdi47YpFMMWVRr8w5u2S0.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/v3lNH2gCojWYXVuXcT9FZLBxcSq.jpg",
+    "description": "A clash of ideologies. One stands for the people, the other feeds on control. Their paths collided once before. Years later, a child’s silent fear ignites the past, drawing a former police officer into a battle far bigger than personal revenge.",
+    "video": "https://streamimdb.ru/embed/movie/tt33379543",
+    "trailer": "",
+    "runtime": 183,
+    "director": "H. Vinoth",
+    "cast": "Vijay, Pooja Hegde, Bobby Deol, Mamitha Baiju, Priyamani",
+    "certification": "NR"
   }
 ]
